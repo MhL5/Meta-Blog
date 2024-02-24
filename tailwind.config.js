@@ -1,8 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // hsl(var(--color-primary) / <alpha-value>)
+        bodyBackgroundColor:
+          "hsl(var(--body-background-color) / <alpha-value>)",
+        cardBackgroundColor:
+          "hsl(var(--card-background-color) / <alpha-value>)",
+        textColorMain: "hsl(var(--text-color-main) / <alpha-value>)",
+        textColorDark: "hsl(var(--text-color-dark) / <alpha-value>)",
+        tagBackgroundColor: "hsl(var(--tag-background-color) / <alpha-value>)",
+        backgroundColorAlt: "hsl(var(--background-color-alt) / <alpha-value>)",
+        textColorAlt: "hsl(var(--body-background-color) / <alpha-value>)",
+        borderColor: "hsl(var(--border-color) / <alpha-value>)",
+        codeBackgroundColor:
+          "hsl(var(--code-background-color) / <alpha-value>)",
+        shadowColor: "hsl(var(--shadow-color) / <alpha-value>)",
+        // common vars:
+        themeColor: "hsl(var(--theme-color) / <alpha-value>)",
+        successColor: "hsl(var(--success-color) / <alpha-value>)",
+        errorColor: "hsl(var(--error-color) / <alpha-value>)",
+        gradientColorOne: "hsl(var(--gradient-color-one) / <alpha-value>)",
+        gradientColorTwo: "hsl(var(--gradient-color-two) / <alpha-value>)",
+      },
+    },
   },
   // eslint-disable-next-line no-undef
   plugins: [require("@tailwindcss/container-queries")],

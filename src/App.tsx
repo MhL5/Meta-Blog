@@ -1,5 +1,11 @@
+import Homepage from "./pages/Homepage";
+
 function App(): JSX.Element {
-  return <div></div>;
+  return (
+    <>
+      <Homepage />
+    </>
+  );
 }
 
 export default App;
