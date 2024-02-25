@@ -29,6 +29,9 @@ export default {
       maxWidth: {
         globalWidthContent: "1360px",
       },
+      animation: {
+        translateY: "translateY 4s linear infinite",
+      },
     },
   },
   // eslint-disable-next-line no-undef

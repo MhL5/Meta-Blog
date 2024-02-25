@@ -118,3 +118,31 @@
     background-image: url("./assets/heroBackground.svg");
   }
 }
+
+@layer utilities {
+  .custom-shadow::before {
+    @apply rounded-2xl;
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+    opacity: 0.5;
+  }
+
+  @keyframes translateY {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

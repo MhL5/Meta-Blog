@@ -2,6 +2,7 @@ import EmailSubscribe from "../ui/EmailSubscribe";
 import sectionImg from "../assets/section-img.jpg";
 import TextGradient from "./TextGradient";
 import Button from "./Button";
+import TotalMemberCard from "./TotalMemberCard";
 
 // TODO: RESPONSIVE
 function HeroSection(): JSX.Element {
@@ -32,8 +33,9 @@ function HeroSection(): JSX.Element {
         </div>
       </div>
 
-      <div className="hidden rounded-xl xl:block xl:basis-1/3">
+      <div className="relative hidden rounded-xl xl:block xl:basis-1/3">
         <img className="rounded-xl" loading="lazy" src={sectionImg} alt="" />
+        <TotalMemberCard className="animate-translateY absolute bottom-[-5%] left-[-10%] transition" />
       </div>
     </section>
   );
