@@ -1,24 +1,34 @@
-import CircleFadeSvg from "../ui/CircleFadeSvg";
-import CircleSvg from "../ui/CirclesSvg";
-import GradientFrameSvg from "../ui/GradientFrameSvg";
 import NavigationMenu from "../ui/NavigationMenu";
+import HeroSection from "../ui/HeroSection";
 
-// TODO: replace the hard coded values for svg with css variables
 function Homepage(): JSX.Element {
   return (
-    <div className="isolate grid">
-      <div className="-z-50 col-span-full row-span-full overflow-hidden">
-        <GradientFrameSvg />
-        <CircleSvg />
-        <CircleFadeSvg />
+    <>
+      <div className="min-h-dvh">
+        <div className="svg-pattern-background ||| min-h-dvh">
+          <header>
+            <NavigationMenu />
+          </header>
+
+          <HeroSection />
+        </div>
+
+        <div className="mt-[1000px]">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni sit
+          consectetur quibusdam atque, earum magnam quisquam veritatis impedit
+          consequuntur quos illo id voluptates in vitae. Voluptatibus voluptate
+          quo optio repellendus tenetur ipsam facilis, rem sed illo quae!
+          Architecto excepturi earum iste dolorem quibusdam qui in aliquid
+          tenetur numquam aperiam non doloremque inventore, quasi, ipsam atque
+          minima labore repellendus? Quos hic fuga in a vitae doloremque
+          dignissimos, provident esse optio reprehenderit odio quasi deserunt
+          consequatur cupiditate officia voluptas neque tempore saepe harum
+          rerum. Corporis sed nostrum enim asperiores eos suscipit labore
+          tempore, similique ex fuga sit necessitatibus quos quam ratione earum.
+          H
+        </div>
       </div>
-      <div className="col-span-full row-span-full  text-xl">
-        <header>
-          <NavigationMenu />
-        </header>
-        <main>im main 😁</main>
-      </div>
-    </div>
+    </>
   );
 }
 

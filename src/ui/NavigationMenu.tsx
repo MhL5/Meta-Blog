@@ -7,13 +7,13 @@ import Button from "./Button";
 
 function NavigationMenu(): JSX.Element {
   return (
-    <nav className="p-8">
-      <ul className="flex items-center justify-between gap-8">
+    <nav className="m-auto w-auto max-w-globalWidthContent p-8">
+      <ul className="flex max-w-globalWidthContent items-center justify-between gap-8 text-sm">
         <li>
           <Logo />
         </li>
 
-        <li className="hidden lg:block">Authors</li>
+        <li className="hidden lg:ml-3 lg:block">Authors</li>
         <li className="hidden lg:block">Posts</li>
         <li className="hidden lg:block">Topics</li>
 
@@ -21,7 +21,7 @@ function NavigationMenu(): JSX.Element {
           <Search />
         </li>
 
-        <li>
+        <li className="hidden sm:block">
           <ToggleTheme />
         </li>
 
@@ -29,15 +29,15 @@ function NavigationMenu(): JSX.Element {
           <UserSvg />
         </li>
 
-        <li className="block h-8 w-6 cursor-pointer lg:hidden">
+        <li className="block cursor-pointer lg:hidden">
           <HamburgerMenu />
         </li>
 
         <li className="hidden lg:block">
-          <Button type="transparent">Sign in</Button>
+          <Button variant="transparent">Sign in</Button>
         </li>
         <li className="hidden lg:block">
-          <Button type="primary">Become a member</Button>
+          <Button variant="primary">Become a member</Button>
         </li>
       </ul>
     </nav>

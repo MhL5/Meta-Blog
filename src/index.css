@@ -11,7 +11,12 @@
   * {
     transition: 100ms;
     scroll-behavior: smooth;
+    outline: none;
   }
+  *:focus-visible {
+    @apply outline-none focus-visible:shadow-sm focus-visible:shadow-gradientColorOne focus-visible:ring-2 focus-visible:ring-gradientColorOne;
+  }
+
   :root {
     /*=====================================================
     common variables
@@ -29,7 +34,7 @@
 
     --success-color: 129deg 50% 47%; /* hsl(129,50%,47%)  */
     --error-color: 0deg 87% 56%; /* hsl(0,87%,56%)  */
-    --global-width-wide: 1032px;
+
     --global-width-content: 700px;
 
     /*=====================================================
@@ -84,8 +89,7 @@
   }
 
   body {
-    background-color: hsl(var(--body-background-color));
-    color: hsl(var(--text-color-main));
+    @apply bg-[hsl(var(--body-background-color))] text-[hsl(var(--text-color-main))];
   }
   html,
   body {
@@ -105,5 +109,12 @@
   }
   .font-Kaushan {
     font-family: "Kaushan Script", system-ui;
+  }
+
+  .svg-pattern-background {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("./assets/heroBackground.svg");
   }
 }

@@ -1,8 +1,9 @@
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 type ButtonProps = PropsWithChildren<{
-  type: "primary" | "transparent" | "secondary";
-}>;
+  variant: "primary" | "transparent" | "secondary";
+}> &
+  ComponentPropsWithoutRef<"button">;
 
 const buttonVariants = {
   defaultStyles: "cursor-pointer",
@@ -12,33 +13,20 @@ const buttonVariants = {
   transparent: "",
 };
 
-function Button({ children, type }: ButtonProps): JSX.Element {
-  if (type === "primary")
-    return (
-      <button
-        className={`${buttonVariants[type]} ${buttonVariants.defaultStyles}`}
-      >
-        {children}
-      </button>
-    );
-  if (type === "secondary")
-    return (
-      <button
-        className={`${buttonVariants[type]} ${buttonVariants.defaultStyles}`}
-      >
-        {children}
-      </button>
-    );
-  if (type === "transparent")
-    return (
-      <button
-        className={`${buttonVariants[type]} ${buttonVariants.defaultStyles}`}
-      >
-        {children}
-      </button>
-    );
-
-  return <button>test</button>;
+function Button({
+  children,
+  variant,
+  className,
+  ...props
+}: ButtonProps): JSX.Element {
+  return (
+    <button
+      className={`${buttonVariants[variant]} ${buttonVariants.defaultStyles} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default Button;

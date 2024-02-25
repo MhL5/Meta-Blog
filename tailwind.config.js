@@ -26,6 +26,9 @@ export default {
         gradientColorOne: "hsl(var(--gradient-color-one) / <alpha-value>)",
         gradientColorTwo: "hsl(var(--gradient-color-two) / <alpha-value>)",
       },
+      maxWidth: {
+        globalWidthContent: "1360px",
+      },
     },
   },
   // eslint-disable-next-line no-undef
