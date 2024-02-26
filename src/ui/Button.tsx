@@ -1,9 +1,19 @@
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { NavLink } from "react-router-dom";
 
-type ButtonProps = PropsWithChildren<{
+type ButtonType = PropsWithChildren<{
   variant: "primary" | "transparent" | "secondary";
+  el: "button";
 }> &
   ComponentPropsWithoutRef<"button">;
+type AnchorType = PropsWithChildren<{
+  el: "anchor";
+  variant: "primary" | "transparent" | "secondary";
+  to: string;
+}> &
+  ComponentPropsWithoutRef<"a">;
+
+type ButtonProps = ButtonType | AnchorType;
 
 const buttonVariants = {
   defaultStyles: "cursor-pointer font-bold px-6 py-3 rounded-full",
@@ -12,16 +22,25 @@ const buttonVariants = {
   transparent: "",
 };
 
-function Button({
-  children,
-  variant,
-  className,
-  ...props
-}: ButtonProps): JSX.Element {
+function Button(props: ButtonProps): JSX.Element {
+  if (props.el === "anchor") {
+    const { to, variant, className, children, ...otherProps } = props;
+    return (
+      <NavLink
+        to={to}
+        className={`${buttonVariants[variant]} ${buttonVariants.defaultStyles} ${className}`}
+        {...otherProps}
+      >
+        {children}
+      </NavLink>
+    );
+  }
+
+  const { variant, className, children, ...otherProps } = props;
   return (
     <button
       className={`${buttonVariants[variant]} ${buttonVariants.defaultStyles} ${className}`}
-      {...props}
+      {...otherProps}
     >
       {children}
     </button>
