@@ -6,10 +6,9 @@ type ButtonProps = PropsWithChildren<{
   ComponentPropsWithoutRef<"button">;
 
 const buttonVariants = {
-  defaultStyles: "cursor-pointer",
-  primary:
-    "[background:var(--gradient-primary)] font-bold px-6 py-3 rounded-full",
-  secondary: "p-2",
+  defaultStyles: "cursor-pointer font-bold px-6 py-3 rounded-full",
+  primary: "[background:var(--gradient-primary)]",
+  secondary: "p-2 bg-black",
   transparent: "",
 };
 

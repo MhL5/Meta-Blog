@@ -1,6 +1,7 @@
 import NavigationMenu from "../ui/NavigationMenu";
 import HeroSection from "../ui/HeroSection";
 import FeaturedPost from "../ui/FeaturedPost";
+import Subscribe from "../ui/Subscribe";
 
 function Homepage(): JSX.Element {
   return (
@@ -15,6 +16,10 @@ function Homepage(): JSX.Element {
         </div>
 
         <FeaturedPost />
+
+        <div className="lg:mx-12 lg:my-14">
+          <Subscribe />
+        </div>
       </div>
     </>
   );

@@ -9,7 +9,7 @@
 */
 @layer base {
   * {
-    transition: 100ms;
+    transition: 300ms;
     scroll-behavior: smooth;
     outline: none;
   }
@@ -109,16 +109,16 @@
   .font-Kaushan {
     font-family: "Kaushan Script", system-ui;
   }
+}
 
+@layer utilities {
   .svg-pattern-background {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url("./assets/heroBackground.svg");
   }
-}
 
-@layer utilities {
   .custom-shadow::before {
     @apply rounded-2xl;
     content: "";
@@ -180,6 +180,10 @@
       2px 4px 30px hsl(222, 86%, 53%),
       -2px -4px 30px hsl(281, 100%, 55%);
     opacity: 0.2;
+  }
+
+  .custom-gradient-bg {
+    background: var(--gradient-primary);
   }
 
   @keyframes translateY {
