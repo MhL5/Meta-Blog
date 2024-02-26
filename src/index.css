@@ -36,8 +36,7 @@
     --error-color: 0deg 87% 56%; /* hsl(0,87%,56%)  */
 
     --global-width-content: 700px;
-
-    /*=====================================================
+    /*====================================================
     Light theme variables
     define common variable for light theme here 
     =====================================================*/
@@ -132,6 +131,55 @@
       2px 4px 30px hsl(222, 86%, 53%),
       -2px -4px 30px hsl(281, 100%, 55%);
     opacity: 0.5;
+  }
+
+  .custom-card-shadow-on-hover::before {
+    @apply rounded-2xl;
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+    opacity: 0;
+    transition: 300ms;
+  }
+
+  .custom-card-shadow-on-hover:hover::before {
+    @apply rounded-2xl;
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+    opacity: 0.2;
+  }
+
+  .custom-tag-shadow-on-hover:hover::before {
+    @apply rounded-2xl;
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+    opacity: 0;
+    transition: 300ms;
+  }
+  .custom-tag-shadow-on-hover:hover::before {
+    @apply rounded-full;
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+    opacity: 0.2;
   }
 
   @keyframes translateY {

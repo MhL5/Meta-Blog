@@ -16,7 +16,7 @@ function HeroSection(): JSX.Element {
           <TextGradient> health</TextGradient>.
         </h1>
 
-        <p className="my-auto mb-10 mt-4 text-center text-lg sm:mt-14 sm:w-[65ch] sm:text-lg lg:w-[60ch] lg:text-xl xl:mt-8 xl:text-start">
+        <p className="my-auto mb-10 mt-4 text-center text-lg sm:mt-14 sm:text-lg md:w-[65ch] lg:w-[60ch] lg:text-xl xl:mt-8 xl:text-start">
           Where Reading & Writing Collide, Your Blogging Journey Begins. Write
           with Passion, Read with Purpose:{" "}
           <span className="font-bold">
@@ -35,7 +35,7 @@ function HeroSection(): JSX.Element {
 
       <div className="relative hidden rounded-xl xl:block xl:basis-1/3">
         <img className="rounded-xl" loading="lazy" src={sectionImg} alt="" />
-        <TotalMemberCard className="animate-translateY absolute bottom-[-5%] left-[-10%] transition" />
+        <TotalMemberCard className="absolute bottom-[-5%] left-[-10%] animate-translateY transition" />
       </div>
     </section>
   );
