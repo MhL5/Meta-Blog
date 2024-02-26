@@ -186,6 +186,10 @@
     background: var(--gradient-primary);
   }
 
+  .custom-gradient-bg-on-hover:hover {
+    background: var(--gradient-primary);
+  }
+
   @keyframes translateY {
     0% {
       transform: translateY(0);
