@@ -1,8 +1,9 @@
+import { ReactElement } from "react";
 import Button from "../ui/Button";
 
 type EmailSubscribeProps = { className?: string };
 
-function EmailSubscribe({ className }: EmailSubscribeProps): JSX.Element {
+function EmailSubscribe({ className }: EmailSubscribeProps): ReactElement {
   return (
     <form
       className={`relative hidden h-16 w-[32rem] rounded-full sm:block ${className}`}

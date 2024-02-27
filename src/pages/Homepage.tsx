@@ -3,8 +3,9 @@ import HeroSection from "../ui/HeroSection";
 import FeaturedPost from "../ui/FeaturedPost";
 import Subscribe from "../ui/Subscribe";
 import Footer from "../ui/Footer";
+import {ReactElement} from "react";
 
-function Homepage(): JSX.Element {
+function Homepage(): ReactElement {
   return (
     <>
       <div className="min-h-dvh">

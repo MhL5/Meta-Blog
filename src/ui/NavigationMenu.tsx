@@ -5,15 +5,20 @@ import HamburgerMenu from "./HamburgerMenu";
 import UserSvg from "./UserSvg";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
+import { ReactElement } from "react";
 
-function NavigationMenu(): JSX.Element {
+type NavigationMenuProps = {
+  className?: string;
+};
+
+function NavigationMenu({ className }: NavigationMenuProps): ReactElement {
   return (
-    <nav className="m-auto w-auto max-w-globalWidthContent p-8">
+    <nav
+      className={`${className} sticky m-auto w-auto max-w-globalWidthContent p-8`}
+    >
       <ul className="flex max-w-globalWidthContent items-center justify-between gap-8 text-sm">
         <li>
-          <NavLink to="/">
-            <Logo />
-          </NavLink>
+          <Logo />
         </li>
 
         <li className="hidden lg:ml-3 lg:block">

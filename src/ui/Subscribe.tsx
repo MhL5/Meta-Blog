@@ -32,7 +32,9 @@ function Subscribe({ className }: SubscribeProps): ReactElement {
             className=" rounded-2xl px-4 py-2 text-black sm:w-96"
             placeholder="Your Email"
           />
-          <Button variant="secondary">Subscribe</Button>
+          <Button variant="secondary" el="button">
+            Subscribe
+          </Button>
         </form>
       </div>
     </div>

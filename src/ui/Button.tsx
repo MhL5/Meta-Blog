@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, PropsWithChildren, ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 
 type ButtonType = PropsWithChildren<{
@@ -22,7 +22,7 @@ const buttonVariants = {
   transparent: "",
 };
 
-function Button(props: ButtonProps): JSX.Element {
+function Button(props: ButtonProps): ReactElement {
   if (props.el === "anchor") {
     const { to, variant, className, children, ...otherProps } = props;
     return (

@@ -1,4 +1,6 @@
-function ToggleTheme(): JSX.Element {
+import { ReactElement } from "react";
+
+function ToggleTheme(): ReactElement {
   const theme = `dark`;
 
   if (theme === `dark`)

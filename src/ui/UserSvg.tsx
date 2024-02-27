@@ -1,4 +1,6 @@
-function UserSvg(): JSX.Element {
+import { ReactElement } from "react";
+
+function UserSvg(): ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

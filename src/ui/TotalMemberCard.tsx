@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 type TotalMemberCardProps = { className?: string };
 
-function TotalMemberCard({ className }: TotalMemberCardProps): JSX.Element {
+function TotalMemberCard({ className }: TotalMemberCardProps): ReactElement {
   return (
     <div
       className={`${className} custom-shadow ||| flex w-80 gap-4 rounded-2xl bg-bodyBackgroundColor p-6`}

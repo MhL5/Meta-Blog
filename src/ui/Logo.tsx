@@ -1,8 +1,11 @@
-function Logo(): JSX.Element {
+import { ReactElement } from "react";
+import { Link } from "react-router-dom";
+
+function Logo(): ReactElement {
   const theme = `dark`;
 
   return (
-    <div className="flex items-center justify-center gap-2 text-2xl">
+    <Link to="/" className="flex items-center justify-center gap-2 text-2xl">
       {theme === `dark` ? (
         <svg
           width="36"
@@ -58,7 +61,7 @@ function Logo(): JSX.Element {
       <span className="font-Kaushan hidden font-extrabold capitalize sm:block">
         Blog
       </span>
-    </div>
+    </Link>
   );
 }
 

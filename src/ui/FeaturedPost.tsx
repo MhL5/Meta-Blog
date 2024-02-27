@@ -148,7 +148,7 @@ function FeaturedPost(): ReactElement {
       </div>
 
       <div className="flex">
-        <Button variant="primary" className="m-auto mt-6">
+        <Button variant="primary" className="m-auto mt-6" el="button">
           Load more
         </Button>
       </div>

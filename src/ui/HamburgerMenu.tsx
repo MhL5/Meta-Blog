@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 const hamburgerMenuStyles = {
-  button: "flex flex-col items-center justify-between h-8 w-8 transition p-1 relative z-50",
+  button:
+    "flex flex-col items-center justify-between h-8 w-8 transition p-1 relative z-50",
   hamburgers: "h-[3px] w-8 rounded-md bg-textColorMain transition duration-300",
 };
 
-function HamburgerMenu(): JSX.Element {
+function HamburgerMenu(): ReactElement {
   const [open, setOpen] = useState(false);
 
   const buttonStyles = open ? " " : "";

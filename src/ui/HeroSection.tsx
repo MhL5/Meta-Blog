@@ -3,9 +3,10 @@ import sectionImg from "../assets/section-img.jpg";
 import TextGradient from "./TextGradient";
 import Button from "./Button";
 import TotalMemberCard from "./TotalMemberCard";
+import { ReactElement } from "react";
 
 // TODO: RESPONSIVE
-function HeroSection(): JSX.Element {
+function HeroSection(): ReactElement {
   return (
     <section className="m-auto mt-4 max-w-globalWidthContent gap-8 p-8 lg:flex lg:justify-center">
       <div className="flex flex-col items-center justify-center xl:basis-2/3 xl:items-start xl:justify-start">
@@ -27,7 +28,7 @@ function HeroSection(): JSX.Element {
 
         <div className="flex w-full justify-center sm:justify-start md:justify-center xl:justify-start">
           <EmailSubscribe className="mx-auto mt-8 lg:mx-0 " />
-          <Button variant="primary" className="text-xl sm:hidden">
+          <Button variant="primary" className="text-xl sm:hidden" el="button">
             Join Now, It's free!
           </Button>
         </div>

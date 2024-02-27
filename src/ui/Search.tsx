@@ -1,4 +1,6 @@
-function Search(): JSX.Element {
+import { ReactElement } from "react";
+
+function Search(): ReactElement {
   return (
     <search>
       <svg
