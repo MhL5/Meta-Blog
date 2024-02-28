@@ -48,13 +48,16 @@ function NavigationMenu({ className }: NavigationMenuProps): ReactElement {
         </li>
 
         <li className="hidden lg:block">
-          <Button variant="transparent" to="/login" el="anchor">
+          <Button
+            variant="transparent"
+            to="/signin"
+            el="anchor"
+            className="mr-2"
+          >
             Sign in
           </Button>
-        </li>
-        <li className="hidden lg:block">
-          <Button variant="primary" to="/login" el="anchor">
-            Become a member
+          <Button variant="primary" to="/signup" el="anchor">
+            Sign up
           </Button>
         </li>
       </ul>

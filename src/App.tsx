@@ -9,10 +9,11 @@ import {
 import Homepage from "./pages/Homepage";
 import ErrorPage from "./pages/ErrorPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Login from "./pages/Login";
+import SignIn from "./pages/SignIn";
 import Topics from "./pages/Topics";
 import Posts from "./pages/Posts";
 import Authors from "./pages/Authors";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,8 @@ const router = createBrowserRouter(
       <Route path="posts" element={<Posts />} />
       <Route path="topics" element={<Topics />} />
 
-      <Route path="login" element={<Login />} />
+      <Route path="signin" element={<SignIn />} />
+      <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),
