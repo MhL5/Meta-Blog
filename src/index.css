@@ -8,11 +8,6 @@
  https://tailwindcss.com/docs/customizing-colors#using-css-variables
 */
 @layer base {
-  * {
-    transition: 300ms;
-    scroll-behavior: smooth;
-    outline: none;
-  }
   *:focus-visible {
     @apply outline-none focus-visible:shadow-sm focus-visible:shadow-gradientColorOne focus-visible:ring-2 focus-visible:ring-gradientColorOne;
   }
@@ -50,23 +45,6 @@
     --code-background-color: 0deg 0% 95%; /* hsl(0 0% 95%) */
 
     --shadow: 0px 4px 10px hsla(0, 0%, 0%, 0.08);
-    @media (prefers-color-scheme: dark) {
-      /*=====================================================
-      Dark theme variables
-      define common  variable for dark theme here and in root.dark
-      =====================================================*/
-      --body-background-color: 250deg 17% 7%; /* hsl(250 17% 7%) */
-      --card-background-color: 240deg 10% 10%; /* hsl(240 10% 10%) */
-      --text-color-main: 0deg 0% 83%; /* hsl(0 0% 83%) */
-      --text-color-dark: 0deg 0% 95%; /* hsl(0 0% 95%) */
-      --tag-background-color: 214deg 7% 21%; /* hsl(214 7% 21%) */
-      --background-color-alt: 0deg 0% 100%; /* hsl(0 0% 100%) */
-      --border-color: 252deg 6% 16%; /* hsl(252 6% 16%) */
-      --code-background-color: 229deg 68% 6%; /* hsl(229 68% 6%) */
-
-      --shadow: 0 3px 10px -2px rgba(4, 10, 16, 0.1),
-        0 10px 25px -30px rgba(0, 0, 0, 0.1);
-    }
   }
 
   :root.dark {
