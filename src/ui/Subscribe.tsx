@@ -8,7 +8,7 @@ type SubscribeProps = {
 function Subscribe({ className }: SubscribeProps): ReactElement {
   return (
     <div
-      className={`${className} custom-gradient-bg || m-4 mt-16 flex max-w-globalWidthContent flex-col items-center justify-center gap-8 rounded-xl p-6 text-center sm:m-8 sm:p-8 md:m-8 xl:m-auto xl:flex-row xl:text-start`}
+      className={`${className} custom-gradient-bg || m-4 mt-16 flex max-w-globalWidthContent flex-col items-center justify-center gap-8 rounded-xl p-6 text-center text-gray-100 sm:m-8 sm:p-8 md:m-8 xl:m-auto xl:flex-row xl:text-start`}
     >
       <div className="">
         <h3 className="mb-6 text-4xl font-bold xl:w-[25ch]">

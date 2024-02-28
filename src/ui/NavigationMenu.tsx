@@ -13,9 +13,7 @@ type NavigationMenuProps = {
 
 function NavigationMenu({ className }: NavigationMenuProps): ReactElement {
   return (
-    <nav
-      className={`${className} sticky m-auto w-auto max-w-globalWidthContent p-8`}
-    >
+    <nav className={`${className} m-auto max-w-globalWidthContent p-8 py-4`}>
       <ul className="flex max-w-globalWidthContent items-center justify-between gap-8 text-sm">
         <li>
           <Logo />

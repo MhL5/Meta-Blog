@@ -1,4 +1,8 @@
-import { ComponentPropsWithoutRef, PropsWithChildren, ReactElement } from "react";
+import {
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+  ReactElement,
+} from "react";
 import { NavLink } from "react-router-dom";
 
 type ButtonType = PropsWithChildren<{
@@ -17,7 +21,7 @@ type ButtonProps = ButtonType | AnchorType;
 
 const buttonVariants = {
   defaultStyles: "cursor-pointer font-bold px-6 py-3 rounded-full",
-  primary: "[background:var(--gradient-primary)]",
+  primary: "[background:var(--gradient-primary)] text-gray-100",
   secondary: "p-2 bg-black",
   transparent: "",
 };

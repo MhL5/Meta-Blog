@@ -2,12 +2,12 @@ import { ReactElement } from "react";
 import NavigationMenu from "../ui/NavigationMenu";
 import Button from "../ui/Button";
 import Logo from "../ui/Logo";
+import DefaultPageContainer from "../ui/DefaultPageContainer";
 
 function Login(): ReactElement {
   return (
-    <div className="svg-pattern-background ||| min-h-dvh">
+    <DefaultPageContainer>
       <NavigationMenu />
-
       <div className="flex min-h-[85dvh] items-center justify-center">
         <form className="flex flex-col space-y-6 rounded-xl border border-white/20 bg-cardBackgroundColor p-14">
           <div className="">
@@ -40,7 +40,7 @@ function Login(): ReactElement {
           </Button>
         </form>
       </div>
-    </div>
+    </DefaultPageContainer>
   );
 }
 

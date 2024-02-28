@@ -5,10 +5,13 @@ import Button from "./Button";
 import TotalMemberCard from "./TotalMemberCard";
 import { ReactElement } from "react";
 
-// TODO: RESPONSIVE
-function HeroSection(): ReactElement {
+type HeroSectionProps = {
+  className?: string;
+};
+
+function HeroSection({ className }: HeroSectionProps): ReactElement {
   return (
-    <section className="m-auto mt-4 max-w-globalWidthContent gap-8 p-8 lg:flex lg:justify-center">
+    <section className={`${className} m-auto max-w-globalWidthContent gap-8 p-8 lg:flex lg:justify-center`}>
       <div className="flex flex-col items-center justify-center xl:basis-2/3 xl:items-start xl:justify-start">
         <h1 className="mb-4 text-center text-4xl font-bold leading-snug sm:text-6xl lg:mb-0 lg:mt-4 xl:my-8 xl:text-start">
           Hello 👋, we are Meta Blog, exploring

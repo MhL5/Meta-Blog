@@ -24,7 +24,7 @@ function ArticleCard({
 }: ArticleCardProps): ReactElement {
   return (
     <div
-      className={`${className} relative max-w-[48rem] cursor-pointer rounded-2xl bg-cardBackgroundColor p-6 `}
+      className={`${className} relative max-w-[48rem] cursor-pointer rounded-2xl border border-borderColor bg-cardBackgroundColor p-6 `}
     >
       <article className="custom-card-shadow-on-hover ||| flex gap-6 sm:block">
         <div className="flex-shrink flex-grow basis-1/3 sm:h-80">

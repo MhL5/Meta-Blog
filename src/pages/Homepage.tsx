@@ -3,29 +3,28 @@ import HeroSection from "../ui/HeroSection";
 import FeaturedPost from "../ui/FeaturedPost";
 import Subscribe from "../ui/Subscribe";
 import Footer from "../ui/Footer";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
+import DefaultPageContainer from "../ui/DefaultPageContainer";
 
 function Homepage(): ReactElement {
   return (
-    <>
-      <div className="min-h-dvh">
-        <div className="svg-pattern-background ||| min-h-dvh">
-          <header>
-            <NavigationMenu />
-          </header>
+    <DefaultPageContainer>
+      <header className="sticky top-0 z-50 bg-bodyBackgroundColor/70 backdrop-blur-md">
+        <NavigationMenu />
+      </header>
 
-          <HeroSection />
-        </div>
-
-        <FeaturedPost />
-
-        <div className="lg:mx-12 lg:my-14">
-          <Subscribe />
-        </div>
-
-        <Footer />
+      <div className="mb-24 flex h-[90dvh] flex-col">
+        <HeroSection />
       </div>
-    </>
+
+      <FeaturedPost />
+
+      <div className="lg:mx-12 lg:my-14">
+        <Subscribe />
+      </div>
+
+      <Footer />
+    </DefaultPageContainer>
   );
 }
 

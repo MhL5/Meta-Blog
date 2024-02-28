@@ -4,7 +4,7 @@ import FooterIcon from "./FooterIcon";
 
 function Footer(): ReactElement {
   return (
-    <footer className="flex items-start justify-around gap-14 border-t border-t-white/20 p-8">
+    <footer className="flex items-start justify-around gap-14 border-t border-t-borderColor p-8">
       <div className="flex flex-col items-start justify-center text-start">
         <h3>
           <Logo />
