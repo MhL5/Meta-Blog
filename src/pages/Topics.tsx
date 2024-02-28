@@ -1,12 +1,13 @@
 import { ReactElement } from "react";
-import NavigationMenu from "../ui/NavigationMenu";
+import DefaultPageContainer from "../ui/DefaultPageContainer";
+import Header from "../ui/Header";
 
 function Topics(): ReactElement {
   return (
-    <div>
-      <NavigationMenu />
+    <DefaultPageContainer>
+      <Header />
       topics
-    </div>
+    </DefaultPageContainer>
   );
 }
 

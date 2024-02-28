@@ -37,7 +37,7 @@
     =====================================================*/
     --body-background-color: 0deg 0% 100%; /* hsl(0,0%,100%) */
     --card-background-color: 0deg 0% 100%; /* hsl(0,0%,100%) */
-    --text-color-main: 230deg 28% 25%; /* hsl(230 28% 25%) */
+    --text-color-main: 230deg 28% 20%; /* hsl(230 28% 20%) */
     --text-color-dark: 231deg 54% 8%; /* hsl(231 54% 8%) */
     --tag-background-color: 216deg 19% 95%; /* hsl(216 19% 95%) */
     --background-color-alt: 250deg 17% 7%; /* hsl(250 17% 7%) */

@@ -1,16 +1,16 @@
 import { ReactElement } from "react";
-import NavigationMenu from "../ui/NavigationMenu";
 import Button from "../ui/Button";
 import Logo from "../ui/Logo";
 import DefaultPageContainer from "../ui/DefaultPageContainer";
+import Header from "../ui/Header";
 
 function Login(): ReactElement {
   return (
     <DefaultPageContainer>
-      <NavigationMenu />
+      <Header />
       <div className="flex min-h-[85dvh] items-center justify-center">
         <form className="flex flex-col space-y-6 rounded-xl border border-white/20 bg-cardBackgroundColor p-14">
-          <div className="">
+          <div>
             <Logo />
           </div>
 

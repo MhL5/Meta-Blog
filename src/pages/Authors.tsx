@@ -1,11 +1,11 @@
 import { ReactElement } from "react";
-import NavigationMenu from "../ui/NavigationMenu";
 import DefaultPageContainer from "../ui/DefaultPageContainer";
+import Header from "../ui/Header";
 
 function Authors(): ReactElement {
   return (
     <DefaultPageContainer>
-      <NavigationMenu />
+      <Header />
       Authors Page
     </DefaultPageContainer>
   );
