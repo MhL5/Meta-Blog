@@ -90,74 +90,21 @@
 }
 
 @layer utilities {
+  .custom-hover {
+    @apply duration-300 hover:-translate-y-[4px] hover:border-purple-600;
+  }
+  .custom-hover-with-border {
+    @apply border border-transparent duration-300 hover:-translate-y-[4px] hover:border-purple-600;
+  }
   .svg-pattern-background {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("./assets/heroBackground.svg");
+    @apply bg-cover bg-center bg-no-repeat [background-image:url("./assets/heroBackground.svg")];
   }
 
   .custom-shadow::before {
-    @apply rounded-2xl;
-    content: "";
-
-    position: absolute;
-    inset: 0;
-    border-radius: 10px;
-
+    @apply absolute inset-0 rounded-xl opacity-50 [content:""];
     box-shadow:
       2px 4px 30px hsl(222, 86%, 53%),
       -2px -4px 30px hsl(281, 100%, 55%);
-    opacity: 0.5;
-  }
-
-  .custom-card-shadow-on-hover::before {
-    @apply rounded-2xl;
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    box-shadow:
-      2px 4px 30px hsl(222, 86%, 53%),
-      -2px -4px 30px hsl(281, 100%, 55%);
-    opacity: 0;
-    transition: 300ms;
-  }
-
-  .custom-card-shadow-on-hover:hover::before {
-    @apply rounded-2xl;
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    box-shadow:
-      2px 4px 30px hsl(222, 86%, 53%),
-      -2px -4px 30px hsl(281, 100%, 55%);
-    opacity: 0.2;
-  }
-
-  .custom-tag-shadow-on-hover:hover::before {
-    @apply rounded-2xl;
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    box-shadow:
-      2px 4px 30px hsl(222, 86%, 53%),
-      -2px -4px 30px hsl(281, 100%, 55%);
-    opacity: 0;
-    transition: 300ms;
-  }
-  .custom-tag-shadow-on-hover:hover::before {
-    @apply rounded-full;
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    box-shadow:
-      2px 4px 30px hsl(222, 86%, 53%),
-      -2px -4px 30px hsl(281, 100%, 55%);
-    opacity: 0.2;
   }
 
   .custom-gradient-bg {
@@ -168,7 +115,7 @@
     background: var(--gradient-primary);
   }
 
-  @keyframes translateY {
+  @keyframes upAndDown {
     0% {
       transform: translateY(0);
     }

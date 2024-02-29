@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-const tagsStyle = `custom-tag-shadow-on-hover || w-60 text-start relative flex cursor-pointer items-center justify-center gap-4  rounded-full border border-borderColor bg-cardBackgroundColor p-4  `;
+const tagsStyle = `custom-hover || w-60 text-start relative flex cursor-pointer items-center justify-center gap-4  rounded-full border border-borderColor bg-cardBackgroundColor p-4  `;
 
 function Tag({ tag, imgUrl }: { tag: string; imgUrl: string }): ReactElement {
   return (

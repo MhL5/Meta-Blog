@@ -30,7 +30,7 @@ export default {
         globalWidthContent: "1360px",
       },
       animation: {
-        translateY: "translateY 4s linear infinite",
+        upAndDown: "upAndDown 4s linear infinite",
       },
     },
   },
