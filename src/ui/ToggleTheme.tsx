@@ -1,31 +1,12 @@
-import { ReactElement, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { toggleTheme } from "./toggleThemeSlice";
+import { ReactElement } from "react";
+import { useDarkModeContext } from "../Context/DarkModeContext";
 
 function ToggleTheme(): ReactElement {
-  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isDarkMode === "true") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-      localStorage.setItem("isDarkMode", "true");
-    }
-    if (isDarkMode === "false") {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("isDarkMode", "false");
-    }
-  }, [isDarkMode]);
-
-  function handleClick() {
-    dispatch(toggleTheme());
-  }
+  const { isDarkMode, toggleDarkMode } = useDarkModeContext();
 
   return (
-    <button type="button" onClick={handleClick}>
-      {isDarkMode === "true" ? (
+    <button type="button" onClick={toggleDarkMode}>
+      {isDarkMode ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

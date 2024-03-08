@@ -14,6 +14,7 @@ import Topics from "./pages/Topics";
 import Posts from "./pages/Posts";
 import Authors from "./pages/Authors";
 import SignUp from "./pages/SignUp";
+import DarkModeProvider from "./Context/DarkModeContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +33,13 @@ const router = createBrowserRouter(
 );
 
 function App(): ReactElement {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <DarkModeProvider>
+        <RouterProvider router={router} />
+      </DarkModeProvider>
+    </>
+  );
 }
 
 export default App;

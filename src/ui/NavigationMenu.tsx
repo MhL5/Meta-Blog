@@ -1,4 +1,4 @@
-import ToggleTheme from "../features/theme/ToggleTheme";
+import ToggleTheme from "./ToggleTheme";
 import Logo from "./Logo";
 import Search from "./Search";
 import HamburgerMenu from "./HamburgerMenu";

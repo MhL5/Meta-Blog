@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../app/hooks";
 
 function Logo(): ReactElement {
-  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+  const isDarkMode = "true";
 
   return (
     <Link to="/" className="flex items-center justify-center gap-2 text-2xl">
