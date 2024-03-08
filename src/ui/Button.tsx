@@ -20,7 +20,7 @@ type AnchorType = PropsWithChildren<{
 type ButtonProps = ButtonType | AnchorType;
 
 const buttonVariants = {
-  defaultStyles: "cursor-pointer font-bold px-6 py-3 rounded-full",
+  defaultStyles: "cursor-pointer font-bold px-6 py-3 rounded-full custom-hover",
   primary: "[background:var(--gradient-primary)] text-gray-100",
   secondary: "p-2 bg-black",
   transparent: "",

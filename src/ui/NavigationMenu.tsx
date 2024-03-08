@@ -52,11 +52,11 @@ function NavigationMenu({ className }: NavigationMenuProps): ReactElement {
         <li className={`hidden lg:block`}>
           <Button
             variant="transparent"
-            to="/signin"
+            to="/login"
             el="anchor"
             className="mr-2 inline-block duration-300 hover:translate-y-[-4px]"
           >
-            Sign in
+            Login
           </Button>
           <Button
             variant="primary"

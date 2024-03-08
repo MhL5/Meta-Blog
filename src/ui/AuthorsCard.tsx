@@ -2,7 +2,7 @@ import { type ReactElement } from "react";
 
 function AuthorsCard(): ReactElement {
   return (
-    <div className="custom-hover-with-border || m-4 cursor-pointer bg-cardBackgroundColor p-8">
+    <div className="custom-hover-with-border || text-center m-4 cursor-pointer bg-cardBackgroundColor p-8">
       <div>IMG</div>
       <div>NAME</div>
       <div>7 POST</div>
