@@ -17,7 +17,7 @@ function EmailSubscribe({ className }: EmailSubscribeProps): ReactElement {
       <Button
         el="button"
         variant="primary"
-        className="absolute right-2 top-1/2 -translate-y-1/2 py-2 text-base"
+        className="absolute right-2 top-1/2 -translate-y-1/2 py-2 text-base hover:translate-y-[-24px!important] "
       >
         Subscribe
       </Button>
