@@ -1,44 +1,22 @@
 import { ReactElement } from "react";
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Homepage from "./pages/Homepage";
-import ErrorPage from "./pages/ErrorPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import Login from "./pages/login";
-import Topics from "./pages/Topics";
-import Posts from "./pages/Posts";
-import Authors from "./pages/Authors";
-import SignUp from "./pages/SignUp";
 import DarkModeProvider from "./Context/DarkModeContext";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route errorElement={<ErrorPage />}>
-      <Route path="/" element={<Homepage />} />
-
-      <Route path="authors" element={<Authors />} />
-      <Route path="posts" element={<Posts />} />
-      <Route path="topics" element={<Topics />} />
-
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<SignUp />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Route>,
-  ),
-);
+import { router } from "./routes/Router";
+import { queryClient } from "./lib/ReactQuery";
 
 function App(): ReactElement {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
       <DarkModeProvider>
         <RouterProvider router={router} />
       </DarkModeProvider>
-    </>
+    </QueryClientProvider>
   );
 }
 
