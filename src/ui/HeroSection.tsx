@@ -3,6 +3,7 @@ import TextGradient from "./TextGradient";
 import Button from "./Button";
 import TotalMemberCard from "./TotalMemberCard";
 import { ReactElement } from "react";
+import Img from "./Img";
 
 type HeroSectionProps = {
   className?: string;
@@ -39,7 +40,7 @@ function HeroSection({ className }: HeroSectionProps): ReactElement {
       </div>
 
       <div className="relative hidden rounded-xl xl:block xl:basis-1/3">
-        <img
+        <Img
           className="rounded-xl"
           loading="lazy"
           src="https://wszdqegvivbzymvxyvlx.supabase.co/storage/v1/object/public/homepage/section-img.jpg?t=2024-03-10T15%3A15%3A55.456Z"

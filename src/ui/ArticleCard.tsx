@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { textTruncate } from "../utils/TextTruncate";
 import { ArticleType } from "../services/getArticles";
+import Img from "./Img";
 
 type ArticleCardProps = { className?: string } & ArticleType;
 function ArticleCard({
@@ -17,9 +18,8 @@ function ArticleCard({
     >
       <article className="flex gap-6 sm:block">
         <div className="flex-shrink flex-grow basis-1/3 sm:h-80">
-          <img
+          <Img
             src={avatar}
-            alt=""
             className="h-full w-full rounded-2xl object-cover"
           />
         </div>

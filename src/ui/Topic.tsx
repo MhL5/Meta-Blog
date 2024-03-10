@@ -1,5 +1,6 @@
 import { type ReactElement } from "react";
 import { type TopicType } from "../services/getTopics";
+import Img from "./Img";
 
 type TopicProps = TopicType & { variation?: "small" | "big" };
 const topicStyle = {
@@ -27,10 +28,8 @@ function Topic({
   return (
     <div className={`${topicStyle.default} ${topicStyle[variation].parent}  `}>
       <div className={`${topicStyle[variation].imgParent}`}>
-        <img
+        <Img
           src={topicImage}
-          alt=""
-          loading="lazy"
           className={`${topicStyle[variation].img}`}
         />
       </div>
