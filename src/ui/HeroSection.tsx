@@ -1,5 +1,4 @@
 import EmailSubscribe from "../ui/EmailSubscribe";
-import sectionImg from "../assets/section-img.jpg";
 import TextGradient from "./TextGradient";
 import Button from "./Button";
 import TotalMemberCard from "./TotalMemberCard";
@@ -40,8 +39,13 @@ function HeroSection({ className }: HeroSectionProps): ReactElement {
       </div>
 
       <div className="relative hidden rounded-xl xl:block xl:basis-1/3">
-        <img className="rounded-xl" loading="lazy" src={sectionImg} alt="" />
-        <TotalMemberCard className="animate-upAndDown absolute bottom-[-5%] left-[-10%] transition" />
+        <img
+          className="rounded-xl"
+          loading="lazy"
+          src="https://wszdqegvivbzymvxyvlx.supabase.co/storage/v1/object/public/homepage/section-img.jpg?t=2024-03-10T15%3A15%3A55.456Z"
+          alt=""
+        />
+        <TotalMemberCard className="absolute bottom-[-5%] left-[-10%] animate-upAndDown transition" />
       </div>
     </section>
   );

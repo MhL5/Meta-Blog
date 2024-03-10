@@ -85,7 +85,38 @@
   .font-Kaushan {
     font-family: "Kaushan Script", system-ui;
   }
-}
+  /*====================================================
+    Topic colors
+    =====================================================*/
+  }
+  .topic-travel {
+    background-color: hsla(336, 74%, 35%, 0.2);
+    border-color: hsla(336, 74%, 35%, 1);
+  }
+  .topic-health {
+    background-color: hsl(142, 76%, 36%, 0.2);
+    border-color: hsl(142, 76%, 36%);
+  }
+  .topic-nature {
+    background-color: hsl(329, 86%, 70%, 0.2);
+    border-color: hsl(329, 86%, 70%);
+  }
+  .topic-food {
+    background-color: hsl(273, 67%, 39%, 0.2);
+    border-color: hsl(273, 67%, 39%);
+  }
+  .topic-technology {
+    background-color: hsl(21, 90%, 48%, 0.2);
+    border-color: hsl(21, 90%, 48%);
+  }
+  .topic-inspiration {
+    background-color: hsl(200, 98%, 39%, 0.2);
+    border-color: hsl(200, 98%, 39%);
+  }
+  .topic-lifestyle {
+    background-color: hsl(226, 71%, 40%, 0.2);
+    border-color: hsl(226, 71%, 40%);
+  }
 
 @layer utilities {
   .custom-hover {

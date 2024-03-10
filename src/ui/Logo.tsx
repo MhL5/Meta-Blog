@@ -1,12 +1,13 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { useDarkModeContext } from "../Context/DarkModeContext";
 
 function Logo(): ReactElement {
-  const isDarkMode = "true";
+  const { isDarkMode } = useDarkModeContext();
 
   return (
     <Link to="/" className="flex items-center justify-center gap-2 text-2xl">
-      {isDarkMode === `true` ? (
+      {isDarkMode ? (
         <svg
           width="36"
           height="36"

@@ -1,26 +1,15 @@
 import { ReactElement } from "react";
 import { textTruncate } from "../utils/TextTruncate";
-import { TempFakeCardsDataType } from "./FeaturedPost";
+import { ArticleType } from "../services/getArticles";
 
-type ArticleCardProps = TempFakeCardsDataType;
-
-const tagColors = {
-  travel: `border-pink-800 bg-pink-800/20`,
-  health: `border-green-600 bg-green-600/20`,
-  lifestyle: `border-blue-800 bg-blue-800/20`,
-  nature: `border-pink-400 bg-pink-400/20`,
-  food: `border-purple-800 bg-purple-800/20`,
-  technology: `border-orange-600 bg-orange-600/20`,
-  inspiration: `border-sky-600 bg-sky-600/20`,
-};
-
+type ArticleCardProps = { className?: string } & ArticleType;
 function ArticleCard({
   className,
-  heading,
-  imgUrl,
-  paragraph,
   title,
+  avatar,
+  summary,
   readingTime,
+  topic,
 }: ArticleCardProps): ReactElement {
   return (
     <div
@@ -29,7 +18,7 @@ function ArticleCard({
       <article className="flex gap-6 sm:block">
         <div className="flex-shrink flex-grow basis-1/3 sm:h-80">
           <img
-            src={imgUrl}
+            src={avatar}
             alt=""
             className="h-full w-full rounded-2xl object-cover"
           />
@@ -37,15 +26,15 @@ function ArticleCard({
 
         <div className="flex-shrink flex-grow basis-2/3">
           <span
-            className={`sm:font-base my-4 inline-block rounded-full border ${tagColors[title]} px-4 py-1 text-sm capitalize`}
+            className={`topic-${topic.split(" ").join("")} || sm:font-base my-4 inline-block rounded-full border px-4 py-1 text-sm capitalize`}
           >
-            {title}
+            {topic}
           </span>
-          <h3 className="text-md mb-4 font-bold sm:text-2xl">{heading}</h3>
+          <h3 className="text-md mb-4 font-bold sm:text-2xl">{title}</h3>
         </div>
 
         <p className="mt-4 hidden sm:block  sm:h-36 sm:overflow-hidden sm:text-ellipsis">
-          {textTruncate(paragraph, 150)}
+          {textTruncate(summary, 150)}
         </p>
 
         <div className="absolute bottom-[2%] hidden sm:block">

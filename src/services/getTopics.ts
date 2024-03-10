@@ -9,13 +9,13 @@ export type TopicType = {
   topicPostsCount: number;
   topicColor: string;
 };
-type getTopicsResponse = {
+type GetTopicsResponse = {
   data: TopicType[] | null;
   error: PostgrestError | null;
 };
 
 async function getTopics() {
-  const { data: topics, error }: getTopicsResponse = await supabase
+  const { data: topics, error }: GetTopicsResponse = await supabase
     .from("topics")
     .select("*");
 
