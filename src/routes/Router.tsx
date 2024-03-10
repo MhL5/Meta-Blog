@@ -7,7 +7,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Homepage from "../pages/Homepage";
 import Authors from "../pages/Authors";
 import Posts from "../pages/Posts";
-import Topics from "../pages/Topics";
+import Topics from "../pages/TopicsPage";
 import Login from "../pages/login";
 import SignUp from "../pages/SignUp";
 import NotFoundPage from "../pages/NotFoundPage";

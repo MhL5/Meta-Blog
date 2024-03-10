@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 import Logo from "../ui/Logo";
 import DefaultPageContainer from "../ui/DefaultPageContainer";
 import Header from "../ui/Header";
-import { supabase } from "../services/supabase";
+import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 
 function Login(): ReactElement {

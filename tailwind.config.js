@@ -12,7 +12,6 @@ export default {
           "hsl(var(--card-background-color) / <alpha-value>)",
         textColorMain: "hsl(var(--text-color-main) / <alpha-value>)",
         textColorDark: "hsl(var(--text-color-dark) / <alpha-value>)",
-        tagBackgroundColor: "hsl(var(--tag-background-color) / <alpha-value>)",
         backgroundColorAlt: "hsl(var(--background-color-alt) / <alpha-value>)",
         textColorAlt: "hsl(var(--body-background-color) / <alpha-value>)",
         borderColor: "hsl(var(--border-color) / <alpha-value>)",

@@ -5,7 +5,7 @@ import { TempFakeCardsDataType } from "./FeaturedPost";
 type ArticleCardProps = TempFakeCardsDataType;
 
 const tagColors = {
-  travel: ` border-pink-800 bg-pink-800/20`,
+  travel: `border-pink-800 bg-pink-800/20`,
   health: `border-green-600 bg-green-600/20`,
   lifestyle: `border-blue-800 bg-blue-800/20`,
   nature: `border-pink-400 bg-pink-400/20`,

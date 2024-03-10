@@ -9,7 +9,7 @@ import foodImg from "../assets/food.jpg";
 import inspirationImg from "../assets/inspiration.jpg";
 import techImg from "../assets/tech.jpg";
 import food2Img from "../assets/food2.jpg";
-import Tags from "./Tags";
+import Topics from "./Topics";
 
 export type TempFakeCardsDataType = {
   className?: string;
@@ -137,8 +137,10 @@ function FeaturedPost(): ReactElement {
       </div>
 
       <div className="m-auto mb-14 mt-14 flex max-w-globalWidthContent flex-col items-center justify-center space-y-4">
-        <p className="mb-4 text-center text-5xl font-semibold">Popular Tags</p>
-        <Tags />
+        <p className="mb-4 text-center text-5xl font-semibold">
+          Popular Topics
+        </p>
+        <Topics />
       </div>
 
       <div className="m-auto grid max-w-globalWidthContent gap-4 p-4 md:grid-cols-3">
