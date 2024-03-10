@@ -14,8 +14,8 @@ Meta Blog is a dynamic and intuitive blog application designed to empower both r
 
 - **Routing:** React Router ([https://reactrouter.com](https://reactrouter.com)) - Enables smooth navigation between blog pages and sections.
 - **HTTP Requests:** Axios ([https://axios-http.com/](https://axios-http.com)) - Offers streamlined HTTP client functionality for fetching and managing data.
-- **Remote State Management:** Rtk Query ([[https://redux-toolkit.js.org/rtk-query/overview](https://redux-toolkit.js.org/rtk-query/overview)]) - Streamlines fetching and caching remote data, simplifying data access and management.
-- **Global State Management:** Redux Toolkit ([https://redux-toolkit.js.org](https://redux-toolkit.js.org)) - Provides a predictable and centralized state management solution for complex applications.
+- **Remote State Management:** React Query ([[https://tanstack.com/query/latest](https://tanstack.com/query/latest)]) - Streamlines fetching and caching remote data, simplifying data access and management.
+- **Global State Management:** React context api
 - **Styling:** Tailwind CSS ([https://tailwindcss.com/](https://tailwindcss.com)) - Ensures consistent and responsive styling across different browsers and devices.Tailwind CSS plugins: `tailwindcss prettier plugin` ([https://github.com/tailwindlabs/prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)) & `tailwindcss container query` ([https://github.com/tailwindlabs/tailwindcss-container-queries](https://github.com/tailwindlabs/tailwindcss-container-queries))
 - **Form Management:** React Hook Form ([https://react-hook-form.com/](https://react-hook-form.com)) - Handles form validations and state management efficiently.
 
