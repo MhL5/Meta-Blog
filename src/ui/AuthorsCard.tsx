@@ -1,15 +1,31 @@
 import { type ReactElement } from "react";
 
-function AuthorsCard(): ReactElement {
+import Img from "./Img";
+import { AuthorsType } from "../services/getAuthors";
+
+function AuthorsCard({
+  avatar,
+  bio,
+  likes,
+  name,
+  views,
+  postsCount,
+}: AuthorsType): ReactElement {
   return (
-    <div className="custom-hover-with-border || text-center m-4 cursor-pointer bg-cardBackgroundColor p-8">
-      <div>IMG</div>
-      <div>NAME</div>
-      <div>7 POST</div>
-      <p>
-        Biswajit Saha writes code at gbjsolution.com. He likes to ride a bicycle
-        when free. Prefers tea over coffee.
+    <div className="custom-hover || w-80  cursor-pointer rounded-xl border border-borderColor bg-cardBackgroundColor p-4 text-center">
+      <div className="mx-auto mb-6 mt-2 w-32 rounded-full">
+        <Img className="h-full w-full rounded-full" src={avatar} />
+      </div>
+      <div className="text-2xl font-bold">{name}</div>
+      <p className="my-4 px-4 text-center">
+        {bio} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error,
+        et.
       </p>
+      <div className="space-x-4">
+        <span>{views}👁️</span>
+        <span>{likes}💖</span>
+        <span>{postsCount}💬</span>
+      </div>
     </div>
   );
 }

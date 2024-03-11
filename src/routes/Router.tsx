@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
 import Homepage from "../pages/Homepage";
-import Authors from "../pages/Authors";
+import AuthorsPage from "../pages/AuthorsPage";
 import Posts from "../pages/Posts";
 import Topics from "../pages/TopicsPage";
 import Login from "../pages/login";
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
     <Route errorElement={<ErrorPage />}>
       <Route path="/" element={<Homepage />} />
 
-      <Route path="authors" element={<Authors />} />
+      <Route path="authors" element={<AuthorsPage />} />
       <Route path="posts" element={<Posts />} />
       <Route path="topics" element={<Topics />} />
 

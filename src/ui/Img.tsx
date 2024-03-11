@@ -18,6 +18,7 @@ function Img(props: ImgProps): ReactElement {
     <img
       className={`object-cover ${className}`}
       onError={handleError}
+      style={{ backgroundImage: `url("imgPlaceholder.svg")` }}
       loading="lazy"
       {...otherProps}
     />
