@@ -6,6 +6,8 @@ import UserSvg from "./UserSvg";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
 import { ReactElement } from "react";
+import Login from "../features/authentication/Login";
+import LoginButton from "../features/authentication/LoginButton";
 
 type NavigationMenuProps = {
   className?: string;
@@ -50,14 +52,10 @@ function NavigationMenu({ className }: NavigationMenuProps): ReactElement {
         </li>
 
         <li className={`hidden lg:block`}>
-          <Button
-            variant="transparent"
-            to="/login"
-            el="anchor"
-            className="mr-2 inline-block duration-300 hover:translate-y-[-4px]"
-          >
-            Login
-          </Button>
+          {/* TODO: compound component */}
+          <LoginButton />
+          <Login />
+          {/* TODO: compound component */}
           <Button
             variant="primary"
             to="/signup"

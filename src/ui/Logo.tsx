@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import { useDarkModeContext } from "../Context/DarkModeContext";
+import { useDarkModeContext } from "../features/theme/DarkModeContext";
 
 function Logo(): ReactElement {
   const { isDarkMode } = useDarkModeContext();

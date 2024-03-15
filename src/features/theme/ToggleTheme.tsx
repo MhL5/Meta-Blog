@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { useDarkModeContext } from "../../Context/DarkModeContext";
+import { useDarkModeContext } from "./DarkModeContext";
 
 function ToggleTheme(): ReactElement {
   const { isDarkMode, toggleDarkMode } = useDarkModeContext();

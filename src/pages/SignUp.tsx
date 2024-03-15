@@ -61,14 +61,15 @@ function SignUp(): ReactElement {
             Sign in
           </Button>
           <div className="mt-4 text-center">
-            Don't have an account yet?{" "}
-            <button
-              type="button"
-              className="cursor-pointer font-bold text-blue-600 underline"
+            Already have an account ?{" "}
+            <Button
+              to="/login"
+              el="anchor"
+              variant="transparent"
+              className="cursor-pointer px-1 font-bold text-blue-600 underline"
             >
-              {" "}
-              Sign up{" "}
-            </button>
+              Login
+            </Button>
           </div>
         </form>
       </div>

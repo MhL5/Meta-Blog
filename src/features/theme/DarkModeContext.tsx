@@ -1,5 +1,5 @@
 import { PropsWithChildren, createContext, useContext, useEffect } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 type DarkModeContextValueType = {
   isDarkMode: boolean;

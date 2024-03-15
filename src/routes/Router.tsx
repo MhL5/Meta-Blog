@@ -8,7 +8,6 @@ import Homepage from "../pages/Homepage";
 import AuthorsPage from "../pages/AuthorsPage";
 import Posts from "../pages/Posts";
 import Topics from "../pages/TopicsPage";
-import Login from "../pages/login";
 import SignUp from "../pages/SignUp";
 import NotFoundPage from "../pages/NotFoundPage";
 
@@ -21,7 +20,6 @@ const router = createBrowserRouter(
       <Route path="posts" element={<Posts />} />
       <Route path="topics" element={<Topics />} />
 
-      <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>,
