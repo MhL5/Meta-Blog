@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ custom variables here are used inside tailwind config
+ MORE DETAILS:
+ https://tailwindcss.com/docs/customizing-colors#using-css-variables
+*/
+@layer base {
+  *:focus-visible {
+    @apply outline-none focus-visible:shadow-sm focus-visible:shadow-gradientColorOne focus-visible:ring-2 focus-visible:ring-gradientColorOne;
+  }
+
+  :root {
+    /*=====================================================
+    common variables
+    =====================================================*/
+    --theme-color: 222deg 86% 53%; /* hsl(222,86%,53%)  */
+
+    --gradient-color-one: 222deg 86% 53%;
+    --gradient-color-two: 281deg 100% 55%;
+    --gradient-angle: 30deg;
+    --gradient-primary: linear-gradient(
+      30deg,
+      hsl(222, 86%, 53%),
+      hsl(281, 100%, 55%)
+    ); /* linear-gradient(30deg,hsl(222,86%,53%),hsl(281,100%,55%)) */
+
+    --success-color: 129deg 50% 47%; /* hsl(129,50%,47%)  */
+    --error-color: 0deg 87% 56%; /* hsl(0,87%,56%)  */
+
+    --global-width-content: 700px;
+    /*====================================================
+    Light theme variables
+    define common variable for light theme here 
+    =====================================================*/
+    --body-background-color: 0deg 0% 100%; /* hsl(0,0%,100%) */
+    --card-background-color: 0deg 0% 100%; /* hsl(0,0%,100%) */
+    --text-color-main: 230deg 28% 20%; /* hsl(230 28% 20%) */
+    --text-color-dark: 231deg 54% 8%; /* hsl(231 54% 8%) */
+    --background-color-alt: 250deg 17% 7%; /* hsl(250 17% 7%) */
+    --border-color: 0deg 0% 93%; /* hsl(0 0% 93%) */
+    --code-background-color: 0deg 0% 95%; /* hsl(0 0% 95%) */
+
+    --shadow: 0px 4px 10px hsla(0, 0%, 0%, 0.08);
+  }
+
+  :root.dark {
+    /*=====================================================
+    Dark theme variables
+    define common  variable for dark theme here and in @media above
+    =====================================================*/
+    --body-background-color: 250deg 17% 7%; /* hsl(250 17% 7%) */
+    --card-background-color: 240deg 10% 10%; /* hsl(240 10% 10%) */
+    --text-color-main: 0deg 0% 83%; /* hsl(0 0% 83%) */
+    --text-color-dark: 0deg 0% 95%; /* hsl(0 0% 95%) */
+    --background-color-alt: 0deg 0% 100%; /* hsl(0 0% 100%) */
+    --border-color: 252deg 6% 16%; /* hsl(252 6% 16%) */
+    --code-background-color: 229deg 68% 6%; /* hsl(229 68% 6%) */
+
+    --shadow: 0 3px 10px -2px hsla(210, 56%, 4%, 0.1),
+      0 10px 25px -30px hsla(0, 0%, 0%, 0.1);
+  }
+
+  body {
+    @apply bg-[hsl(var(--body-background-color))] text-[hsl(var(--text-color-main))];
+  }
+  html,
+  body {
+    font-family:
+      "inter",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+  .font-Kaushan {
+    font-family: "Kaushan Script", system-ui;
+  }
+}
+
+/*====================================================
+  Topic colors
+  =====================================================*/
+.topic-travel {
+  background-color: hsla(336, 74%, 35%, 0.2);
+  border-color: hsla(336, 74%, 35%, 1);
+}
+.topic-health {
+  background-color: hsl(142, 76%, 36%, 0.2);
+  border-color: hsl(142, 76%, 36%);
+}
+.topic-nature {
+  background-color: hsl(329, 86%, 70%, 0.2);
+  border-color: hsl(329, 86%, 70%);
+}
+.topic-food {
+  background-color: hsl(273, 67%, 39%, 0.2);
+  border-color: hsl(273, 67%, 39%);
+}
+.topic-technology {
+  background-color: hsl(21, 90%, 48%, 0.2);
+  border-color: hsl(21, 90%, 48%);
+}
+.topic-inspiration {
+  background-color: hsl(200, 98%, 39%, 0.2);
+  border-color: hsl(200, 98%, 39%);
+}
+.topic-lifestyle {
+  background-color: hsl(226, 71%, 40%, 0.2);
+  border-color: hsl(226, 71%, 40%);
+}
+
+@layer utilities {
+  .custom-hover {
+    @apply duration-300 hover:-translate-y-[4px] hover:border-purple-600;
+  }
+  .custom-hover-with-border {
+    @apply border border-transparent duration-300 hover:-translate-y-[4px] hover:border-purple-600;
+  }
+  .svg-pattern-background {
+    @apply bg-cover bg-center bg-no-repeat [background-image:url("./assets/heroBackground.svg")];
+  }
+
+  .custom-shadow::before {
+    @apply absolute inset-0 rounded-xl opacity-50 [content:""];
+    box-shadow:
+      2px 4px 30px hsl(222, 86%, 53%),
+      -2px -4px 30px hsl(281, 100%, 55%);
+  }
+
+  .custom-gradient-bg {
+    background: var(--gradient-primary);
+  }
+
+  .custom-gradient-bg-on-hover:hover {
+    background: var(--gradient-primary);
+  }
+
+  @keyframes upAndDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
