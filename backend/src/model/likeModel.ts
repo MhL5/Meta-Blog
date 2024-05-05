@@ -1,13 +1,26 @@
-import { Schema } from "mongoose";
+import { InferSchemaType, Schema, model } from "mongoose";
 
 const articleLikeSchema = new Schema(
   {
-    // articleId:
-    // userId:
+    userId: {
+      type: Schema.ObjectId,
+      required: [true, "like must belong to a user"],
+    },
+    articleId: {
+      type: Schema.ObjectId,
+      required: [true, "like must belong to an article"],
+    },
   },
   { timestamps: true }
 );
 
+type ArticleLikeSchema = InferSchemaType<typeof articleLikeSchema>;
+const ArticleLikeModel = model<ArticleLikeSchema>(
+  "ArticleLike",
+  articleLikeSchema
+);
+
+export { ArticleLikeModel };
 /*
 // Define a pre-save hook to ensure uniqueness of like per user per article
 LikeSchema.pre('save', function(next) {

@@ -54,7 +54,7 @@ const articleSchema = new Schema(
   { timestamps: true }
 );
 
-type article = InferSchemaType<typeof articleSchema>;
-const ArticleModel = model<article>("Article", articleSchema);
+type Article = InferSchemaType<typeof articleSchema>;
+const ArticleModel = model<Article>("Article", articleSchema);
 
 export { ArticleModel };

@@ -1,6 +1,5 @@
-import { Schema, model } from "mongoose";
+import { InferSchemaType, Schema, model } from "mongoose";
 
-// Define the schema for the view
 const ViewSchema = new Schema({
   articleId: {
     type: Schema.Types.ObjectId,
@@ -23,7 +22,7 @@ ViewSchema.index(
   { unique: true }
 );
 
-// Create a model using the schema
-const View = model("View", ViewSchema);
+type View = InferSchemaType<typeof ViewSchema>;
+const ArticleViewModel = model<View>("View", ViewSchema);
 
-module.exports = View;
+export { ArticleViewModel };
