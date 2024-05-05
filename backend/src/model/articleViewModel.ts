@@ -1,5 +1,7 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
+type View = InferSchemaType<typeof articleViewSchema>;
+
 const articleViewSchema = new Schema({
   articleId: {
     type: Schema.Types.ObjectId,
@@ -22,7 +24,6 @@ articleViewSchema.index(
   { unique: true }
 );
 
-type View = InferSchemaType<typeof articleViewSchema>;
 const ArticleViewModel = model<View>("ArticleView", articleViewSchema);
 
 export { ArticleViewModel };

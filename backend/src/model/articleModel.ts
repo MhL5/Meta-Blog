@@ -1,5 +1,7 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
+type Article = InferSchemaType<typeof articleSchema>;
+
 const articleSchema = new Schema(
   {
     authorId: {
@@ -55,7 +57,6 @@ const articleSchema = new Schema(
   { timestamps: true }
 );
 
-type Article = InferSchemaType<typeof articleSchema>;
 const ArticleModel = model<Article>("Article", articleSchema);
 
 export { ArticleModel };

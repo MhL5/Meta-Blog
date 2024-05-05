@@ -1,5 +1,7 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
+type Comment = InferSchemaType<typeof articleCommentSchema>;
+
 const articleCommentSchema = new Schema(
   {
     userId: {
@@ -21,7 +23,6 @@ const articleCommentSchema = new Schema(
   { timestamps: true }
 );
 
-type Comment = InferSchemaType<typeof articleCommentSchema>;
 const ArticleCommentModel = model<Comment>(
   "ArticleComment",
   articleCommentSchema

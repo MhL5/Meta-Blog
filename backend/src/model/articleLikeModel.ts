@@ -1,5 +1,7 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
+type ArticleLikeSchema = InferSchemaType<typeof articleLikeSchema>;
+
 const articleLikeSchema = new Schema(
   {
     userId: {
@@ -14,7 +16,6 @@ const articleLikeSchema = new Schema(
   { timestamps: true }
 );
 
-type ArticleLikeSchema = InferSchemaType<typeof articleLikeSchema>;
 const ArticleLikeModel = model<ArticleLikeSchema>(
   "ArticleLike",
   articleLikeSchema
