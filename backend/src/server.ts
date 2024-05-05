@@ -1,8 +1,10 @@
+import "dotenv/config";
 import express from "express";
 
 const app = express();
 
-app.listen(3000);
+const port = process.env.PORT || 3000;
+app.listen(port);
 
 let views = 0;
 let viewers: string[] = [];
