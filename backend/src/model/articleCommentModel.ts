@@ -22,6 +22,9 @@ const articleCommentSchema = new Schema(
 );
 
 type Comment = InferSchemaType<typeof articleCommentSchema>;
-const CommentModel = model<Comment>("ArticleComment", articleCommentSchema);
+const ArticleCommentModel = model<Comment>(
+  "ArticleComment",
+  articleCommentSchema
+);
 
-export { CommentModel };
+export { ArticleCommentModel };

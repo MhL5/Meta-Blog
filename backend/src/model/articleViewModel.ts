@@ -1,6 +1,6 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
-const ViewSchema = new Schema({
+const articleViewSchema = new Schema({
   articleId: {
     type: Schema.Types.ObjectId,
     ref: "Article",
@@ -17,12 +17,12 @@ const ViewSchema = new Schema({
 });
 
 // Ensure each IP address can only count once per article per day
-ViewSchema.index(
+articleViewSchema.index(
   { articleId: 1, ipAddress: 1, createdAt: 1 },
   { unique: true }
 );
 
-type View = InferSchemaType<typeof ViewSchema>;
-const ArticleViewModel = model<View>("View", ViewSchema);
+type View = InferSchemaType<typeof articleViewSchema>;
+const ArticleViewModel = model<View>("ArticleView", articleViewSchema);
 
 export { ArticleViewModel };

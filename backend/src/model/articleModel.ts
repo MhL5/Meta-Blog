@@ -2,10 +2,11 @@ import { InferSchemaType, Schema, model } from "mongoose";
 
 const articleSchema = new Schema(
   {
-    // authorId: refrence
-    // like fk
-    // comments fk
-    // views fk
+    authorId: {
+      type: Schema.ObjectId,
+      ref: "User",
+      required: [true, "comment must belong to a user"],
+    },
     title: {
       type: String,
       required: [true, "articles must include title"],
