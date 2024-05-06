@@ -1,16 +1,21 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 import fs from "fs";
-import { ArticleModel } from "../model/articleModel";
+import { UserModel } from "../model/userModel";
 
 dotenv.config({ path: `${__dirname}/../../config.env` });
 
 let DB = null;
-if (process.env.MONGODB_CONNECTION_STRING && process.env.MONGODB_PASSWORD)
-  DB = process.env.DATABASE?.replace(
+if (
+  process.env.MONGODB_CONNECTION_STRING &&
+  process.env.MONGODB_PASSWORD &&
+  process.env.MONGODB_USERNAME
+)
+  DB = process.env.MONGODB_CONNECTION_STRING?.replace(
     "<password>",
     process.env?.MONGODB_PASSWORD
-  );
+  ).replace("<username>", process.env?.MONGODB_USERNAME);
+
 
 DB
   ? mongoose
@@ -19,12 +24,14 @@ DB
       .catch((err) => console.error(`DB connection failed: ${err}`))
   : console.error("ENV VARIABLES ARE UNDEFINED OR NULL");
 
-const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, "utf-8"));
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/userData.json`, "utf-8")
+);
 
 // import the data
 async function importData() {
   try {
-    // await articleModel.create(tours, { validateBeforeSave: false });
+    await UserModel.create(users, { validateBeforeSave: false });
 
     console.log(`Data Successfully loaded.📜`);
   } catch (error) {
@@ -36,7 +43,7 @@ async function importData() {
 
 async function deleteData() {
   try {
-    await ArticleModel.deleteMany();
+    await UserModel.deleteMany();
 
     console.log(`Data successfully Deleted.🗑️`);
   } catch (error) {
