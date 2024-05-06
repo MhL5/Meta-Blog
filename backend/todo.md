@@ -2,3 +2,4 @@
 
 install zod for env variables
 add eslint unused vars rule
+error handler

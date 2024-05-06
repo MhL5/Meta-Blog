@@ -13,6 +13,7 @@ import { z } from "zod";
 const envSchema = z.object({
   MONGODB_CONNECTION_STRING: z.string(),
   MONGODB_PASSWORD: z.string(),
+  MONGODB_USERNAME: z.string(),
   NODE_ENV: z.string(),
   PORT: z.string(),
   ADMIN_ROLE: z.string(),
@@ -22,5 +23,4 @@ const envSchema = z.object({
  * Parses the environment variables using the defined schema.
  * This will throw an error at runtime if any variable is missing or of an incorrect type.
  */
-console.log(process.env.NODE_ENV);
 export const env = envSchema.parse(process.env);
