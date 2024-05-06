@@ -5,7 +5,7 @@
  * @module MainApplicationSetup
  */
 
-import { colorCodedConsoleLog } from "./utils/purpleConsoleLog";
+import { colorCodedConsoleLog } from "./utils/colorCodedConsoleLog";
 
 /**
  * global synchronous code bug handler
