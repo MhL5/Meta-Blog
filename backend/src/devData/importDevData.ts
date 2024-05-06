@@ -1,9 +1,28 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import fs from "fs";
-import { UserModel } from "../model/userModel";
+import { ArticleModel as collection } from "../model/articleModel";
+
+/**
+ * 1. import your model as collection
+ * @example import { ArticleModel as collection } from "../model/articleModel";
+ *
+ * 2. update dotenv path if needed
+ * @example dotenv.config({ path: `${__dirname}/../../config.env` });
+ *
+ * 3. run the script with --delete to delete everything inside the collection
+ * bun importDevData.ts --delete
+ *
+ * 4. update the jsonData path and run this script with --import to import your json file
+ * bun importDevData.ts --import
+ */
+// import { ArticleModel as collection } from "../model/articleModel";
 
 dotenv.config({ path: `${__dirname}/../../config.env` });
+
+const jsonData = JSON.parse(
+  fs.readFileSync(`${__dirname}/articleData.json`, "utf-8")
+);
 
 let DB = null;
 if (
@@ -16,7 +35,6 @@ if (
     process.env?.MONGODB_PASSWORD
   ).replace("<username>", process.env?.MONGODB_USERNAME);
 
-
 DB
   ? mongoose
       .connect(DB)
@@ -24,14 +42,11 @@ DB
       .catch((err) => console.error(`DB connection failed: ${err}`))
   : console.error("ENV VARIABLES ARE UNDEFINED OR NULL");
 
-const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/userData.json`, "utf-8")
-);
-
 // import the data
 async function importData() {
   try {
-    await UserModel.create(users, { validateBeforeSave: false });
+    // use { validateBeforeSave: false } if you need
+    await collection.create(jsonData);
 
     console.log(`Data Successfully loaded.📜`);
   } catch (error) {
@@ -43,7 +58,7 @@ async function importData() {
 
 async function deleteData() {
   try {
-    await UserModel.deleteMany();
+    await collection.deleteMany();
 
     console.log(`Data successfully Deleted.🗑️`);
   } catch (error) {
