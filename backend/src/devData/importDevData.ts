@@ -15,10 +15,10 @@ import fs from "fs";
  * 4. update the jsonData path and run this script with --import to import your json file
  * bun importDevData.ts --import
  */
-import { ArticleCommentModel as collection } from "../model/articleCommentModel";
+import { ArticleViewModel as collection } from "../model/articleViewModel";
 dotenv.config({ path: `${__dirname}/../../config.env` });
 const jsonData = JSON.parse(
-  fs.readFileSync(`${__dirname}/commentData.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/viewData.json`, "utf-8")
 );
 
 let DB = null;
