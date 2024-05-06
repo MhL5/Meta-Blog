@@ -1,13 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 
-type Fn = (req?: Request, res?: Response, next?: NextFunction) => Promise<unknown>;
+type Fn = (
+  req?: Request,
+  res?: Response,
+  next?: NextFunction
+) => Promise<unknown>;
 
 /**
  * A higher-order function that wraps an asynchronous function with error handling.
  * this functions aims to replace the need of writing try catch blocks everywhere
  *
  * @param {Function} fn - The asynchronous function to be wrapped.
- * @returns {Function} - A middleware function that handles errors and passes control to the next middleware.
+ * @returns {Function} - A middleware function that handles errors and passes control to the express error controller middleware
  *
  * @example
  * catchAsync(async (req, res, next) => {

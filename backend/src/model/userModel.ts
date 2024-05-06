@@ -48,7 +48,7 @@ const userSchema = new Schema(
         // !This only works on create and save! example: user.create | user.save
         // !  so we have to use save not update and ...
         validator: function (curEl: string): boolean {
-          // @ts-ignore ts trows an error because this only works on create and save as explained above
+          // @ts-expect-error ts trows an error because this only works on create and save as explained above
           return this.password === curEl;
         },
         message: "Passwords are not the same",
