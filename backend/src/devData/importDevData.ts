@@ -3,17 +3,24 @@ import mongoose from "mongoose";
 import fs from "fs";
 
 /**
+ * @requires dotenv
+ * @requires mongoose
+ * @requires fs module
+ * 
  * 1. import your model as collection
  * @example import { ArticleModel as collection } from "../model/articleModel";
  *
- * 2. update dotenv path if needed
+ * 2. update dotenv path
  * @example dotenv.config({ path: `${__dirname}/../../config.env` });
  *
  * 3. run the script with --delete to delete everything inside the collection
- * bun importDevData.ts --delete
+ * @example bun importDevData.ts --delete
  *
- * 4. update the jsonData path and run this script with --import to import your json file
- * bun importDevData.ts --import
+ * 4. update the jsonData path 
+ * @example const jsonData = JSON.parse(fs.readFileSync(`${__dirname}/EXAMPLE.json`, "utf-8"));
+ * 
+ * 5. run this script with --import to import your json file
+ * @example bun importDevData.ts --import
  */
 import { ArticleViewModel as collection } from "../model/articleViewModel";
 dotenv.config({ path: `${__dirname}/../../config.env` });
