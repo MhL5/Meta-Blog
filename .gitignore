@@ -1,3 +1,6 @@
+######################
+# vite .gitignore
+
 # Logs
 logs
 *.log
@@ -22,7 +25,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+######################
 
-######
 ###########
+# Custom 
 *.env
+config.env
