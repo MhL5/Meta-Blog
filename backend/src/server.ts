@@ -31,13 +31,12 @@ import { env } from "./utils/env";
 import { connectDB } from "../config/connectDB";
 import { IncomingMessage, Server, ServerResponse } from "http";
 
-const port = env.PORT || 3000;
-
 let server: Server<typeof IncomingMessage, typeof ServerResponse> | null = null;
 connectDB();
 mongoose.connection.once("open", () => {
   colorCodedConsoleLog("success", "Connected to MongoDB 🚀");
 
+  const port = env.PORT || 3000;
   server = app.listen(port, () => {
     colorCodedConsoleLog(
       `success`,
