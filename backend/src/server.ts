@@ -17,8 +17,10 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// Imports
-////////////////////////////
+/**
+ *  Imports
+ *  after global synchronous code bug handler we can start importing the files we need
+ */
 import dotenv from "dotenv";
 // Load environment variables from the specified file. should be at top level after importing dotenv
 dotenv.config({ path: `${__dirname}/../config.env` });
