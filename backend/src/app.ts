@@ -132,7 +132,6 @@ function customXssSanitizer(req: Request, res: Response, next: NextFunction) {
     const sanitize = xss(JSON.stringify(req[key]));
     // Parse the sanitized JSON string back to an object and assign it to the request body
     req[key] = JSON.parse(sanitize);
-    console.dir(req[key]);
   });
   next();
 }
