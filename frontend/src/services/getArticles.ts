@@ -1,28 +1,42 @@
-import { PostgrestError } from "@supabase/supabase-js";
-import { supabase } from "../lib/supabase";
+import axios from "axios";
+// export type ArticleType = {
+//   avatar: string;
+//   content: string;
+//   created_at: Date;
+//   id: number;
+//   readingTime: number;
+//   summary: string;
+//   title: string;
+//   topic: string;
+// };
 
 export type ArticleType = {
-  avatar: string;
+  _id: string;
+  authorId: string;
+  title: string;
   content: string;
   created_at: Date;
-  id: number;
   readingTime: number;
+  avatar: string;
   summary: string;
-  title: string;
-  topic: string;
+  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
 };
 type GetArticleResponse = {
-  data: ArticleType[] | null;
-  error: PostgrestError | null;
+  status: "success";
+  results: number;
+  data: {
+    data: ArticleType[];
+  };
 };
 
 async function getArticles() {
-  const { data: articles, error }: GetArticleResponse = await supabase
-    .from("articles")
-    .select("*");
+  const articleResponse = await axios.get<GetArticleResponse>(
+    "http://localhost:3000/api/v1/articles",
+  );
 
-  if (error) throw new Error("Articles could not be loaded");
-  return articles;
+  return articleResponse.data;
 }
 
 export { getArticles };

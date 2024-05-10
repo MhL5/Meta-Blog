@@ -43,7 +43,7 @@ function HeroSection({ className }: HeroSectionProps): ReactElement {
         <Img
           className="rounded-xl"
           loading="lazy"
-          src="https://wszdqegvivbzymvxyvlx.supabase.co/storage/v1/object/public/homepage/section-img.jpg?t=2024-03-10T15%3A15%3A55.456Z"
+          src="section-img-min.jpg"
           alt=""
         />
         <TotalMemberCard className="absolute bottom-[-5%] left-[-10%] animate-upAndDown transition" />

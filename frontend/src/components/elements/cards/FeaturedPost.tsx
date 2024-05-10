@@ -9,6 +9,7 @@ function FeaturedPost(): ReactElement {
 
   if (isLoading) return <span>loading...</span>;
   if (error || !articles) return <span>error</span>;
+
   return (
     <section className="p-6">
       <div>
@@ -16,8 +17,8 @@ function FeaturedPost(): ReactElement {
           Most trend Posts
         </h2>
         <div className="m-auto grid max-w-globalWidthContent gap-4 p-4 md:grid-cols-3">
-          {articles.map((card, i) =>
-            i >= 3 ? null : <ArticleCard {...card} key={card.id} />,
+          {articles.data.data?.map((card, i) =>
+            i >= 3 ? null : <ArticleCard {...card} key={card._id} />,
           )}
         </div>
       </div>
@@ -30,8 +31,8 @@ function FeaturedPost(): ReactElement {
       </div>
 
       <div className="m-auto grid max-w-globalWidthContent gap-4 p-4 md:grid-cols-3">
-        {articles.map((card) => (
-          <ArticleCard {...card} key={card.id} />
+        {articles.data.data?.map((card) => (
+          <ArticleCard {...card} key={card._id} />
         ))}
       </div>
 

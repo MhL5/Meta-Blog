@@ -10,8 +10,9 @@ function ArticleCard({
   avatar,
   summary,
   readingTime,
-  topic,
+  tags,
 }: ArticleCardProps): ReactElement {
+  console.log(avatar);
   return (
     <div
       className={`${className} custom-hover || relative max-w-[48rem] cursor-pointer rounded-2xl border border-borderColor bg-cardBackgroundColor p-6`}
@@ -19,16 +20,19 @@ function ArticleCard({
       <article className="flex gap-6 sm:block">
         <div className="flex-shrink flex-grow basis-1/3 sm:h-80">
           <Img
-            src={avatar}
+            src={"inspiration.jpg"}
             className="h-full w-full rounded-2xl object-cover"
           />
         </div>
 
         <div className="flex-shrink flex-grow basis-2/3">
           <span
-            className={`topic-${topic.split(" ").join("")} || sm:font-base my-4 inline-block rounded-full border px-4 py-1 text-sm capitalize`}
+            className={`topic-${tags[0]} || sm:font-base my-4 inline-block rounded-full border px-4 py-1 text-sm capitalize`}
           >
-            {topic}
+            {/* <span
+            className={`topic-${topic.split(" ").join("")} || sm:font-base my-4 inline-block rounded-full border px-4 py-1 text-sm capitalize`}
+          > */}
+            {tags}
           </span>
           <h3 className="text-md mb-4 font-bold sm:text-2xl">{title}</h3>
         </div>
