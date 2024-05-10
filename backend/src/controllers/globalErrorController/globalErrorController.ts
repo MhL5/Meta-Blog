@@ -31,13 +31,12 @@ export function isOperationalError(err: unknown): err is OperationalError {
   return false;
 }
 
-function appErrorController(
+function globalErrorController(
   err: unknown,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  console.log(`ERROR`, err);
   // development environment errors
   if (env.NODE_ENV.toLowerCase() === "development") {
     sendErrorForDev(err as AppError, req, res);
@@ -89,14 +88,13 @@ function appErrorController(
 
 function sendErrorForDev(err: AppError, req: Request, res: Response) {
   const { statusCode, status, message, stack } = err;
-
-  if (req.originalUrl.startsWith("/api"))
-    return res.status(statusCode).json({
-      status: status,
-      error: err,
-      message: message,
-      stack: stack,
-    });
+  
+  res.status(statusCode || 500).json({
+    status: status || "fail",
+    error: err || "unknown error",
+    message: message || "something went very wrong!",
+    stack: stack || "🤔",
+  });
 }
 
 function sendErrorProduction(err: unknown, req: Request, res: Response) {
@@ -116,4 +114,4 @@ function sendErrorProduction(err: unknown, req: Request, res: Response) {
   });
 }
 
-export default appErrorController;
+export default globalErrorController;
