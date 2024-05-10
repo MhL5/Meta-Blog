@@ -23,6 +23,14 @@ const app = express();
  * 2. serving static files
  * 3. Helmet: security http headers
  * 4. morgan: Development logging functionality
+ * 5. rate limiter
+ * 6. body parser
+ * 7. Cookie parser
+ * 8. urlencoded for loading form data
+ * 9. data sanitization against noSQL query injection
+ * 10. http parameter pollution protection
+ * 11. xss sanitizer
+ * 12. compression
  */
 
 /**
@@ -89,7 +97,9 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 /**
  *
+ *
  * * after parsing we can start sanitizing
+ *
  *
  */
 
@@ -108,13 +118,22 @@ app.use(hpp());
 
 /**
  * 11. xss sanitizer
+ * @example:
+ * input:  "some .md <strong>yo<strong> <script>alert('xss');</script>"
+ * output: "some .md <strong>yo<strong> &lt;script&gt;alert('xss');&lt;/script&gt;"
+ *
  * @link https://github.com/AhmedAdelFahim/express-xss-sanitizer
+ * @returns sanitized req.body, req.query, req.headers and req.params
  */
 function customXssSanitizer(req: Request, res: Response, next: NextFunction) {
-  // Convert the request body to a JSON string and sanitize it using the xss library
-  const sanitizeBody = xss(JSON.stringify(req.body));
-  // Parse the sanitized JSON string back to an object and assign it to the request body
-  req.body = JSON.parse(sanitizeBody);
+  const keys = ["body", "query", "headers", "params"] as const;
+  keys.forEach((key) => {
+    // Convert the request body to a JSON string and sanitize it using the xss library
+    const sanitize = xss(JSON.stringify(req[key]));
+    // Parse the sanitized JSON string back to an object and assign it to the request body
+    req[key] = JSON.parse(sanitize);
+    console.dir(req[key]);
+  });
   next();
 }
 app.use(customXssSanitizer);
@@ -128,7 +147,9 @@ app.use(compression());
 
 /**
  *
- * * now we can start mounting routers
+ *
+ * * NOW WE CAN START MOUNTING ROUTERS
+ *
  *
  */
 app.use("/api/v1/articles", articleRouter);
