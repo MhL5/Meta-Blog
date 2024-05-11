@@ -27,10 +27,15 @@ const app = express();
  * 6. body parser
  * 7. Cookie parser
  * 8. urlencoded for loading form data
+ *
+ * * after parsing, sanitization starts
+ *
  * 9. data sanitization against noSQL query injection
  * 10. http parameter pollution protection
  * 11. xss sanitizer
  * 12. compression
+ *
+ * * mounting routers
  */
 
 /**

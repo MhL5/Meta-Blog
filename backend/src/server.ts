@@ -2,7 +2,6 @@
  * This module configures the environment variables, sets up the database connection,
  * and initializes the Express application.
  *
- * @module MainApplicationSetup
  */
 
 /**
@@ -32,11 +31,6 @@ import { IncomingMessage, Server, ServerResponse } from "http";
 
 /**
  * This code snippet initializes a server and connects it to a MongoDB database.
- * It starts by declaring a variable `server` of type `Server<typeof IncomingMessage, typeof ServerResponse> | null` and setting it to `null`.
- * Then, it calls the `connectDB` function to establish a connection with the MongoDB database.
- * Once the connection is open, it logs a success message and retrieves the port number from the `env` object.
- * It then starts the server by calling the `listen` method on the `app` object, passing the port number and a callback function.
- * The callback function logs a message indicating the server is running and the environment it is running in.
  */
 let server: Server<typeof IncomingMessage, typeof ServerResponse> | null = null;
 connectDB();
@@ -53,8 +47,8 @@ mongoose.connection.once("open", () => {
 
 /**
  * Any promise that we don't handle will be catched here
- * it should be before all of code executions
- * */
+ *
+ */
 process.on("unhandledRejection", (err) => {
   console.log(" ⚠️ UNHANDLED REJECTION💥... SHUTTING DOWN ⚠️ ");
 
