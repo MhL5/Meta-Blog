@@ -1,3 +1,5 @@
+import { supabase } from "../../../lib/supabase";
+
 type GetUserParams = { email: string; password: string };
 
 async function getUser({ email, password }: GetUserParams) {

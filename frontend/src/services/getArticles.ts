@@ -1,4 +1,14 @@
 import axios from "axios";
+// export type ArticleType = {
+//   avatar: string;
+//   content: string;
+//   created_at: Date;
+//   id: number;
+//   readingTime: number;
+//   summary: string;
+//   title: string;
+//   topic: string;
+// };
 
 export type ArticleType = {
   _id: string;

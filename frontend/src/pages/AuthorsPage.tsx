@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import DefaultPageContainer from "../components/layout/DefaultPageContainer";
 import Header from "../components/layout/Header";
 import Authors from "../components/elements/cards/Authors";
-import Footer from "../components/layout/Footer";
+import Footer from "../components/layout/footer/Footer";
 
 function AuthorsPage(): ReactElement {
   return (

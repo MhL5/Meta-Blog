@@ -1,7 +1,7 @@
 import HeroSection from "../components/layout/HeroSection";
 import FeaturedPost from "../components/elements/cards/FeaturedPost";
 import Subscribe from "../components/form/Subscribe";
-import Footer from "../components/layout/Footer";
+import Footer from "../components/layout/footer/Footer";
 import { ReactElement } from "react";
 import DefaultPageContainer from "../components/layout/DefaultPageContainer";
 import Header from "../components/layout/Header";
