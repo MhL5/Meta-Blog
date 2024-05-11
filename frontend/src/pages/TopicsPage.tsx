@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import DefaultPageContainer from "../components/layout/DefaultPageContainer";
 import Header from "../components/layout/Header";
 import Topics from "../components/elements/cards/Topics";
-import Footer from "../components/layout/footer/Footer";
+import Footer from "../components/layout/Footer";
 
 function TopicsPage(): ReactElement {
   return (

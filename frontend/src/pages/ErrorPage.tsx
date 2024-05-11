@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import Button from "../components/elements/button/Button";
 import DefaultPageContainer from "../components/layout/DefaultPageContainer";
 import Header from "../components/layout/Header";
-import Footer from "../components/layout/footer/Footer";
+import Footer from "../components/layout/Footer";
 
 function ErrorPage(): ReactElement {
   return (

@@ -3,7 +3,7 @@ import DefaultPageContainer from "../components/layout/DefaultPageContainer";
 import Header from "../components/layout/Header";
 import Logo from "../components/elements/icons/Logo";
 import Button from "../components/elements/button/Button";
-import Footer from "../components/layout/footer/Footer";
+import Footer from "../components/layout/Footer";
 
 function SignUp(): ReactElement {
   return (

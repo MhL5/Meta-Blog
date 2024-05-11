@@ -1,10 +1,11 @@
-import { ReactElement } from "react";
-import Logo from "../../elements/icons/Logo";
-import FooterIcon from "./FooterIcons";
+import Logo from "../elements/icons/Logo";
+import GithubSvg from "../elements/icons/GithubSvg";
+import TelegramSvg from "../elements/icons/TelegramSvg";
+import DiscordSvg from "../elements/icons/DiscordSvg";
 import { Link } from "react-router-dom";
 
 type FooterProps = { className?: string };
-function Footer({ className }: FooterProps): ReactElement {
+function Footer({ className }: FooterProps) {
   return (
     <footer
       className={`${className} flex items-start justify-around gap-14 border-t border-t-borderColor p-8`}
@@ -32,7 +33,7 @@ function Footer({ className }: FooterProps): ReactElement {
           </a>
         </p>
 
-        <FooterIcon />
+        <Footer.Icon />
       </div>
 
       <div className="flex flex-col">
@@ -48,4 +49,33 @@ function Footer({ className }: FooterProps): ReactElement {
   );
 }
 
+const FooterIconStyles = {
+  li: `custom-gradient-bg-on-hover custom-hover || m-auto flex  h-10 w-10 cursor-pointer items-center justify-center  rounded-full bg-gray-700 transition duration-300`,
+};
+
+function FooterIcon() {
+  return (
+    <ul className="mt-6 flex gap-4">
+      <li className={`${FooterIconStyles.li}`}>
+        <div className="w-5">
+          <GithubSvg />
+        </div>
+      </li>
+
+      <li className={`${FooterIconStyles.li}`}>
+        <div className="w-5">
+          <TelegramSvg />
+        </div>
+      </li>
+
+      <li className={`${FooterIconStyles.li}`}>
+        <div className="w-5">
+          <DiscordSvg />
+        </div>
+      </li>
+    </ul>
+  );
+}
+
+Footer.Icon = FooterIcon;
 export default Footer;
