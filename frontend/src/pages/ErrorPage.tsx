@@ -10,12 +10,14 @@ function ErrorPage() {
       <div className="flex min-h-dvh flex-col">
         <Header />
         <div className="m-auto text-center">
-          <div className="my-14 text-7xl">ERROR: SOMETHING WENT WRONG!😥</div>
+          <div className="my-14 text-4xl text-red-600">
+            ERROR: SOMETHING WENT WRONG!☹️
+          </div>
           <Button asChild>
             <Link to="/">Homepage</Link>
           </Button>
         </div>
-      <Footer />
+        <Footer />
       </div>
     </PageContainer>
   );
