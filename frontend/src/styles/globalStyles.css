@@ -33,6 +33,9 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* CUSTOM: */
+    --global-width-content: 700px;
   }
 
   .dark {
