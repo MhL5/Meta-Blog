@@ -1,7 +1,5 @@
+import PageContainer from "@/components/layout/PageContainer";
+
 export default function Homepage() {
-    return (
-        <>
-            homepage
-        </>
-    )
+  return <PageContainer>homepage</PageContainer>;
 }
