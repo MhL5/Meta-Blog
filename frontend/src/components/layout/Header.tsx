@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
+
 import Logo from "../ui/Logo";
 import Search from "../ui/Search";
-import ToggleTheme from "../ui/ToggleTheme";
+import ToggleTheme from "../../features/theme/ToggleTheme";
 import { Avatar } from "../ui/avatar";
 import { Button } from "../ui/button";
 import HamburgerMenu from "../ui/HamburgerMenu";
