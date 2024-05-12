@@ -13,7 +13,7 @@ type NavigationMenuProps = {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-bodyBackgroundColor/70 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-background/70 backdrop-blur-md">
       <NavigationMenu />
     </header>
   );
@@ -46,5 +46,4 @@ function NavigationMenu({ className }: NavigationMenuProps) {
   );
 }
 
-Header.NavigationMenu = NavigationMenu;
 export default Header;
