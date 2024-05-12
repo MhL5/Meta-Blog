@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Header from "../components/layout/Header";
 import { Link } from "react-router-dom";
 import PageContainer from "@/components/layout/PageContainer";
+import Footer from "@/components/layout/Footer";
 
 function ErrorPage() {
   return (
@@ -14,8 +15,8 @@ function ErrorPage() {
             <Link to="/">Homepage</Link>
           </Button>
         </div>
+      <Footer />
       </div>
-      {/* <Footer /> */}
     </PageContainer>
   );
 }

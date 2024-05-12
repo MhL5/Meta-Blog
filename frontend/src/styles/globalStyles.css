@@ -36,6 +36,11 @@
 
     /* CUSTOM: */
     --global-width-content: 700px;
+    --gradient-primary: linear-gradient(
+      30deg,
+      hsl(222, 86%, 53%),
+      hsl(281, 100%, 55%)
+    );
   }
 
   .dark {
@@ -78,5 +83,14 @@
   }
   .svg-pattern-background {
     @apply bg-cover bg-center bg-no-repeat [background-image:url("../assets/heroBackground.svg")];
+  }
+}
+
+@layer components {
+  .custom-hover {
+    @apply duration-300 hover:-translate-y-[4px] hover:border-purple-600;
+  }
+  .custom-gradient-bg-on-hover:hover {
+    background: var(--gradient-primary);
   }
 }

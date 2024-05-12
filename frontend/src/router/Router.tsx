@@ -15,6 +15,7 @@ import TagsPage from "@/pages/TagsPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<ErrorPage />}>
+      <Route path="/error" element={<ErrorPage />} />
       <Route path="/" element={<Homepage />} />
 
       <Route path="authors" element={<AuthorsPage />} />
