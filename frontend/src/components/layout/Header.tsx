@@ -18,52 +18,27 @@ function Header() {
   );
 }
 
-const liStyles = `custom-hover-with-border || hover:-translate-y-[1px] hover:border-x-transparent hover:border-t-transparent `;
-
 function NavigationMenu({ className }: NavigationMenuProps) {
   return (
-    <nav className={`${className} m-auto max-w-globalWidthContent p-8 py-4`}>
-      <ul className="flex max-w-globalWidthContent items-center justify-between gap-8 text-sm font-bold">
-        <li className={`duration-300 hover:-translate-y-[2px]`}>
+    <nav className={`${className} m-auto p-8 py-4`}>
+      <ul className="flex items-center justify-between gap-8 text-sm font-bold">
+        <li className="flex gap-10 items-center justify-center">
+          <HamburgerMenu className="hidden" />
           <Logo />
-        </li>
-
-        <li className={`${liStyles} || hidden lg:ml-3 lg:block`}>
           <NavLink to="/authors">Authors</NavLink>
-        </li>
-
-        <li className={`${liStyles} || hidden lg:block`}>
           <NavLink to="/posts">Posts</NavLink>
-        </li>
-
-        <li className={`${liStyles} || hidden lg:block`}>
           <NavLink to="/topics"> Topics</NavLink>
         </li>
 
-        <li className={`${liStyles} || ml-auto cursor-pointer`}>
+        <li className="flex gap-4 items-center justify-center">
           <Search />
-        </li>
-
-        <li className={`${liStyles} || hidden sm:block`}>
           <ToggleTheme />
-        </li>
 
-        <li className={`${liStyles} || lg:hidden`}>
-          <Avatar />
-        </li>
-
-        <li className={`${liStyles} || block cursor-pointer lg:hidden`}>
-          <HamburgerMenu />
-        </li>
-
-        <li className={`hidden lg:block`}>
-          <Button>Login</Button>
-          <NavLink
-            to="/signup"
-            className="inline-block duration-300 hover:translate-y-[-4px]"
-          >
-            Sign up
-          </NavLink>
+          <Avatar className="hidden" />
+          <Button variant="outline">Login</Button>
+          <Button asChild>
+            <NavLink to="/signup">Create free account</NavLink>
+          </Button>
         </li>
       </ul>
     </nav>

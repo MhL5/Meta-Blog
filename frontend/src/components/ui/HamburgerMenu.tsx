@@ -1,4 +1,6 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
+
+type HamburgerMenuProps = { className: string };
 
 const hamburgerMenuStyles = {
   button:
@@ -6,7 +8,7 @@ const hamburgerMenuStyles = {
   hamburgers: "h-[3px] w-8 rounded-md bg-black transition duration-300",
 };
 
-function HamburgerMenu(): ReactElement {
+function HamburgerMenu({ className }: HamburgerMenuProps) {
   const [open, setOpen] = useState(false);
 
   const buttonStyles = open ? " " : "";
@@ -19,25 +21,21 @@ function HamburgerMenu(): ReactElement {
   }
 
   return (
-    <>
-      <button
-        type="button"
-        className={`${hamburgerMenuStyles.button} ${buttonStyles}`}
-        onClick={handleClick}
-      >
-        <span
-          className={`${hamburgerMenuStyles.hamburgers} ${hamburgerTopStyles}`}
-        ></span>
-        <span
-          className={`${hamburgerMenuStyles.hamburgers} ${hamburgerMiddleStyles}`}
-        ></span>
-        <span
-          className={`${hamburgerMenuStyles.hamburgers} ${hamburgerBottomStyles}`}
-        ></span>
-
-        
-      </button>
-    </>
+    <button
+      type="button"
+      className={`${className} ${hamburgerMenuStyles.button} ${buttonStyles}`}
+      onClick={handleClick}
+    >
+      <span
+        className={`${hamburgerMenuStyles.hamburgers} ${hamburgerTopStyles}`}
+      ></span>
+      <span
+        className={`${hamburgerMenuStyles.hamburgers} ${hamburgerMiddleStyles}`}
+      ></span>
+      <span
+        className={`${hamburgerMenuStyles.hamburgers} ${hamburgerBottomStyles}`}
+      ></span>
+    </button>
   );
 }
 
