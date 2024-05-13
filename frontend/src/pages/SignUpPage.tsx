@@ -126,12 +126,14 @@ export default function SignUpPage() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    signUpForm.reset();
   }
 
   function handleLogin(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    loginForm.reset();
   }
 
   return (
@@ -153,7 +155,11 @@ export default function SignUpPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    <Logo title="Meta Blog" className="scale-125 mb-2 p-1" />
+                    <Logo
+                      title="Meta Blog"
+                      className="scale-125 mb-2 p-1"
+                      disableLink
+                    />
                   </CardTitle>
                   <CardDescription className="text-center">
                     <span className="mb-4 mt-2 text-lg font-bold block">
@@ -206,7 +212,11 @@ export default function SignUpPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    <Logo title="Meta Blog" className="scale-125 mb-2 p-1" />
+                    <Logo
+                      title="Meta Blog"
+                      disableLink
+                      className="scale-125 mb-2 p-1"
+                    />
                   </CardTitle>
                   <CardDescription className="text-center">
                     <span className="mb-4 mt-2 text-lg font-bold block">
