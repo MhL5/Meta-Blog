@@ -126,12 +126,14 @@ export default function SignUpPage() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    signUpForm.reset();
   }
 
   function handleLogin(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    loginForm.reset();
   }
 
   return (
