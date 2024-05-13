@@ -9,7 +9,7 @@ type FooterProps = { className?: string };
 function Footer({ className }: FooterProps) {
   return (
     <footer
-      className={`${className} flex items-start justify-between gap-14 border-t border-t-borderColor p-8`}
+      className={`${className} flex bg-background/30 backdrop-blur-sm items-start justify-between gap-14 border-t border-t-borderColor p-8`}
     >
       <div className="flex flex-col items-start justify-center text-start p-2 text-sm sm:text-base">
         <h3>
