@@ -9,13 +9,13 @@ type FooterProps = { className?: string };
 function Footer({ className }: FooterProps) {
   return (
     <footer
-      className={`${className} flex items-start justify-around gap-14 border-t border-t-borderColor p-8`}
+      className={`${className} flex items-start justify-between gap-14 border-t border-t-borderColor p-8`}
     >
-      <div className="flex flex-col items-start justify-center text-start p-2">
+      <div className="flex flex-col items-start justify-center text-start p-2 text-sm sm:text-base">
         <h3>
           <Logo title="Meta Blog" className="text-xl font-semibold" />
         </h3>
-        <p className="mt-4">
+        <p className="mt-4 font-semibold text-sm">
           inspired by{" "}
           <Link
             to="https://porto.gbjsolution.com/"
@@ -37,8 +37,8 @@ function Footer({ className }: FooterProps) {
         <Footer.Icons />
       </div>
 
-      <div className="flex flex-col ">
-        <div className="mb-2 px-4 text-sm dark:text-white/60">About:</div>
+      <div className="flex flex-col">
+        <div className="mb-2 px-3 text-sm dark:text-white/60">About:</div>
 
         {[
           { path: "/", text: "Contact us" },
@@ -47,6 +47,7 @@ function Footer({ className }: FooterProps) {
           <Button
             variant="ghost"
             asChild
+            size="sm"
             className="self-start"
             key={text + path}
           >
@@ -75,8 +76,14 @@ function FooterIcons() {
           icon: <DiscordSvgIcon className="scale-125 dark:fill-white" />,
         },
       ].map(({ url, icon }) => (
-        <Button variant="outline" className="rounded-full" asChild key={url}>
-          <a href={url} target="_blank" className="block w-12 h-12">
+        <Button
+          variant="outline"
+          size="sm"
+          className="rounded-full"
+          asChild
+          key={url}
+        >
+          <a href={url} target="_blank" className="block w-10 h-10">
             {icon}
           </a>
         </Button>

@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef } from "react";
 import { Link } from "react-router-dom";
 
-type LogoProps = { title?: string } & ComponentPropsWithoutRef<"span">;
-function Logo({ title, ...titleProps }: LogoProps) {
+type LogoProps = { title?: string } & ComponentPropsWithoutRef<"svg">;
+function Logo({ title, ...Props }: LogoProps) {
   return (
     <Link to="/" className="flex items-center justify-center gap-2">
       <svg
@@ -11,6 +11,7 @@ function Logo({ title, ...titleProps }: LogoProps) {
         viewBox="0 0 219 221"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        {...Props}
       >
         <mask
           id="mask0_106_49"
@@ -42,7 +43,7 @@ function Logo({ title, ...titleProps }: LogoProps) {
           </linearGradient>
         </defs>
       </svg>
-      <span {...titleProps}>{title}</span>
+      <span className="text-lg font-semibold font-Kaushan">{title}</span>
     </Link>
   );
 }

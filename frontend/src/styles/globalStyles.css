@@ -84,6 +84,9 @@
   .svg-pattern-background {
     @apply bg-cover bg-center bg-no-repeat [background-image:url("../assets/heroBackground.svg")];
   }
+  .font-Kaushan {
+    font-family: "Kaushan Script", system-ui;
+  }
 }
 
 @layer components {
