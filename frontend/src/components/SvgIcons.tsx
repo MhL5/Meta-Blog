@@ -121,7 +121,7 @@ export function MetaBlogLogoSvgIcon({ className, ...props }: SvgIconsProps) {
       viewBox="0 0 219 221"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${cn(className, "w-12 h-12")}`}
+      className={`${cn(className, " ")}`}
       {...props}
     >
       <mask
