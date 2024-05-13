@@ -1,17 +1,20 @@
 import { ComponentPropsWithoutRef } from "react";
 import { Link } from "react-router-dom";
 
-type LogoProps = { title?: string } & ComponentPropsWithoutRef<"svg">;
-function Logo({ title, ...Props }: LogoProps) {
+type LogoProps = { title?: string } & ComponentPropsWithoutRef<"a">;
+function Logo({ title, className, ...Props }: LogoProps) {
   return (
-    <Link to="/" className="flex items-center justify-center gap-2">
+    <Link
+      to="/"
+      className={`${className} flex items-center justify-center gap-2`}
+      {...Props}
+    >
       <svg
         width="30"
         height="30"
         viewBox="0 0 219 221"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        {...Props}
       >
         <mask
           id="mask0_106_49"

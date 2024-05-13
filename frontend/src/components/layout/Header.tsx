@@ -21,7 +21,7 @@ type NavigationMenuProps = {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-background/50 backdrop-blur-md">
       <NavigationMenu />
     </header>
   );
