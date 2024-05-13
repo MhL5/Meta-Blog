@@ -140,8 +140,8 @@ export default function SignUpPage() {
     <PageContainer>
       <div className="min-h-dvh flex flex-col">
         <Header />
-        <div className="m-auto p-8 capitalize">
-          <Tabs defaultValue="signup" className="w-[400px]">
+        <div className="m-auto px-2 py-8 sm:p-8 capitalize">
+          <Tabs defaultValue="signup" className="w-[330px] sm:w-[400px]">
             <TabsList className="w-full ">
               <TabsTrigger className="m-auto w-full" value="signup">
                 Sign up

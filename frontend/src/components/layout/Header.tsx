@@ -29,8 +29,8 @@ function Header() {
 
 function NavigationMenu({ className }: NavigationMenuProps) {
   return (
-    <nav className={`${className} m-auto p-4 py-4`}>
-      <ul className="flex items-center justify-between gap-8 text-sm font-bold">
+    <nav className={`${className} m-auto sm:p-4 p-2`}>
+      <ul className="flex items-center justify-between text-sm font-bold">
         <li className="flex gap-10 items-center justify-center">
           <div className="sm:hidden">
             <DropdownMenu>
@@ -70,7 +70,9 @@ function NavigationMenu({ className }: NavigationMenuProps) {
             </DropdownMenu>
           </div>
 
-          <Logo />
+          <div className="opacity-0 sm:opacity-100">
+            <Logo />
+          </div>
           <NavLink className="hidden sm:inline" to="/authors">
             Authors
           </NavLink>
@@ -82,7 +84,7 @@ function NavigationMenu({ className }: NavigationMenuProps) {
           </NavLink>
         </li>
 
-        <li className="m-auto sm:hidden">
+        <li className="sm:opacity-0">
           <Logo />
         </li>
 
