@@ -155,7 +155,11 @@ export default function SignUpPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    <Logo title="Meta Blog" className="scale-125 mb-2 p-1" />
+                    <Logo
+                      title="Meta Blog"
+                      className="scale-125 mb-2 p-1"
+                      disableLink
+                    />
                   </CardTitle>
                   <CardDescription className="text-center">
                     <span className="mb-4 mt-2 text-lg font-bold block">
@@ -208,7 +212,11 @@ export default function SignUpPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    <Logo title="Meta Blog" className="scale-125 mb-2 p-1" />
+                    <Logo
+                      title="Meta Blog"
+                      disableLink
+                      className="scale-125 mb-2 p-1"
+                    />
                   </CardTitle>
                   <CardDescription className="text-center">
                     <span className="mb-4 mt-2 text-lg font-bold block">
