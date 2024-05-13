@@ -10,7 +10,7 @@ function ErrorPage() {
       <div className="flex min-h-dvh flex-col">
         <Header />
         <div className="m-auto text-center">
-          <div className="my-14 text-4xl text-red-600">
+          <div className="my-14 text-4xl text-red-600 capitalize">
             ERROR: SOMETHING WENT WRONG!☹️
           </div>
           <Button asChild>
