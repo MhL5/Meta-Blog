@@ -9,15 +9,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { EllipsesVerticalSvgIcon } from "../SvgIcons";
 import Logo from "../ui/Logo";
 import Search from "../ui/Search";
 import ToggleTheme from "../../features/theme/ToggleTheme";
-import { EllipsesVerticalSvgIcon } from "../SvgIcons";
-
-type NavigationMenuProps = {
-  className?: string;
-};
 
 function Header() {
   return (
@@ -27,11 +22,11 @@ function Header() {
   );
 }
 
-function NavigationMenu({ className }: NavigationMenuProps) {
+function NavigationMenu() {
   return (
-    <nav className={`${className} m-auto sm:p-4 p-2`}>
+    <nav className="m-auto p-2 sm:p-4">
       <ul className="flex items-center justify-between text-sm font-bold">
-        <li className="flex gap-10 items-center justify-center">
+        <li className="flex items-center justify-center gap-10">
           <div className="sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -88,7 +83,7 @@ function NavigationMenu({ className }: NavigationMenuProps) {
           <Logo />
         </li>
 
-        <li className="flex gap-4 items-center justify-center">
+        <li className="flex items-center justify-center gap-4">
           <Search />
           <ToggleTheme />
 

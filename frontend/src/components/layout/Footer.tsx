@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 
 import { DiscordSvgIcon, GithubSvgIcon, TelegramSvgIcon } from "../SvgIcons";
-import Logo from "../ui/Logo";
 import { Button } from "../ui/button";
+import Logo from "../ui/Logo";
 
 type FooterProps = { className?: string };
 
 function Footer({ className }: FooterProps) {
   return (
     <footer
-      className={`${className} flex bg-background/30 backdrop-blur-sm items-start justify-between gap-14 border-t border-t-borderColor p-8`}
+      className={`${className} border-t-borderColor flex items-start justify-between gap-14 border-t bg-background/30 p-8 backdrop-blur-sm`}
     >
-      <div className="flex flex-col items-start justify-center text-start p-2 text-sm sm:text-base">
+      <div className="flex flex-col items-start justify-center p-2 text-start text-sm sm:text-base">
         <h3>
           <Logo title="Meta Blog" className="text-xl font-semibold" />
         </h3>
-        <p className="mt-4 font-semibold text-sm">
+        <p className="mt-4 text-sm font-semibold">
           inspired by{" "}
           <Link
             to="https://porto.gbjsolution.com/"
@@ -83,7 +83,7 @@ function FooterIcons() {
           asChild
           key={url}
         >
-          <a href={url} target="_blank" className="block w-10 h-10">
+          <a href={url} target="_blank" className="block h-10 w-10">
             {icon}
           </a>
         </Button>

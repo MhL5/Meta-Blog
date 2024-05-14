@@ -11,7 +11,7 @@ function NotFoundPage() {
       <div className="flex min-h-dvh flex-col">
         <Header />
         <div className="m-auto text-center">
-          <div className="my-14 text-4xl font-semibold text-red-600 capitalize">
+          <div className="my-14 text-4xl font-semibold capitalize text-red-600">
             page not found! 😞
           </div>
           <Button asChild>

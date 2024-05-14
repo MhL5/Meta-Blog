@@ -24,8 +24,8 @@ const router = createBrowserRouter(
 
       <Route path="signup" element={<SignUpPage />} />
       <Route path="*" element={<NotFoundPage />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 export { router };

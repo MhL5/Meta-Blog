@@ -138,9 +138,9 @@ export default function SignUpPage() {
 
   return (
     <PageContainer>
-      <div className="min-h-dvh flex flex-col">
+      <div className="flex min-h-dvh flex-col">
         <Header />
-        <div className="m-auto px-2 py-8 sm:p-8 capitalize">
+        <div className="m-auto px-2 py-8 capitalize sm:p-8">
           <Tabs defaultValue="signup" className="w-[330px] sm:w-[400px]">
             <TabsList className="w-full ">
               <TabsTrigger className="m-auto w-full" value="signup">
@@ -157,12 +157,12 @@ export default function SignUpPage() {
                   <CardTitle>
                     <Logo
                       title="Meta Blog"
-                      className="scale-125 mb-2 p-1"
+                      className="mb-2 scale-125 p-1"
                       disableLink
                     />
                   </CardTitle>
                   <CardDescription className="text-center">
-                    <span className="mb-4 mt-2 text-lg font-bold block">
+                    <span className="mb-4 mt-2 block text-lg font-bold">
                       Sign up
                     </span>
                     <span className="font-semibold">
@@ -196,7 +196,7 @@ export default function SignUpPage() {
                               </FormItem>
                             )}
                           />
-                        )
+                        ),
                       )}
 
                       <Button type="submit" className="w-full">
@@ -215,11 +215,11 @@ export default function SignUpPage() {
                     <Logo
                       title="Meta Blog"
                       disableLink
-                      className="scale-125 mb-2 p-1"
+                      className="mb-2 scale-125 p-1"
                     />
                   </CardTitle>
                   <CardDescription className="text-center">
-                    <span className="mb-4 mt-2 text-lg font-bold block">
+                    <span className="mb-4 mt-2 block text-lg font-bold">
                       Login
                     </span>
                     <span className="font-semibold">
@@ -253,7 +253,7 @@ export default function SignUpPage() {
                               </FormItem>
                             )}
                           />
-                        )
+                        ),
                       )}
 
                       <Button type="submit" className="w-full">

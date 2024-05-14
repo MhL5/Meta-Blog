@@ -50,6 +50,7 @@ export function MoonSvgIcon({
     </svg>
   );
 }
+
 export function DiscordSvgIcon({
   className = "h-6 w-6",
   ...props
@@ -66,6 +67,7 @@ export function DiscordSvgIcon({
     </svg>
   );
 }
+
 export function GithubSvgIcon({
   className = "h-6 w-6",
   ...props
@@ -82,6 +84,7 @@ export function GithubSvgIcon({
     </svg>
   );
 }
+
 export function TelegramSvgIcon({
   className = "h-6 w-6",
   ...props
@@ -98,6 +101,7 @@ export function TelegramSvgIcon({
     </svg>
   );
 }
+
 export function EllipsesVerticalSvgIcon({
   className = "h-6 w-6",
   ...props
@@ -113,6 +117,29 @@ export function EllipsesVerticalSvgIcon({
     </svg>
   );
 }
+
+export function SearchSvgIcon({
+  className = "h-6 w-6",
+  ...props
+}: SvgIconsProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      className={`${className} `}
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+  );
+}
+
 export function MetaBlogLogoSvgIcon({ className, ...props }: SvgIconsProps) {
   return (
     <svg
