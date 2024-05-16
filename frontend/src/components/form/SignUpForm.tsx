@@ -11,6 +11,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useSignUp } from "@/features/authentication/useSignUp";
 
 const signUpFormSchema = z
   .object({
@@ -78,6 +79,7 @@ const signUpFormFields = [
 ] as const;
 
 export default function SignUpForm() {
+  const { isPending, mutate } = useSignUp();
   // 1. Define your form.
   const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
@@ -89,11 +91,10 @@ export default function SignUpForm() {
     },
   });
 
-  function handleSignup(values: z.infer<typeof signUpFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    signUpForm.reset();
+  async function handleSignup(values: z.infer<typeof signUpFormSchema>) {
+    const user = mutate(values);
+    console.log(user);
+    // signUpForm.reset();
   }
 
   return (
@@ -120,7 +121,7 @@ export default function SignUpForm() {
         ))}
 
         <Button type="submit" className="w-full">
-          Submit
+          {isPending ? `LOADING...` : `Submit`}
         </Button>
       </form>
     </Form>
