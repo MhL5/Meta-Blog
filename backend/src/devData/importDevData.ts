@@ -6,7 +6,7 @@ import fs from "fs";
  * @requires dotenv
  * @requires mongoose
  * @requires fs module
- * 
+ *
  * 1. import your model as collection
  * @example import { ArticleModel as collection } from "../model/articleModel";
  *
@@ -16,16 +16,17 @@ import fs from "fs";
  * 3. run the script with --delete to delete everything inside the collection
  * @example bun importDevData.ts --delete
  *
- * 4. update the jsonData path 
+ * 4. update the jsonData path
  * @example const jsonData = JSON.parse(fs.readFileSync(`${__dirname}/EXAMPLE.json`, "utf-8"));
- * 
+ *
  * 5. run this script with --import to import your json file
  * @example bun importDevData.ts --import
  */
-import { ArticleViewModel as collection } from "../model/articleViewModel";
+
+import { UserModel as collection } from "../model/userModel";
 dotenv.config({ path: `${__dirname}/../../config.env` });
 const jsonData = JSON.parse(
-  fs.readFileSync(`${__dirname}/viewData.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/userData.json`, "utf-8")
 );
 
 let DB = null;
@@ -50,7 +51,7 @@ DB
 async function importData() {
   try {
     // use { validateBeforeSave: false } if you need
-    await collection.create(jsonData);
+    await collection.create(jsonData, { validateBeforeSave: false });
 
     console.log(`Data Successfully loaded.📜`);
   } catch (error) {

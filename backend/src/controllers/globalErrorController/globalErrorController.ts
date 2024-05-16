@@ -21,10 +21,12 @@ type OperationalError = {
  */
 
 export function isOperationalError(err: unknown): err is OperationalError {
-  return typeof err === "object" &&
-      err !== null &&
-      "isOperational" in err &&
-      (err as OperationalError).isOperational;
+  return (
+    typeof err === "object" &&
+    err !== null &&
+    "isOperational" in err &&
+    (err as OperationalError).isOperational
+  );
 }
 
 function globalErrorController(
@@ -84,7 +86,7 @@ function globalErrorController(
 
 function sendErrorForDev(err: AppError, req: Request, res: Response) {
   const { statusCode, status, message, stack } = err;
-  
+
   res.status(statusCode || 500).json({
     status: status || "fail",
     error: err || "unknown error",
@@ -103,7 +105,6 @@ function sendErrorProduction(err: unknown, req: Request, res: Response) {
   }
 
   // Programming or other unknown error: don't leak error details
-  console.log(err);
   return res.status(500).json({
     status: "error",
     message: "Something went very wrong! internal Error",
