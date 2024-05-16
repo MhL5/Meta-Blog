@@ -1,4 +1,5 @@
 import { InferSchemaType, Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 
 type User = InferSchemaType<typeof userSchema>;
 
@@ -69,5 +70,22 @@ const userSchema = new Schema(
 );
 
 const UserModel = model<User>("User", userSchema);
+
+// ! YOUTUBE 3:51
+userSchema.pre("save", async function (next) {
+  // guard clause - only run if password is modified
+  if (!this.isModified("password")) return next();
+
+  // Hashing and salting 😀
+  this.password = await bcrypt.hash(this.password, 12);
+  console.log(`After hashing and salting:`, this.password);
+
+  // delete the passwordConfirm field
+  // we only defined passwordConfirm as an extra layer of protection and validation
+  // @ts-expect-error there is no need to store passwordConfirm in DB
+  this.passwordConfirm = undefined;
+
+  next();
+});
 
 export { UserModel };

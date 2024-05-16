@@ -19,16 +19,12 @@ type OperationalError = {
  * @param err - The error to be checked.
  * @returns The operational error object if the error is operational, otherwise null.
  */
-export function isOperationalError(err: unknown): err is OperationalError {
-  if (
-    typeof err === "object" &&
-    err !== null &&
-    "isOperational" in err &&
-    (err as OperationalError).isOperational
-  )
-    return true;
 
-  return false;
+export function isOperationalError(err: unknown): err is OperationalError {
+  return typeof err === "object" &&
+      err !== null &&
+      "isOperational" in err &&
+      (err as OperationalError).isOperational;
 }
 
 function globalErrorController(

@@ -24,12 +24,14 @@
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/hpp": "^0.2.6",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
+    "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

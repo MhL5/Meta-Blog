@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import { Link } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
@@ -10,21 +10,16 @@ type LogoProps = {
 } & ComponentPropsWithoutRef<"a">;
 
 function Logo({ title, disableLink = false, className, ...props }: LogoProps) {
-  const Component = disableLink ? DisableLink : Link;
   return (
-    <Component
-      to="/"
+    <Link
+      to={disableLink ? "#" : "/"}
       className={`${cn(className, "flex items-center justify-center gap-2")}`}
       {...props}
     >
       <MetaBlogLogoSvgIcon />
       <span className="font-Kaushan text-lg font-semibold">{title}</span>
-    </Component>
+    </Link>
   );
-}
-
-function DisableLink({ children }: PropsWithChildren) {
-  return <div>{children}</div>;
 }
 
 export default Logo;
