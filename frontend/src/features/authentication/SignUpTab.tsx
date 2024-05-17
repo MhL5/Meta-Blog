@@ -1,6 +1,4 @@
 import Logo from "@/components/ui/Logo";
-import LoginForm from "@/components/form/LoginForm";
-import SignUpForm from "@/components/form/SignUpForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
@@ -9,10 +7,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import LoginForm from "@/features/authentication/LoginForm";
+import SignUpForm from "@/features/authentication/SignUpForm";
+import { useState } from "react";
 
 export default function SignUpTab() {
+  const [tabVal, setTabVal] = useState("signup");
+
+  function handleTab(tab: "signup" | "login") {
+    setTabVal(tab);
+  }
+
   return (
-    <Tabs defaultValue="signup" className="w-[330px] sm:w-[400px]">
+    <Tabs
+      value={tabVal}
+      onValueChange={setTabVal}
+      defaultValue="signup"
+      className="w-[330px] sm:w-[400px]"
+    >
       <TabsList className="w-full ">
         <TabsTrigger className="m-auto w-full" value="signup">
           Sign up
@@ -42,7 +54,7 @@ export default function SignUpTab() {
           </CardHeader>
 
           <CardContent>
-            <SignUpForm />
+            <SignUpForm onTabChange={handleTab} />
           </CardContent>
         </Card>
       </TabsContent>

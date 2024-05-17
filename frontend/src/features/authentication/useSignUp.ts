@@ -1,9 +1,16 @@
+import { useToast } from "@/components/ui/use-toast";
 import { axiosApi } from "@/services/axiosApi";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 
 export function useSignUp() {
-  const { mutate, isPending, error } = useMutation({
+  const { toast } = useToast();
+
+  const {
+    mutate: SignUp,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: async (newUser: {
       fullName: string;
       email: string;
@@ -14,15 +21,15 @@ export function useSignUp() {
 
       return user;
     },
-    onSuccess: (s) => {
-      console.log(s);
-      console.log(`well done`);
-    },
-    onError: (e) => {
-      if (isAxiosError(e)) console.log(e?.response?.data.error);
-      console.log(`sadge`);
+    // There is a onSuccess handler in SignUpForm Controller
+    onError: (err) => {
+      toast({
+        variant: "destructive",
+        title: "Error, Something went wrong",
+        description: `${isAxiosError(err) ? err.response?.data.message : err.message}`,
+      });
     },
   });
 
-  return { mutate, isPending, error };
+  return { SignUp, isPending, error };
 }
