@@ -1,7 +1,8 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
-type User = InferSchemaType<typeof userSchema>;
+export type User = InferSchemaType<typeof userSchema>;
 
 const userSchema = new Schema(
   {
@@ -57,9 +58,10 @@ const userSchema = new Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    emailVerificationToken: String,
     active: {
       type: Boolean,
-      default: true,
+      default: false,
       select: false,
     },
   },
@@ -85,6 +87,18 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
+// Generate an emailVerificationToken.
+userSchema.methods.generateVerificationToken = function () {
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+  
+  this.emailVerificationToken = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  return verificationToken;
+};
 
 const UserModel = model<User>("User", userSchema);
 
