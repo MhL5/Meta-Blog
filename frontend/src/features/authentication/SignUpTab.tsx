@@ -9,14 +9,42 @@ import {
 } from "@/components/ui/card";
 import LoginForm from "@/features/authentication/LoginForm";
 import SignUpForm from "@/features/authentication/SignUpForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SignUpTab() {
   const [tabVal, setTabVal] = useState("signup");
+  const [searchParams] = useSearchParams();
+  const { toast } = useToast();
+  const [showToast, setShowToast] = useState(false);
+  const tabSearchParam = searchParams.get(`tab`);
+  const welcomeSearchParam = searchParams.get(`welcome`);
 
   function handleTab(tab: "signup" | "login") {
     setTabVal(tab);
   }
+
+  useEffect(() => {
+    if (tabSearchParam === "login" || tabSearchParam === "signup")
+      setTabVal(tabSearchParam);
+
+    const showWelcomeToast = localStorage.getItem("showWelcomeToast");
+
+    // Because backend redirects us to this page
+    // we need to update this state in order for our toast welcome to work and trigger it automatically
+    // without this state our toast won't work on redirect
+    setShowToast(true);
+    if (showToast && welcomeSearchParam && showWelcomeToast !== "don't show") {
+      toast({
+        variant: "secondary",
+        title: "Welcome to Meta Blog community 🎉",
+        description: "Your account is now activated.",
+      });
+      localStorage.setItem("showWelcomeToast", "don't show");
+      setShowToast(false);
+    }
+  }, [tabSearchParam, welcomeSearchParam, toast, showToast]);
 
   return (
     <Tabs
