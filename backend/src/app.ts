@@ -151,6 +151,12 @@ app.use(customXssSanitizer);
 app.use(compression());
 
 /**
+ * 13. reduce finger printing
+ * @see https://expressjs.com/en/advanced/best-practice-security.html
+ */
+app.disable("x-powered-by");
+
+/**
  *
  *
  * * NOW WE CAN START MOUNTING ROUTERS

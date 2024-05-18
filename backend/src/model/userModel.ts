@@ -59,6 +59,7 @@ const userSchema = new Schema(
     passwordResetToken: String,
     passwordResetExpires: Date,
     emailVerificationToken: String,
+    emailVerificationTokenExpires: Date,
     active: {
       type: Boolean,
       default: false,
@@ -91,7 +92,7 @@ userSchema.pre("save", async function (next) {
 // Generate an emailVerificationToken.
 userSchema.methods.generateVerificationToken = function () {
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  
+
   this.emailVerificationToken = crypto
     .createHash("sha256")
     .update(verificationToken)

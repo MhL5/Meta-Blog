@@ -3,6 +3,7 @@ import { AppError } from "../utils/appError";
 import { UserModel } from "../model/userModel";
 import Email from "../utils/email";
 import crypto from "crypto";
+import { generateReadHashedToken } from "../utils/generateHashedToken";
 
 const signUp = catchAsync(async (req, res, next) => {
   // 1. extracting user signup required fields
@@ -28,7 +29,9 @@ const signUp = catchAsync(async (req, res, next) => {
     );
 
   // generating user email verification token
-  const verificationToken = crypto.randomBytes(32).toString("hex");
+  // const verificationToken = crypto.randomBytes(32).toString("hex");
+  const verificationToken = generateReadHashedToken().generate();
+  const emailVerificationTokenExpires = Date.now() + 10 * 60 * 1000;
 
   // 4. creating a new user: hashing and salting happens on pre save
   const newUser = await UserModel.create({
@@ -36,7 +39,11 @@ const signUp = catchAsync(async (req, res, next) => {
     email,
     password,
     passwordConfirm,
-    emailVerificationToken: verificationToken,
+    emailVerificationToken: crypto
+      .createHash("sha256")
+      .update(verificationToken)
+      .digest("hex"),
+    emailVerificationTokenExpires,
   });
 
   // 5. removing the unwanted fields
@@ -55,24 +62,29 @@ const signUp = catchAsync(async (req, res, next) => {
 });
 
 const verifyEmail = catchAsync(async (req, res, next) => {
-  // Find the user based on the token.
+  // Get the token from the URL.
+  const hashedToken = generateReadHashedToken().readHash(
+    req.params.token || ""
+  );
+
+  // 1. Find the user based on the token.
   const user = await UserModel.findOne({
-    emailVerificationToken: req.params.token,
+    emailVerificationToken: hashedToken,
+    emailVerificationTokenExpires: { $gt: Date.now() },
   });
 
-  if (!user) {
-    // there is no `verification-error` page and it will end up in not found page
-    res.redirect("http://localhost:5173/verification-error");
-    return next(new AppError("Token is invalid or has expired", 400));
-  }
+  if (!user)
+    return res.redirect(
+      "http://localhost:5173/error?error=token-is-invalid-or-expired&statusCode=400"
+    );
 
   // Update the user's emailVerificationToken and
   user.emailVerificationToken = undefined;
+  user.emailVerificationTokenExpires = undefined;
   user.active = true;
 
   // Save the changes.
   await user.save({ validateBeforeSave: false });
-  // http://localhost:5173/signup?tab=login&welcome=true
   return res.redirect("http://localhost:5173/signup?tab=login&welcome=true");
 });
 
