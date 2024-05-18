@@ -2,7 +2,6 @@ import catchAsync from "../utils/catchAsync";
 import { AppError } from "../utils/appError";
 import { UserModel } from "../model/userModel";
 import Email from "../utils/email";
-import crypto from "crypto";
 import { generateReadHashedToken } from "../utils/generateHashedToken";
 
 const signUp = catchAsync(async (req, res, next) => {
@@ -28,44 +27,38 @@ const signUp = catchAsync(async (req, res, next) => {
       )
     );
 
-  // generating user email verification token
-  // const verificationToken = crypto.randomBytes(32).toString("hex");
-  const verificationToken = generateReadHashedToken().generate();
+  // 4. generating user email verification token
+  const verificationToken = generateReadHashedToken.generate();
   const emailVerificationTokenExpires = Date.now() + 10 * 60 * 1000;
 
-  // 4. creating a new user: hashing and salting happens on pre save
+  // 5. creating a new user:
+  // hashing and salting happens on pre save
   const newUser = await UserModel.create({
     fullName,
     email,
     password,
     passwordConfirm,
-    emailVerificationToken: crypto
-      .createHash("sha256")
-      .update(verificationToken)
-      .digest("hex"),
+    emailVerificationToken: generateReadHashedToken.toHash(verificationToken),
     emailVerificationTokenExpires,
   });
 
-  // 5. removing the unwanted fields
+  // 6. removing the unwanted fields
   const unwantedFields = ["password", "active"] as const;
   unwantedFields.forEach((field) => delete newUser[field]);
 
-  // 6. send an email
-  // `${req.protocol}://${req.get("host")}/api/v1/users/resetpassword/${resetToken}`
+  // 7. send an email
   const url = `${req.protocol}://${req.get(
     "host"
   )}/api/v1/users/verify-email/${verificationToken}`;
   await new Email(newUser, url).sendWelcome();
 
-  // 7. send the user as response
+  // 8. send the user as response
   res.status(201).json({ status: "success", data: newUser });
 });
 
 const verifyEmail = catchAsync(async (req, res, next) => {
   // Get the token from the URL.
-  const hashedToken = generateReadHashedToken().readHash(
-    req.params.token || ""
-  );
+  const hashedToken = generateReadHashedToken.readHash(req.params.token || "");
 
   // 1. Find the user based on the token.
   const user = await UserModel.findOne({
