@@ -5,7 +5,11 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "start:prod": "set NODE_ENV=production&&nodemon src/server.ts",
+    "start:prodDebug": "set NODE_ENV=production&&ndb src/server.ts",
+    "start:debugger": "nodemon --inspect src/server.ts",
+    "debug": "ndb src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,12 +28,16 @@
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/hpp": "^0.2.6",
+    "@types/html-to-text": "^9.0.4",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
+    "@types/nodemailer": "^6.4.15",
+    "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -39,9 +47,12 @@
     "express-rate-limit": "^7.2.0",
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
+    "html-to-text": "^9.0.5",
     "jsonwebtoken": "^9.0.2",
+    "mailgun-nodemailer-transport": "^3.0.2",
     "mongoose": "^8.3.3",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.13",
     "xss": "^1.0.15",
     "zod": "^3.23.6"
   }

@@ -1,10 +1,12 @@
 import { InferSchemaType, Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
-type User = InferSchemaType<typeof userSchema>;
+export type User = InferSchemaType<typeof userSchema>;
 
 const userSchema = new Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: [true, "please tell us your name"],
       trim: true,
@@ -45,8 +47,7 @@ const userSchema = new Schema(
       select: false,
       minLength: 8,
       validate: {
-        // !This only works on create and save! example: user.create | user.save
-        // !  so we have to use save not update and ...
+        // !  This only works on create and save! example: user.create | user.save
         validator: function (curEl: string): boolean {
           // @ts-expect-error ts trows an error because this only works on create and save as explained above
           return this.password === curEl;
@@ -57,9 +58,11 @@ const userSchema = new Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    emailVerificationToken: String,
+    emailVerificationTokenExpires: Date,
     active: {
       type: Boolean,
-      default: true,
+      default: false,
       select: false,
     },
   },
@@ -67,6 +70,36 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre("save", async function (next) {
+  // guard clause - only run if password is modified
+  console.log(`pre save`);
+  if (!this.isModified("password")) return next();
+  console.log(`pre save`);
+
+  // Hashing and salting 😀
+  this.password = await bcrypt.hash(this.password, 12);
+  console.log(`After hashing and salting:`, this.password);
+
+  // delete the passwordConfirm field
+  // we only defined passwordConfirm as an extra layer of protection and validation
+  // @ts-expect-error there is no need to store passwordConfirm in DB
+  this.passwordConfirm = undefined;
+
+  next();
+});
+
+// Generate an emailVerificationToken.
+userSchema.methods.generateVerificationToken = function () {
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+
+  this.emailVerificationToken = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  return verificationToken;
+};
 
 const UserModel = model<User>("User", userSchema);
 

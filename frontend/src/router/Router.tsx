@@ -23,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="tags" element={<TagsPage />} />
 
       <Route path="signup" element={<SignUpPage />} />
+      <Route path="/notfound" element={<NotFoundPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),

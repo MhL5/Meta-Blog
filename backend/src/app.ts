@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import cors from "cors";
 import articleRouter from "./routes/articleRouter";
+import userRouter from "./routes/userRouter";
 import helmet from "helmet";
 import globalErrorController from "./controllers/globalErrorController/globalErrorController";
 import { AppError } from "./utils/appError";
@@ -150,6 +151,12 @@ app.use(customXssSanitizer);
 app.use(compression());
 
 /**
+ * 13. reduce finger printing
+ * @see https://expressjs.com/en/advanced/best-practice-security.html
+ */
+app.disable("x-powered-by");
+
+/**
  *
  *
  * * NOW WE CAN START MOUNTING ROUTERS
@@ -157,6 +164,7 @@ app.use(compression());
  *
  */
 app.use("/api/v1/articles", articleRouter);
+app.use("/api/v1/users", userRouter);
 
 /**
  * 404 not found
