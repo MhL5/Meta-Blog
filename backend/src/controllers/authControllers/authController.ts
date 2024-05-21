@@ -3,8 +3,11 @@ import { AppError } from "../../utils/appError";
 import { UserModel } from "../../model/userModel";
 import Email from "../../utils/email";
 import { generateReadHashedToken } from "../../utils/generateHashedToken";
-import jwt from "jsonwebtoken";
-import { env } from "../../utils/env";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  setAuthCookiesAndRespond,
+} from "./utils/generateAuthTokens";
 
 const login = catchAsync(async (req, res, next) => {
   const cookies = req.cookies;
@@ -32,23 +35,9 @@ const login = catchAsync(async (req, res, next) => {
     );
 
   // 4. if everything ok send the data
-  // console.log(user);
   // create jwt
-  const accessToken = jwt.sign(
-    {
-      UserInfo: {
-        email: user.email,
-        roles: user.role,
-      },
-    },
-    env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "10s" }
-  );
-  const newRefreshToken = jwt.sign(
-    { username: user.email },
-    env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "1d" }
-  );
+  const accessToken = generateAccessToken({ res, user });
+  const newRefreshToken = generateRefreshToken({ res, user });
 
   // Changed to let keyword
   let newRefreshTokenArray = !cookies?.jwt
@@ -75,20 +64,21 @@ const login = catchAsync(async (req, res, next) => {
   // Saving refreshToken with current user
   user.refreshToken = [...newRefreshTokenArray, newRefreshToken];
   await user.save();
-  // console.log(result);
-
-  // Creates Secure Cookie with refresh token
-  res.cookie("jwt", newRefreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 24 * 60 * 60 * 1000,
-  });
 
   // Send authorization roles and access token to user
-  // user.refreshToken = [];
-  // res.status(200).json({ user, accessToken });
-  res.json({ role: user.role, accessToken });
+  user.refreshToken = [];
+
+  // Creates Secure Cookie with refresh token
+  // ! TEST
+  // res.cookie("jwt", newRefreshToken, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: "none",
+  //   maxAge: 24 * 60 * 60 * 1000,
+  // });
+
+  // res.json({ role: user.role, accessToken });
+  setAuthCookiesAndRespond({ res, user, newRefreshToken, accessToken });
 });
 
 const signUp = catchAsync(async (req, res, next) => {

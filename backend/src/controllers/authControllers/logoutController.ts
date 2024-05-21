@@ -1,5 +1,6 @@
 import { UserModel } from "../../model/userModel";
 import catchAsync from "../../utils/catchAsync";
+import { cookieCleaner } from "./utils/generateAuthTokens";
 
 const handleLogout = catchAsync(async (req, res, next) => {
   // On client, also delete the accessToken
@@ -10,7 +11,7 @@ const handleLogout = catchAsync(async (req, res, next) => {
   // Is refreshToken in db?
   const foundUser = await UserModel.findOne({ refreshToken }).exec();
   if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
+    cookieCleaner({ res });
     return res.sendStatus(204);
   }
 
@@ -19,10 +20,9 @@ const handleLogout = catchAsync(async (req, res, next) => {
     (rt) => rt !== refreshToken
   );
   await foundUser.save();
-  // console.log(result);
 
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
+  cookieCleaner({ res });
   res.sendStatus(204);
 });
 
-module.exports = { handleLogout };
+export { handleLogout };

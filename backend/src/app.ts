@@ -41,15 +41,17 @@ const app = express();
  */
 
 /**
+ * 4. morgan: development logging functionality
+ * @link https://www.npmjs.com/package/morgan
+ */
+if (env.NODE_ENV.toLocaleLowerCase() === "development") app.use(morgan("dev"));
+
+/**
  * 1. Cors: Cross origin resource sharing
  * @link https://www.npmjs.com/package/cors
  */
 export const allowedOrigins = ["http://localhost:5173"];
 // Set the Cross-Origin-Resource-Policy header
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  next();
-});
 app.use(
   cors({
     credentials: true,
@@ -72,13 +74,11 @@ app.use(express.static(path.join(__dirname, "../public")));
  * 3. helmet: set security http headers
  * @link https://helmetjs.github.io
  */
-app.use(helmet());
-
-/**
- * 4. morgan: development logging functionality
- * @link https://www.npmjs.com/package/morgan
- */
-if (env.NODE_ENV.toLocaleLowerCase() === "development") app.use(morgan("dev"));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 
 /**
  * 5. rate limiter
@@ -171,9 +171,6 @@ app.disable("x-powered-by");
  */
 app.use("/api/v1/users", userRouter);
 app.use(verifyJWT);
-app.use("/api/v1/test", async (req, res, next) => {
-  res.status(200).json({ message: "nice" });
-});
 app.use("/api/v1/articles", articleRouter);
 
 /**
