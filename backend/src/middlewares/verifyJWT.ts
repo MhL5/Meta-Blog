@@ -22,9 +22,9 @@ const verifyJWT = catchAsyncMiddleware(async (req, res, next) => {
 
   if (!authHeader?.startsWith("Bearer "))
     return next(new AppError("not a valid Bearer token", 400));
-  const token = authHeader.split(" ")[1] || "";
+  const accessToken = authHeader.split(" ")[1] || "";
 
-  jwt.verify(token, env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(accessToken, env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     console.log(`verifyJWT decoded 17`, decoded);
     if (err) return next(new AppError("invalid access token", 400)); //invalid token
 
