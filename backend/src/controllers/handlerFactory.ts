@@ -7,7 +7,7 @@
  * - `getOne`: Retrieves a document with the specified ID from the model.
  * - `getAll`: Retrieves all documents from the model, with optional filtering, sorting, field selection, and pagination.
  *
- * Each function is wrapped in a `catchAsync` function to handle any errors that may occur during the asynchronous operations.
+ * Each function is wrapped in a `catchAsyncMiddleware` function to handle any errors that may occur during the asynchronous operations.
  *
  * @param FactoryModel The model to perform the CRUD operations on.
  * @param popOptions Optional. The population options for the `getOne` function.
@@ -16,11 +16,11 @@
 
 import APIfeatures from "../utils/apiFeatures";
 import { AppError } from "../utils/appError";
-import catchAsync from "../utils/catchAsync";
+import { catchAsyncMiddleware } from "../utils/catchAsync";
 import { Model, PopulateOptions } from "mongoose";
 
 const deleteOne = <K>(FactoryModel: Model<K>) => {
-  return catchAsync(async (req, res, next) => {
+  return catchAsyncMiddleware(async (req, res, next) => {
     const doc = await FactoryModel.findByIdAndDelete(req.params.id);
 
     if (!doc) return next(new AppError("No document found with that ID", 404));
@@ -30,7 +30,7 @@ const deleteOne = <K>(FactoryModel: Model<K>) => {
 };
 
 const updateOne = <K>(FactoryModel: Model<K>) => {
-  return catchAsync(async (req, res, next) => {
+  return catchAsyncMiddleware(async (req, res, next) => {
     const doc = await FactoryModel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -48,7 +48,7 @@ const updateOne = <K>(FactoryModel: Model<K>) => {
 };
 
 const createOne = <K>(FactoryModel: Model<K>) => {
-  return catchAsync(async (req, res, next) => {
+  return catchAsyncMiddleware(async (req, res, next) => {
     const newDoc = await FactoryModel.create(req.body);
 
     res.status(201).json({
@@ -64,7 +64,7 @@ const getOne = <K>(
   FactoryModel: Model<K>,
   popOptions?: PopulateOptions | (string | PopulateOptions)[]
 ) => {
-  return catchAsync(async (req, res, next) => {
+  return catchAsyncMiddleware(async (req, res, next) => {
     const { id } = req.params;
 
     let query = FactoryModel.findById(id);
@@ -86,7 +86,7 @@ const getOne = <K>(
 };
 
 const getAll = <K>(FactoryModel: Model<K>) => {
-  return catchAsync(async (req, res, next) => {
+  return catchAsyncMiddleware(async (req, res, next) => {
     //TODO: Fixing this workaround
     // To allow for nested route reviews on tour
     let filter = {};

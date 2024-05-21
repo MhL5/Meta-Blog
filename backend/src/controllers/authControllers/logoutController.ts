@@ -1,8 +1,8 @@
 import { UserModel } from "../../model/userModel";
-import catchAsync from "../../utils/catchAsync";
+import { catchAsyncMiddleware } from "../../utils/catchAsync";
 import { cookieCleaner } from "./utils/generateAuthTokens";
 
-const handleLogout = catchAsync(async (req, res, next) => {
+const handleLogout = catchAsyncMiddleware(async (req, res, next) => {
   // On client, also delete the accessToken
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); //No content

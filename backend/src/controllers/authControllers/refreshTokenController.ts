@@ -1,7 +1,7 @@
 import { UserModel } from "../../model/userModel";
 import jwt from "jsonwebtoken";
 import { env } from "../../utils/env";
-import catchAsync from "../../utils/catchAsync";
+import { catchAsyncMiddleware } from "../../utils/catchAsync";
 import { AppError } from "../../utils/appError";
 import {
   cookieCleaner,
@@ -10,7 +10,7 @@ import {
   setAuthCookiesAndRespond,
 } from "./utils/generateAuthTokens";
 
-const handleRefreshToken = catchAsync(async (req, res, next) => {
+const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   const cookies = req.cookies;
 
   if (!cookies?.jwt)

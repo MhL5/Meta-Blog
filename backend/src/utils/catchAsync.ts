@@ -7,11 +7,11 @@ type Fn = (req: Request, res: Response, next: NextFunction) => Promise<unknown>;
  * this functions aims to replace the need of writing try catch blocks for express async middlewares
  *
  * @example
- * catchAsync(async (req, res, next) => {
+ * catchAsyncMiddleware(async (req, res, next) => {
  *   await doSomething();
  * });
  */
-export default function catchAsync(fn: Fn) {
+export function catchAsyncMiddleware(fn: Fn) {
   return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res, next).catch(next);
   };

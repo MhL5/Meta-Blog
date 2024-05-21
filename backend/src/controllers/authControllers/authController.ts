@@ -1,4 +1,4 @@
-import catchAsync from "../../utils/catchAsync";
+import { catchAsyncMiddleware } from "../../utils/catchAsync";
 import { AppError } from "../../utils/appError";
 import { UserModel } from "../../model/userModel";
 import Email from "../../utils/email";
@@ -9,7 +9,7 @@ import {
   setAuthCookiesAndRespond,
 } from "./utils/generateAuthTokens";
 
-const login = catchAsync(async (req, res, next) => {
+const login = catchAsyncMiddleware(async (req, res, next) => {
   const cookies = req.cookies;
   // 1. username and password exist?
   const { password, email } = req.body;
@@ -81,7 +81,7 @@ const login = catchAsync(async (req, res, next) => {
   setAuthCookiesAndRespond({ res, user, newRefreshToken, accessToken });
 });
 
-const signUp = catchAsync(async (req, res, next) => {
+const signUp = catchAsyncMiddleware(async (req, res, next) => {
   // 1. extracting user signup required fields
   const { fullName, email, password, passwordConfirm } = req.body;
 
@@ -133,7 +133,7 @@ const signUp = catchAsync(async (req, res, next) => {
   res.status(201).json({ status: "success", data: newUser });
 });
 
-const verifyEmail = catchAsync(async (req, res, next) => {
+const verifyEmail = catchAsyncMiddleware(async (req, res, next) => {
   // Get the token from the URL.
   const hashedToken = generateReadHashedToken.readHash(req.params.token || "");
 

@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import { env } from "../utils/env";
-import catchAsync from "../utils/catchAsync";
+import { catchAsyncMiddleware } from "../utils/catchAsync";
 // import { AppError } from "../utils/appError";
 
-const verifyJWT = catchAsync(async (req, res, next) => {
+const verifyJWT = catchAsyncMiddleware(async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
 
   console.log(authHeader);
