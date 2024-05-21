@@ -19,6 +19,10 @@ import { AppError } from "../utils/appError";
 import { catchAsyncMiddleware } from "../utils/catchAsync";
 import { Model, PopulateOptions } from "mongoose";
 
+/**
+ * deletes a document from the specified model.
+ * sends the status code of 204 as response
+ */
 const deleteOne = <K>(FactoryModel: Model<K>) => {
   return catchAsyncMiddleware(async (req, res, next) => {
     const doc = await FactoryModel.findByIdAndDelete(req.params.id);
@@ -29,6 +33,10 @@ const deleteOne = <K>(FactoryModel: Model<K>) => {
   });
 };
 
+/**
+ * Updates a document from the specified model.
+ * sends the newly updated document as a response
+ */
 const updateOne = <K>(FactoryModel: Model<K>) => {
   return catchAsyncMiddleware(async (req, res, next) => {
     const doc = await FactoryModel.findByIdAndUpdate(req.params.id, req.body, {
@@ -47,6 +55,10 @@ const updateOne = <K>(FactoryModel: Model<K>) => {
   });
 };
 
+/**
+ * Creates a new document in the specified model.
+ * sends the newly created document as a response
+ */
 const createOne = <K>(FactoryModel: Model<K>) => {
   return catchAsyncMiddleware(async (req, res, next) => {
     const newDoc = await FactoryModel.create(req.body);
@@ -60,6 +72,10 @@ const createOne = <K>(FactoryModel: Model<K>) => {
   });
 };
 
+/**
+ * Retrieves one document from the specified model
+ * with optional populate
+ */
 const getOne = <K>(
   FactoryModel: Model<K>,
   popOptions?: PopulateOptions | (string | PopulateOptions)[]
@@ -85,6 +101,13 @@ const getOne = <K>(
   });
 };
 
+/**
+ * Retrieves all documents from the specified model with
+ *  * optional filtering
+ *  * sorting
+ *  * field limiting
+ *  * pagination
+ */
 const getAll = <K>(FactoryModel: Model<K>) => {
   return catchAsyncMiddleware(async (req, res, next) => {
     //TODO: Fixing this workaround
