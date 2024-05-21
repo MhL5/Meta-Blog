@@ -5,6 +5,7 @@ import { MongoError } from "mongodb";
 import { Error as mongooseError, CastError } from "mongoose";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 import * as errorHandler from "./errorHandlers";
+import { cloneError } from "../../utils/deepCloneObj";
 
 type OperationalError = {
   statusCode: number;
@@ -52,13 +53,12 @@ function globalErrorController(
      * this means we can't copy all of its properties
      * this can cause un expected behaviors since errCopy doesn't include Non-enumerable properties
      * a workaround is to use err in our if statement instead of our errCopy
+     * 
+     * @note i prefer to use err even though im using deep clone its safer
      */
 
-    let errCopy = null;
-    if (typeof err === "object") errCopy = { ...err };
-    // TODO: Test this and if it works refactor the code
-    // ? experiment: need to be tested to ensure that this method works
-    // if (typeof err === "object") errCopy = structuredClone(err);;
+    let errCopy = err;
+    if (err instanceof Error) errCopy = cloneError(err);
 
     // invalidId DB error:
     if ((err as CastError)?.name === "CastError")
@@ -86,6 +86,9 @@ function globalErrorController(
   }
 }
 
+/**
+ * Sends error response in development environment.
+ */
 function sendErrorForDev(err: AppError, req: Request, res: Response) {
   const { statusCode, status, message, stack } = err;
 
@@ -97,6 +100,11 @@ function sendErrorForDev(err: AppError, req: Request, res: Response) {
   });
 }
 
+/**
+ * Sends an error response to the client in a production environment.
+ * * If the error is an operational error, it sends the error message to the client with the corresponding status code.
+ * * If the error is a programming or unknown error, it sends a generic error message with a status code of 500.
+ */
 function sendErrorProduction(err: unknown, req: Request, res: Response) {
   // Operational trusted error: send message to the client
   if (isOperationalError(err)) {
