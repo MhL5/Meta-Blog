@@ -5,6 +5,10 @@ import { type IUser } from "../model/userModel";
 import { env } from "./env";
 import { readFile } from "fs/promises";
 
+/**
+ * Represents an email message and provides methods to send different types of emails.
+ * This class allows sending emails to users with customized content and templates.
+ */
 export default class Email {
   to: string;
   firstName: string;
@@ -97,13 +101,3 @@ export default class Email {
   //     );
   //   }
 }
-
-// * it's not a good idea to use gmail in production because we will quickly get spammed and 500 per day limit
-// * ACTIVE IN GMAIL: LESS SECURE APP
-//   const transporter = nodemailer.createTransport({
-//     service: "Gmail",
-//     auth: {
-//       user: env.EMAIL_USERNAME,
-//       pass: env.EMAIL_PASSWORD,
-//     },
-//   });
