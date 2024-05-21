@@ -18,6 +18,7 @@ const articleViewSchema = new Schema({
   },
 });
 
+// Todo: this does not work probably
 // Ensure each IP address can only count once per article per day
 articleViewSchema.index(
   { articleId: 1, ipAddress: 1, createdAt: 1 },
