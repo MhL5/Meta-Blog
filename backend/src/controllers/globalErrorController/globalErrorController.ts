@@ -47,14 +47,14 @@ function globalErrorController(
   // production environment errors
   if (env.NODE_ENV.toLowerCase() === "production") {
     /**
-     * * WARNING:
-     * TODO:
+     * @explanation
      * err might contain Non-enumerable properties
      * this means we can't copy all of its properties
      * this can cause un expected behaviors since errCopy doesn't include Non-enumerable properties
      * a workaround is to use err in our if statement instead of our errCopy
-     * 
-     * @note i prefer to use err even though im using deep clone its safer
+     *
+     * @important 
+     * i prefer to use err even though im using deep clone and copying non-enumerable properties its safer
      */
 
     let errCopy = err;
