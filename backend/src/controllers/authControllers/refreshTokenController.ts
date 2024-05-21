@@ -10,11 +10,17 @@ import {
   setAuthCookiesAndRespond,
 } from "./utils/generateAuthTokens";
 
+type DecodedRefreshToken = { email: string };
+function isDecodedRefreshToken(
+  decoded: string | jwt.JwtPayload | undefined
+): decoded is DecodedRefreshToken {
+  return !!(decoded as DecodedRefreshToken)?.email;
+}
+
 const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt)
-    return next(new AppError("Un authorized, no cookie available 1️⃣", 401));
+  if (!cookies?.jwt) return next(new AppError("Unauthorized", 401));
 
   // clear cookie
   const refreshToken = cookies.jwt;
@@ -26,19 +32,28 @@ const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   // Detected refresh token reuse!
   // token exist but user don't
   if (!foundUser) {
-    // @ts-expect-error temp solution
-    jwt.verify(refreshToken, env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
-      if (err) return next(new AppError("Forbidden jwt not valid 2️⃣", 403));
+    jwt.verify(
+      refreshToken,
+      env.REFRESH_TOKEN_SECRET,
+      {},
+      async (err, decoded) => {
+        if (err) return next(new AppError("Forbidden", 403));
 
-      const hackedUser = await UserModel.findOne({
-        email: decoded?.email,
-      }).exec();
+        if (!isDecodedRefreshToken(decoded))
+          return next(new AppError("Forbidden", 403));
 
-      if (hackedUser) hackedUser.refreshToken = [];
-      await hackedUser?.save();
-    });
+        const hackedUser = await UserModel.findOne({
+          email: decoded?.email,
+        }).exec();
 
-    return next(new AppError("Forbidden no user 3️⃣", 403)); //Forbidden
+        if (hackedUser) {
+          hackedUser.refreshToken = [];
+          await hackedUser.save();
+        }
+      }
+    );
+
+    return next(new AppError("Forbidden", 403)); //Forbidden
   }
 
   const newRefreshTokenArray = foundUser.refreshToken.filter(
@@ -49,16 +64,18 @@ const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   jwt.verify(
     refreshToken,
     env.REFRESH_TOKEN_SECRET,
-    // @ts-expect-error temp solution
-    async (err: unknown, decoded) => {
+    {},
+    async (err, decoded) => {
       // expired refresh token
       if (err) {
         foundUser.refreshToken = [...newRefreshTokenArray];
         await foundUser.save();
       }
 
-      if (err || foundUser.email !== decoded?.email)
-        return next(new AppError("Forbidden emails are not working 4️⃣", 403));
+      const decodedRefreshToken = decoded as DecodedRefreshToken;
+
+      if (foundUser.email !== decodedRefreshToken?.email)
+        return next(new AppError("Forbidden", 403));
 
       // Refresh token was still valid
       const accessToken = generateAccessToken({ res, user: foundUser });
