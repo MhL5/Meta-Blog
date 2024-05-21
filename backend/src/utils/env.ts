@@ -16,7 +16,6 @@ const envSchema = z.object({
   MONGODB_USERNAME: z.string(),
   NODE_ENV: z.string(),
   PORT: z.string(),
-  ADMIN_ROLE: z.string(),
   EMAIL_USERNAME: z.string(),
   EMAIL_PASSWORD: z.string(),
   EMAIL_HOST: z.string(),
@@ -25,6 +24,8 @@ const envSchema = z.object({
   MAILGUN_KEY: z.string(),
   MAILGUN_DOMAIN: z.string(),
   SUPPORT_EMAIL: z.string(),
+  ACCESS_TOKEN_SECRET: z.string(),
+  REFRESH_TOKEN_SECRET: z.string(),
 });
 
 /**

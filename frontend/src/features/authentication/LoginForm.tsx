@@ -11,6 +11,8 @@ import {
 import { Input } from "../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useLogin } from "./useLogin";
 
 const loginFormSchema = z.object({
   email: z
@@ -45,19 +47,24 @@ const loginFormFields = [
 ] as const;
 
 export default function LoginForm() {
+  const { login, isPending } = useLogin();
+
   const loginForm = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "sapumr@gmail.com",
+      password: "test1234",
     },
   });
 
   function handleLogin(values: z.infer<typeof loginFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-    loginForm.reset();
+    login(values, {
+      onSuccess: () => {
+        loginForm.reset();
+      },
+    });
   }
 
   return (
@@ -75,7 +82,13 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>{label}</FormLabel>
                 <FormControl>
-                  <Input type={type} placeholder={placeHolder} {...field} />
+                  <Input
+                    required
+                    type={type}
+                    placeholder={placeHolder}
+                    {...field}
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,46 +96,19 @@ export default function LoginForm() {
           />
         ))}
 
-        <Button type="submit" className="w-full">
+        <div className="flex items-center space-x-2">
+          <Checkbox id="rememberMe" />
+          <label
+            htmlFor="rememberMe"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Remember me
+          </label>
+        </div>
+        <Button type="submit" className="w-full" disabled={isPending}>
           Submit
         </Button>
       </form>
     </Form>
   );
 }
-
-/*
- <Form {...loginForm}>
-                    <form
-                      onSubmit={loginForm.handleSubmit(handleLogin)}
-                      className="space-y-8"
-                    >
-                      {loginFormFields.map(
-                        ({ name, label, placeHolder, type }) => (
-                          <FormField
-                            key={name + label + placeHolder}
-                            control={loginForm.control}
-                            name={name}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>{label}</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type={type}
-                                    placeholder={placeHolder}
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        ),
-                      )}
-
-                      <Button type="submit" className="w-full">
-                        Submit
-                      </Button>
-                    </form>
-                  </Form>
-*/

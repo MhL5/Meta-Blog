@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-import { Avatar } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import { EllipsesVerticalSvgIcon } from "../SvgIcons";
 import Logo from "../ui/Logo";
 import Search from "../ui/Search";
 import ToggleTheme from "../../features/theme/ToggleTheme";
+import { useAuthContext } from "@/features/authentication/AuthContext";
 
 function Header() {
   return (
@@ -23,6 +24,8 @@ function Header() {
 }
 
 function NavigationMenu() {
+  const { auth } = useAuthContext();
+
   return (
     <nav className="m-auto p-2 sm:p-4">
       <ul className="flex items-center justify-between text-sm font-bold">
@@ -88,15 +91,31 @@ function NavigationMenu() {
           <ToggleTheme />
 
           <Avatar className="hidden" />
-          <Button variant="outline" size="sm" className="hidden sm:flex">
-            Login
-          </Button>
-          <Button asChild size="sm" className="hidden sm:flex">
-            <NavLink to="/signup">
-              <span className="hidden md:inline">Create free account</span>
-              <span className="md:hidden">Sign up</span>
-            </NavLink>
-          </Button>
+          {auth ? (
+            <Avatar>
+              <AvatarImage
+                src={`http://localhost:3000/${auth?.user?.avatar}`}
+              />
+              <AvatarFallback>{auth?.user?.fullName}</AvatarFallback>
+            </Avatar>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden sm:flex"
+                asChild
+              >
+                <Link to="/signup?tab=login">Login</Link>
+              </Button>
+              <Button asChild size="sm" className="hidden sm:flex">
+                <NavLink to="/signup">
+                  <span className="hidden md:inline">Create free account</span>
+                  <span className="md:hidden">Sign up</span>
+                </NavLink>
+              </Button>
+            </>
+          )}
         </li>
       </ul>
     </nav>

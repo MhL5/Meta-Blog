@@ -14,6 +14,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import hpp from "hpp";
 import compression from "compression";
 import xss from "xss";
+import { verifyJWT } from "./middlewares/verifyJWT";
 
 const app = express();
 
@@ -44,6 +45,11 @@ const app = express();
  * @link https://www.npmjs.com/package/cors
  */
 export const allowedOrigins = ["http://localhost:5173"];
+// Set the Cross-Origin-Resource-Policy header
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+});
 app.use(
   cors({
     credentials: true,
@@ -163,8 +169,12 @@ app.disable("x-powered-by");
  *
  *
  */
-app.use("/api/v1/articles", articleRouter);
 app.use("/api/v1/users", userRouter);
+app.use(verifyJWT);
+app.use("/api/v1/test", async (req, res, next) => {
+  res.status(200).json({ message: "nice" });
+});
+app.use("/api/v1/articles", articleRouter);
 
 /**
  * 404 not found
