@@ -14,12 +14,9 @@ type OperationalError = {
 };
 
 /**
- * Checks if the given error is an operational error.
- *
- * @param err - The error to be checked.
- * @returns The operational error object if the error is operational, otherwise null.
+ * @typeGuard
+ *  if the given error is an operational error.
  */
-
 export function isOperationalError(err: unknown): err is OperationalError {
   return (
     typeof err === "object" &&
@@ -29,6 +26,11 @@ export function isOperationalError(err: unknown): err is OperationalError {
   );
 }
 
+/**
+ * Handles global errors in the application based on the environment.
+ * If the environment is in development mode, it sends detailed error information to the client.
+ * If the environment is in production mode, it handles specific types of errors and sends a generic error message to the client.
+ */
 function globalErrorController(
   err: unknown,
   req: Request,
