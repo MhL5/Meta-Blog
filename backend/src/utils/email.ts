@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import mg from "mailgun-nodemailer-transport";
 import { htmlToText } from "html-to-text";
-import { type User } from "../model/userModel";
+import { type IUser } from "../model/userModel";
 import { env } from "./env";
 import { readFile } from "fs/promises";
 
@@ -11,7 +11,7 @@ export default class Email {
   url: string;
   from: string;
 
-  constructor(user: User, url: string) {
+  constructor(user: IUser, url: string) {
     this.to = user.email;
     this.firstName = user.fullName.split(" ")[0] || user.fullName;
     this.url = url;

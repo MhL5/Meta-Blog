@@ -1,10 +1,38 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { Schema, model, Model } from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 
-export type User = InferSchemaType<typeof userSchema>;
+export type IUser = {
+  fullName: string;
+  bio: string;
+  email: string;
+  avatar: string;
+  role: "user" | "metaBlogAdmin";
+  password: string;
+  passwordConfirm: string | undefined;
+  passwordChangedAt: Date | undefined;
+  passwordResetToken: string | undefined;
+  passwordResetExpires: Date | undefined;
+  emailVerificationToken: string | undefined;
+  emailVerificationTokenExpires: Date | undefined;
+  active: boolean;
+  refreshToken: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-const userSchema = new Schema(
+type IUserMethods = {
+  correctPassword(
+    candidatePassword: string,
+    userPassword: string
+  ): Promise<boolean>;
+  changedPasswordAfter: (jwtTimeStamp: number) => boolean;
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
     fullName: {
       type: String,
@@ -30,7 +58,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["user", process.env.ADMIN_ROLE],
+      enum: ["user", "metaBlogAdmin"],
       default: "user",
     },
     password: {
@@ -65,6 +93,7 @@ const userSchema = new Schema(
       default: false,
       select: false,
     },
+    refreshToken: [String],
   },
   {
     timestamps: true,
@@ -73,17 +102,13 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
   // guard clause - only run if password is modified
-  console.log(`pre save`);
   if (!this.isModified("password")) return next();
-  console.log(`pre save`);
 
   // Hashing and salting 😀
   this.password = await bcrypt.hash(this.password, 12);
-  console.log(`After hashing and salting:`, this.password);
 
   // delete the passwordConfirm field
   // we only defined passwordConfirm as an extra layer of protection and validation
-  // @ts-expect-error there is no need to store passwordConfirm in DB
   this.passwordConfirm = undefined;
 
   next();
@@ -101,6 +126,29 @@ userSchema.methods.generateVerificationToken = function () {
   return verificationToken;
 };
 
-const UserModel = model<User>("User", userSchema);
+userSchema.methods.changedPasswordAfter = function (JwtTimestamp: number) {
+  // false means not changed
+  // if changedTimestamp is less than changedTimestamp this means password haven't changed
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      `${this.passwordChangedAt.getTime() / 1000}`,
+      10
+    );
+
+    return JwtTimestamp < changedTimestamp;
+  }
+
+  return false;
+};
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword: string,
+  userPassword: string
+) {
+  // since password field has select:false we can not use this.password here
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+const UserModel = model<IUser, UserModel>("User", userSchema);
 
 export { UserModel };
