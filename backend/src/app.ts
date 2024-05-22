@@ -50,7 +50,7 @@ if (env.NODE_ENV.toLocaleLowerCase() === "development") app.use(morgan("dev"));
  * 2. Cors: Cross origin resource sharing
  * @link https://www.npmjs.com/package/cors
  */
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [env.FRONTEND_DOMAIN];
 app.use(
   cors({
     credentials: true,

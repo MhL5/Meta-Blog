@@ -1,14 +1,12 @@
 import express from "express";
-import * as authController from "../controllers/authControllers/authController";
-import { handleRefreshToken } from "../controllers/authControllers/refreshTokenController";
-import { handleLogout } from "../controllers/authControllers/logoutController";
+import authController from "../controllers/authControllers/authController";
 
 const router = express.Router();
 
-router.route("/refresh").get(handleRefreshToken);
-router.route("/signup").post(authController.signUp);
-router.route("/login").post(authController.login);
-router.route("/logout").get(handleLogout);
-router.route("/verify-email/:token").get(authController.verifyEmail);
+router.route("/refresh").get(authController.handleRefreshToken);
+router.route("/signup").post(authController.handleSignUp);
+router.route("/login").post(authController.handleLogin);
+router.route("/logout").get(authController.handleLogout);
+router.route("/verify-email/:token").get(authController.handleVerifyEmail);
 
 export default router;

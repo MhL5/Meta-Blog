@@ -26,7 +26,7 @@ dotenv.config({ path: `${__dirname}/../config.env` });
 import mongoose from "mongoose";
 import app from "./app";
 import { env } from "./utils/env";
-import { connectDB } from "../config/connectDB";
+import { connectDB } from "./config/connectDB";
 import { IncomingMessage, Server, ServerResponse } from "http";
 
 /**

@@ -26,6 +26,7 @@ const envSchema = z.object({
   SUPPORT_EMAIL: z.string(),
   ACCESS_TOKEN_SECRET: z.string(),
   REFRESH_TOKEN_SECRET: z.string(),
+  FRONTEND_DOMAIN: z.string(),
 });
 
 /**

@@ -1,14 +1,9 @@
-import { UserModel } from "../../model/userModel";
+import { UserModel } from "../../../model/userModel";
 import jwt from "jsonwebtoken";
-import { env } from "../../utils/env";
-import { catchAsyncMiddleware } from "../../utils/catchAsync";
-import { AppError } from "../../utils/appError";
-import {
-  cookieCleaner,
-  generateAccessToken,
-  generateRefreshToken,
-  setAuthCookiesAndRespond,
-} from "./utils/generateAuthTokens";
+import { env } from "../../../utils/env";
+import { catchAsyncMiddleware } from "../../../utils/catchAsync";
+import { AppError } from "../../../utils/appError";
+import authUtils from "../utils/authUtils";
 
 type DecodedRefreshToken = { email: string };
 function isDecodedRefreshToken(
@@ -17,6 +12,12 @@ function isDecodedRefreshToken(
   return !!(decoded as DecodedRefreshToken)?.email;
 }
 
+/**
+ * Handles the refresh token process
+ * @implements
+ * - refresh token rotation
+ * - reuse detection
+ */
 const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   const cookies = req.cookies;
 
@@ -25,12 +26,11 @@ const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   // clear cookie
   const refreshToken = cookies.jwt;
 
-  cookieCleaner({ res });
+  authUtils.cookieCleaner({ res });
 
   const foundUser = await UserModel.findOne({ refreshToken }).exec();
 
   // Detected refresh token reuse!
-  // token exist but user don't
   if (!foundUser) {
     jwt.verify(
       refreshToken,
@@ -78,15 +78,21 @@ const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
         return next(new AppError("Forbidden", 403));
 
       // Refresh token was still valid
-      const accessToken = generateAccessToken({ res, user: foundUser });
-      const newRefreshToken = generateRefreshToken({ res, user: foundUser });
+      const accessToken = authUtils.generateAccessToken({
+        res,
+        user: foundUser,
+      });
+      const newRefreshToken = authUtils.generateRefreshToken({
+        res,
+        user: foundUser,
+      });
 
       // Saving refreshToken with current user
       foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
       await foundUser.save();
 
       // Creates Secure Cookie with refresh token
-      setAuthCookiesAndRespond({
+      authUtils.setAuthCookiesAndRespond({
         res,
         user: foundUser,
         newRefreshToken,
@@ -96,4 +102,4 @@ const handleRefreshToken = catchAsyncMiddleware(async (req, res, next) => {
   );
 });
 
-export { handleRefreshToken };
+export default handleRefreshToken;

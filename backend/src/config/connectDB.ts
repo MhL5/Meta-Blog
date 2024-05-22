@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { env } from "../src/utils/env";
+import { env } from "../utils/env";
 
 const DB = env.MONGODB_CONNECTION_STRING.replace(
   "<password>",
