@@ -21,10 +21,10 @@ const app = express();
 /**
  * GLOBAL MIDDLEWARES ✨
  *
- * 1. Cors: Cross origin resource sharing
- * 2. serving static files
- * 3. Helmet: security http headers
- * 4. morgan: Development logging functionality
+ * 1. morgan: Development logging functionality
+ * 2. Cors: Cross origin resource sharing
+ * 3. serving static files
+ * 4. Helmet: security http headers
  * 5. rate limiter
  * 6. body parser
  * 7. Cookie parser
@@ -41,17 +41,16 @@ const app = express();
  */
 
 /**
- * 4. morgan: development logging functionality
+ * 1. morgan: development logging functionality
  * @link https://www.npmjs.com/package/morgan
  */
 if (env.NODE_ENV.toLocaleLowerCase() === "development") app.use(morgan("dev"));
 
 /**
- * 1. Cors: Cross origin resource sharing
+ * 2. Cors: Cross origin resource sharing
  * @link https://www.npmjs.com/package/cors
  */
-export const allowedOrigins = ["http://localhost:5173"];
-// Set the Cross-Origin-Resource-Policy header
+const allowedOrigins = [env.FRONTEND_DOMAIN];
 app.use(
   cors({
     credentials: true,
@@ -65,13 +64,13 @@ app.use(
 app.options("*", cors());
 
 /**
- * 2. serving static files
+ * 3. serving static files
  * @link https://expressjs.com/en/starter/static-files.html
  */
 app.use(express.static(path.join(__dirname, "../public")));
 
 /**
- * 3. helmet: set security http headers
+ * 4. helmet: set security http headers
  * @link https://helmetjs.github.io
  */
 app.use(
@@ -169,6 +168,7 @@ app.disable("x-powered-by");
  *
  *
  */
+app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/users", userRouter);
 app.use(verifyJWT);
 app.use("/api/v1/articles", articleRouter);

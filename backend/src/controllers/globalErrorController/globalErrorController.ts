@@ -5,6 +5,7 @@ import { MongoError } from "mongodb";
 import { Error as mongooseError, CastError } from "mongoose";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 import * as errorHandler from "./errorHandlers";
+import { cloneError } from "../../utils/deepCloneObj";
 
 type OperationalError = {
   statusCode: number;
@@ -14,12 +15,9 @@ type OperationalError = {
 };
 
 /**
- * Checks if the given error is an operational error.
- *
- * @param err - The error to be checked.
- * @returns The operational error object if the error is operational, otherwise null.
+ * @typeGuard
+ *  if the given error is an operational error.
  */
-
 export function isOperationalError(err: unknown): err is OperationalError {
   return (
     typeof err === "object" &&
@@ -29,6 +27,11 @@ export function isOperationalError(err: unknown): err is OperationalError {
   );
 }
 
+/**
+ * Handles global errors in the application based on the environment.
+ * If the environment is in development mode, it sends detailed error information to the client.
+ * If the environment is in production mode, it handles specific types of errors and sends a generic error message to the client.
+ */
 function globalErrorController(
   err: unknown,
   req: Request,
@@ -44,19 +47,18 @@ function globalErrorController(
   // production environment errors
   if (env.NODE_ENV.toLowerCase() === "production") {
     /**
-     * * WARNING:
-     * TODO:
+     * @explanation
      * err might contain Non-enumerable properties
      * this means we can't copy all of its properties
      * this can cause un expected behaviors since errCopy doesn't include Non-enumerable properties
      * a workaround is to use err in our if statement instead of our errCopy
+     *
+     * @important 
+     * i prefer to use err even though im using deep clone and copying non-enumerable properties its safer
      */
 
-    let errCopy = null;
-    if (typeof err === "object") errCopy = { ...err };
-    // TODO: Test this and if it works refactor the code
-    // ? experiment: need to be tested to ensure that this method works
-    // if (typeof err === "object") errCopy = structuredClone(err);;
+    let errCopy = err;
+    if (err instanceof Error) errCopy = cloneError(err);
 
     // invalidId DB error:
     if ((err as CastError)?.name === "CastError")
@@ -84,6 +86,9 @@ function globalErrorController(
   }
 }
 
+/**
+ * Sends error response in development environment.
+ */
 function sendErrorForDev(err: AppError, req: Request, res: Response) {
   const { statusCode, status, message, stack } = err;
 
@@ -95,6 +100,11 @@ function sendErrorForDev(err: AppError, req: Request, res: Response) {
   });
 }
 
+/**
+ * Sends an error response to the client in a production environment.
+ * * If the error is an operational error, it sends the error message to the client with the corresponding status code.
+ * * If the error is a programming or unknown error, it sends a generic error message with a status code of 500.
+ */
 function sendErrorProduction(err: unknown, req: Request, res: Response) {
   // Operational trusted error: send message to the client
   if (isOperationalError(err)) {

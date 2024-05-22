@@ -100,6 +100,11 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   }
 );
 
+/**
+ * Middleware function to hash and salt the password before saving the user document.
+ * It checks if the password field is modified, hashes the password using bcrypt with a salt factor of 12,
+ * and then deletes the passwordConfirm field for security reasons.
+ */
 userSchema.pre("save", async function (next) {
   // guard clause - only run if password is modified
   if (!this.isModified("password")) return next();
@@ -114,7 +119,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Generate an emailVerificationToken.
+/**
+ * Generates a verification token for the user by creating a random 32-byte token,
+ * hashing it using sha256 algorithm, and storing it in the emailVerificationToken field.
+ * 
+ * @returns The generated verification token.
+ */
 userSchema.methods.generateVerificationToken = function () {
   const verificationToken = crypto.randomBytes(32).toString("hex");
 
@@ -126,6 +136,12 @@ userSchema.methods.generateVerificationToken = function () {
   return verificationToken;
 };
 
+/**
+ * Method to check if the user's password has been changed after a given timestamp.
+ * 
+ * @param JwtTimestamp The timestamp to compare against the user's password change timestamp.
+ * @returns A boolean indicating if the password has been changed after the given timestamp.
+ */
 userSchema.methods.changedPasswordAfter = function (JwtTimestamp: number) {
   // false means not changed
   // if changedTimestamp is less than changedTimestamp this means password haven't changed
@@ -141,6 +157,13 @@ userSchema.methods.changedPasswordAfter = function (JwtTimestamp: number) {
   return false;
 };
 
+/**
+ * Method to compare a candidate password with a user password using bcrypt.
+ * 
+ * @param candidatePassword The candidate password to compare.
+ * @param userPassword The user's password to compare against.
+ * @returns A promise that resolves to a boolean indicating if the passwords match.
+ */
 userSchema.methods.correctPassword = async function (
   candidatePassword: string,
   userPassword: string

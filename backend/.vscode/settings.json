@@ -18,5 +18,7 @@
     "titleBar.inactiveBackground": "#052e1699",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#052e16"
+  "peacock.color": "#052e16",
+  "codium.codeCompletion.enable": true,
+  "codium.editorButton": true
 }
