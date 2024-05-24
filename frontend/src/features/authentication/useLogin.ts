@@ -30,8 +30,6 @@ export function useLogin() {
     },
     onSuccess: (data) => {
       setAuth(data);
-      const accessToken = data.accessToken;
-      console.log(accessToken);
 
       toast({
         title: "welcome back",
@@ -39,7 +37,7 @@ export function useLogin() {
       });
     },
     onError: (err) => {
-      let error;
+      let error = "unknown error😥";
       if (isAxiosError(err) && !err?.response) error = "No Server Response";
       if (isAxiosError(err)) error = err.response?.data.message;
       if (!error) error = err.message;
