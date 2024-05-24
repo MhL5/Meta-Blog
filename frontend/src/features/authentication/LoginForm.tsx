@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../components/ui/button";
 import {
   Form,
@@ -9,10 +12,9 @@ import {
   FormMessage,
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLogin } from "./useLogin";
+import { useAuthContext } from "./AuthContext";
 
 const loginFormSchema = z.object({
   email: z
@@ -48,6 +50,8 @@ const loginFormFields = [
 
 export default function LoginForm() {
   const { login, isPending } = useLogin();
+  const [rememberMe, setRememberMe] = useState(false);
+  const { handlePersistLogin } = useAuthContext();
 
   const loginForm = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -58,10 +62,9 @@ export default function LoginForm() {
   });
 
   function handleLogin(values: z.infer<typeof loginFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     login(values, {
       onSuccess: () => {
+        if (rememberMe) handlePersistLogin();
         loginForm.reset();
       },
     });
@@ -97,7 +100,12 @@ export default function LoginForm() {
         ))}
 
         <div className="flex items-center space-x-2">
-          <Checkbox id="rememberMe" />
+          <Checkbox
+            id="rememberMe"
+            name="persistLogin"
+            checked={rememberMe}
+            onClick={() => setRememberMe((rm) => !rm)}
+          />
           <label
             htmlFor="rememberMe"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
