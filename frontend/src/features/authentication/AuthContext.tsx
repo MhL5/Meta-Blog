@@ -7,7 +7,8 @@ import {
   useContext,
   useState,
 } from "react";
-import { axiosApi } from "@/services/axiosApi";
+import { logoutApi } from "./services/logoutApi";
+import { refreshApi } from "./services/refreshApi";
 
 type AuthContextType = {
   auth: Auth | null;
@@ -45,19 +46,14 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
     queryKey: [`persistLogin`],
     queryFn: async () => {
       try {
-        if (!persistLogin) {
-          console.log(`logout`);
-          await axiosApi.get<Auth>("/users/logout");
-          return "logged out";
-        }
+        // if persistLogin does not exist call the logoutApi to clear browser cookies
+        if (!persistLogin) return await logoutApi();
 
-        console.log(`login`);
-        const response = await axiosApi.get<Auth>("/users/refresh");
-        setAuth(response.data);
-        return response.data;
+        const newAccessToken = await refreshApi();
+        setAuth(newAccessToken);
+        return newAccessToken;
       } catch (error) {
-        await axiosApi.get<Auth>("/users/logout");
-        localStorage.removeItem("persistLogin");
+        await logoutApi();
       }
     },
     refetchOnWindowFocus: false,

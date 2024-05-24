@@ -14,7 +14,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import hpp from "hpp";
 import compression from "compression";
 import xss from "xss";
-import { verifyJWT } from "./middlewares/verifyJWT";
+import { verifyJWTAccessToken } from "./middlewares/verifyJWTAccessToken";
 
 const app = express();
 
@@ -170,7 +170,7 @@ app.disable("x-powered-by");
  */
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/users", userRouter);
-app.use(verifyJWT);
+app.use(verifyJWTAccessToken);
 app.use("/api/v1/articles", articleRouter);
 
 /**
