@@ -19,10 +19,8 @@ export function useAxiosPrivate() {
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!config.headers["Authorization"]) {
-          console.log(auth?.accessToken || "no access token");
+        if (!config.headers["Authorization"])
           config.headers["Authorization"] = `Bearer ${auth?.accessToken}`;
-        }
         return config;
       },
       (err) => Promise.reject(err),
