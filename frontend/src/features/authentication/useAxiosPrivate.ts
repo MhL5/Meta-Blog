@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "./AuthContext";
 import { useRefreshToken } from "./useRefreshToken";
-import { useEffect } from "react";
 
 const axiosPrivate = axios.create({
   baseURL: "http://localhost:3000/api/v1",

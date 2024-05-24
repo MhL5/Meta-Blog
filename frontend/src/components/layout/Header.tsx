@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
@@ -10,10 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EllipsesVerticalSvgIcon } from "../SvgIcons";
+import { useAuthContext } from "@/features/authentication/AuthContext";
 import Logo from "../ui/Logo";
 import Search from "../ui/Search";
 import ToggleTheme from "../../features/theme/ToggleTheme";
-import { useAuthContext } from "@/features/authentication/AuthContext";
 
 function Header() {
   return (
