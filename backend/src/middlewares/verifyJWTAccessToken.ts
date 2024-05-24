@@ -16,28 +16,32 @@ function isDecodedAccessToken(
 
 /**
  * Verify JWT token and set user information in response locals.
- * ### important
- *  after verification this middle will add `(user & roles)` properties to `res.locals`
+ * after verification this middle will add `(user & roles)` properties to `res.locals`
+ * ### important ⚠️⚠️⚠️
+ * frontend code only hit the refresh route if it receives `403` so we should only send `403` error status codes from this middleware
+ * do not change the error status code
  */
-const verifyJWT = catchAsyncMiddleware(async (req, res, next) => {
+const verifyJWTAccessToken = catchAsyncMiddleware(async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
 
   if (typeof authHeader !== "string")
-    return next(new AppError("Bad request", 400));
+    return next(new AppError("Bad request", 403));
 
   if (!authHeader?.startsWith("Bearer "))
-    return next(new AppError("Bad request", 400));
+    return next(new AppError("Bad request", 403));
+
   const accessToken = authHeader.split(" ")[1] || "";
 
   jwt.verify(accessToken, env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-    if (err) return next(new AppError("invalid", 400)); //invalid token
+    /**
+     * ⚠️ frontend code relies on this 403 error status code ⚠️
+     * ⚠️ do not change this without updating frontend axios interceptors ⚠️
+     */
+    if (err) return next(new AppError("invalid", 403));
 
     if (!isDecodedAccessToken(decoded))
       return next(new AppError("invalid", 500));
 
-    // !WARNING THIS REQUIRES TEST
-    // req.user = decodedToken.UserInfo.email;
-    // req.roles = decodedToken.UserInfo.roles;
     res.locals.user = decoded.UserInfo.email;
     res.locals.roles = decoded.UserInfo.roles;
 
@@ -45,4 +49,4 @@ const verifyJWT = catchAsyncMiddleware(async (req, res, next) => {
   });
 });
 
-export { verifyJWT };
+export { verifyJWTAccessToken };
