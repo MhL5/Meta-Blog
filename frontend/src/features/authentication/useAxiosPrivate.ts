@@ -1,7 +1,16 @@
-import { axiosPrivate } from "@/services/axiosApi";
+import axios from "axios";
 import { useAuthContext } from "./AuthContext";
 import { useRefreshToken } from "./useRefreshToken";
 import { useEffect } from "react";
+
+const axiosPrivate = axios.create({
+  baseURL: "http://localhost:3000/api/v1",
+  withCredentials: true,
+  timeout: 20000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 export function useAxiosPrivate() {
   const { refresh } = useRefreshToken();
@@ -17,7 +26,7 @@ export function useAxiosPrivate() {
         return config;
       },
       (err) => Promise.reject(err),
-    );  
+    );
 
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,

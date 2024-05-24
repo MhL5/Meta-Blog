@@ -109,7 +109,7 @@ function NavigationMenu() {
                 <Link to="/signup?tab=login">Login</Link>
               </Button>
               <Button asChild size="sm" className="hidden sm:flex">
-                <NavLink to="/signup">
+                <NavLink to="/signup?tab=signup">
                   <span className="hidden md:inline">Create free account</span>
                   <span className="md:hidden">Sign up</span>
                 </NavLink>
