@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { Response } from "express";
 import { IUser } from "../../../model/userModel";
 import { env } from "../../../utils/env";
+import { promisify } from "util";
 
 type TokenGeneratorParams = {
   res: Response;
@@ -18,6 +19,14 @@ type cookieCleanerParams = {
 };
 
 export type DecodedAccessToken = { data: { user: IUser }; accessToken: string };
+
+export function isDecodedAccessToken(
+  token: unknown
+): token is DecodedAccessToken {
+  return !!(token as DecodedAccessToken).data.user;
+}
+
+export const jwtVerifyAsync = promisify<string, string>(jwt.verify);
 
 /**
  * Class representing utility functions for authentication operations.
@@ -36,16 +45,9 @@ class AuthUtils {
   }
 
   generateAccessToken({ res, user }: TokenGeneratorParams) {
-    return jwt.sign(
-      {
-        UserInfo: {
-          email: user.email,
-          role: user.role,
-        },
-      },
-      env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "10s" }
-    );
+    return jwt.sign({ data: { user } }, env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "10s",
+    });
   }
 
   /**
