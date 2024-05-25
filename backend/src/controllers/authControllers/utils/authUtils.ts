@@ -21,7 +21,7 @@ type cookieCleanerParams = {
  * Class representing utility functions for authentication operations.
  * Includes methods for
  * * generating refresh and access tokens,
- * * setting authentication cookies, 
+ * * setting authentication cookies,
  * * cleaning cookies.
  */
 class AuthUtils {
@@ -46,6 +46,9 @@ class AuthUtils {
     );
   }
 
+  /**
+   * Sets  `refresh cookie` and responds with `{ data: { user }, accessToken }`.
+   */
   setAuthCookiesAndRespond({
     res,
     user,
@@ -59,7 +62,7 @@ class AuthUtils {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({ role: user.role, accessToken });
+    res.status(200).json({ data: { user }, accessToken });
   }
 
   cookieCleaner({ res }: cookieCleanerParams) {
