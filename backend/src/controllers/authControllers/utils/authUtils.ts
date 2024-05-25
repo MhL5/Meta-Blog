@@ -17,6 +17,8 @@ type cookieCleanerParams = {
   res: Response;
 };
 
+export type DecodedAccessToken = { data: { user: IUser }; accessToken: string };
+
 /**
  * Class representing utility functions for authentication operations.
  * Includes methods for
