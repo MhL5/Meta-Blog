@@ -65,7 +65,7 @@ const handleSignUp = catchAsyncMiddleware(async (req, res, next) => {
   await new Email(newUser, url).sendWelcome();
 
   // 8. send the user as response
-  res.status(201).json({ status: "success", message:"please verify your'e email" });
+  res.status(201).json({ status: "success", message:"please activate your'e email by clicking on the link we sent to your email." });
 });
 
 export default handleSignUp;
