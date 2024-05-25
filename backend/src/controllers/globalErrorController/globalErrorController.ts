@@ -103,14 +103,14 @@ function sendErrorForDebug(err: AppError, req: Request, res: Response) {
 function sendError(err: unknown, req: Request, res: Response) {
   // Operational trusted error: send message to the client
   if (isOperationalError(err)) {
-    res.status(err?.statusCode || 500).json({
+    return res.status(err?.statusCode || 500).json({
       status: err?.status || "error",
       message: err?.message || "something went wrong",
     });
   }
 
   // Programming or other unknown error: don't leak error details
-  res.status(500).json({
+  return res.status(500).json({
     status: "error",
     message: "Something went very wrong! internal Error",
   });
