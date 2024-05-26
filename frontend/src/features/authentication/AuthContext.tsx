@@ -20,19 +20,17 @@ type AuthContextType = {
 type AuthContextProviderProps = PropsWithChildren;
 export type Auth = {
   accessToken: string;
-  user: {
-    active: boolean; // todo unwanted
-    avatar: string;
-    bio: string;
-    createdAt: string;
-    email: string;
-    fullName: string;
-    password: string;
-    refreshToken: string[]; // todo unwanted
-    role: string;
-    updatedAt: string;
-    __v: number; // todo unwanted
-    _id: string;
+  data: {
+    user: {
+      _id: string;
+      fullName: string;
+      bio: string;
+      email: string;
+      avatar: string;
+      role: string;
+      createdAt: string;
+      updatedAt: string;
+    };
   };
 };
 

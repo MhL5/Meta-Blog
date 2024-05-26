@@ -93,9 +93,9 @@ function NavigationMenu() {
           {auth ? (
             <Avatar>
               <AvatarImage
-                src={`http://localhost:3000/${auth?.user?.avatar}`}
+                src={`http://localhost:3000/${auth?.data.user?.avatar}`}
               />
-              <AvatarFallback>{auth?.user?.fullName}</AvatarFallback>
+              <AvatarFallback>{auth?.data.user.fullName}</AvatarFallback>
             </Avatar>
           ) : (
             <>

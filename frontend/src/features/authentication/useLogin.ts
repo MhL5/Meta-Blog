@@ -3,11 +3,13 @@ import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { Auth, useAuthContext } from "./AuthContext";
 import { useAxiosPrivate } from "./useAxiosPrivate";
+import { useNavigate } from "react-router-dom";
 
 export function useLogin() {
   const { toast } = useToast();
   const { setAuth } = useAuthContext();
   const { axiosPrivate } = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const {
     mutate: login,
@@ -30,10 +32,10 @@ export function useLogin() {
     },
     onSuccess: (data) => {
       setAuth(data);
-
+      navigate(-1);
       toast({
         title: "welcome back",
-        description: `successfully logged in as ${data?.user?.fullName || ""}`,
+        description: `successfully logged in as ${data.data.user.fullName || ""}`,
       });
     },
     onError: (err) => {
