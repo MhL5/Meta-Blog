@@ -1,4 +1,4 @@
-import { Schema, model, Model } from "mongoose";
+import { Schema, model, Model, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 
@@ -31,8 +31,17 @@ type IUserMethods = {
   changedPasswordAfter: (jwtTimeStamp: number) => boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type UserModel = Model<IUser, {}, IUserMethods>;
+type UserModel = Model<IUser, object, IUserMethods>;
+
+export type UserDocuments = Document<unknown, object, IUser> &
+  Omit<
+    IUser &
+      Required<{
+        _id: string;
+      }>,
+    keyof IUserMethods
+  > &
+  IUserMethods;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {

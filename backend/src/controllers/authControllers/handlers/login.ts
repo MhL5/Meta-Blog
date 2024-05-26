@@ -68,10 +68,7 @@ const handleLogin = catchAsyncMiddleware(async (req, res, next) => {
   user.refreshToken = [...newRefreshTokenArray, newRefreshToken];
   await user.save();
 
-  // Send authorization roles and access token to user
-  user.refreshToken = [];
-
-  // Creates Secure Cookie with refresh token
+  // Creates Secure Cookie with refresh token and removes unwanted fields like password
   authUtils.setAuthCookiesAndRespond({
     res,
     user,
