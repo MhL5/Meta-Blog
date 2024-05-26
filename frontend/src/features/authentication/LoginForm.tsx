@@ -15,6 +15,11 @@ import { Input } from "../../components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLogin } from "./useLogin";
 import { useAuthContext } from "./AuthContext";
+import Spinner from "@/components/ui/Spinner";
+
+type loginFormProps = {
+  onTabChange: (tab: "signup" | "login") => void;
+};
 
 const loginFormSchema = z.object({
   email: z
@@ -48,7 +53,7 @@ const loginFormFields = [
   },
 ] as const;
 
-export default function LoginForm() {
+export default function LoginForm({ onTabChange }: loginFormProps) {
   const { login, isPending } = useLogin();
   const [rememberMe, setRememberMe] = useState(false);
   const { handlePersistLogin } = useAuthContext();
@@ -114,9 +119,33 @@ export default function LoginForm() {
           </label>
         </div>
         <Button type="submit" className="w-full" disabled={isPending}>
-          Submit
+          {isPending ? <Spinner /> : `Submit`}
+        </Button>
+        <Button
+          type="submit"
+          className="w-full"
+          variant="secondary"
+          disabled={isPending}
+        >
+          {isPending ? <Spinner /> : `login with Google`}
         </Button>
       </form>
+
+      <div className="px-2 pt-4 text-center text-sm">
+        <span>
+          Don't have an account?{" "}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onTabChange("signup")}
+          >
+            <span className="text-blue-500 underline underline-offset-2">
+              {" "}
+              Sign up{" "}
+            </span>
+          </Button>
+        </span>
+      </div>
     </Form>
   );
 }
