@@ -51,6 +51,8 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gradientColorOne: "hsl(var(--gradient-color-one) / <alpha-value>)",
+        gradientColorTwo: "hsl(var(--gradient-color-two) / <alpha-value>)",
       },
       borderRadius: {
         lg: "var(--radius)",

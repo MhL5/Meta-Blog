@@ -36,6 +36,9 @@
 
     /* CUSTOM: */
     --global-width-content: 700px;
+    
+    --gradient-color-one: 222deg 86% 53%;
+    --gradient-color-two: 281deg 100% 55%;
 
     --gradient-primary: linear-gradient(
       30deg,
@@ -73,7 +76,7 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-     --gradient-primary: linear-gradient(
+    --gradient-primary: linear-gradient(
       30deg,
       hsl(222, 86%, 33%),
       hsl(281, 100%, 25%)
