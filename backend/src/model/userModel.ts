@@ -20,7 +20,7 @@ export type IUser = {
   refreshToken: string[];
   createdAt: Date;
   updatedAt: Date;
-  _v: number;
+  __v: number;
 };
 
 type IUserMethods = {
