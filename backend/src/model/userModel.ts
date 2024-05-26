@@ -1,8 +1,9 @@
-import { Schema, model, Model } from "mongoose";
+import { Schema, model, Model, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 
 export type IUser = {
+  _id: string;
   fullName: string;
   bio: string;
   email: string;
@@ -19,6 +20,7 @@ export type IUser = {
   refreshToken: string[];
   createdAt: Date;
   updatedAt: Date;
+  __v: number;
 };
 
 type IUserMethods = {
@@ -29,8 +31,17 @@ type IUserMethods = {
   changedPasswordAfter: (jwtTimeStamp: number) => boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type UserModel = Model<IUser, {}, IUserMethods>;
+type UserModel = Model<IUser, object, IUserMethods>;
+
+export type UserDocuments = Document<unknown, object, IUser> &
+  Omit<
+    IUser &
+      Required<{
+        _id: string;
+      }>,
+    keyof IUserMethods
+  > &
+  IUserMethods;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
@@ -122,7 +133,7 @@ userSchema.pre("save", async function (next) {
 /**
  * Generates a verification token for the user by creating a random 32-byte token,
  * hashing it using sha256 algorithm, and storing it in the emailVerificationToken field.
- * 
+ *
  * @returns The generated verification token.
  */
 userSchema.methods.generateVerificationToken = function () {
@@ -138,7 +149,7 @@ userSchema.methods.generateVerificationToken = function () {
 
 /**
  * Method to check if the user's password has been changed after a given timestamp.
- * 
+ *
  * @param JwtTimestamp The timestamp to compare against the user's password change timestamp.
  * @returns A boolean indicating if the password has been changed after the given timestamp.
  */
@@ -159,7 +170,7 @@ userSchema.methods.changedPasswordAfter = function (JwtTimestamp: number) {
 
 /**
  * Method to compare a candidate password with a user password using bcrypt.
- * 
+ *
  * @param candidatePassword The candidate password to compare.
  * @param userPassword The user's password to compare against.
  * @returns A promise that resolves to a boolean indicating if the passwords match.
