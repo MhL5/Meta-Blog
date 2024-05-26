@@ -145,7 +145,25 @@ export default function SignUpForm({ onTabChange }: SignUpFormProps) {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? <Spinner /> : `Submit`}
           </Button>
+          <Button type="submit" className="w-full" variant="secondary" disabled={isPending}>
+            {isPending ? <Spinner /> : `sign up with Google`}
+          </Button>
         </form>
+
+        <div className="px-2 pt-4 text-center text-sm">
+          <span>
+            Already have an account?
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onTabChange("login")}
+            >
+              <span className="text-blue-500 underline underline-offset-2">
+                login
+              </span>
+            </Button>
+          </span>
+        </div>
       </Form>
 
       <Dialog open={showDialog} onOpenChange={() => setShowDialog((s) => !s)}>

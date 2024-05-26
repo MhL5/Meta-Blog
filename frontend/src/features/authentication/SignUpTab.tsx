@@ -107,7 +107,7 @@ export default function SignUpTab() {
           </CardHeader>
 
           <CardContent>
-            <LoginForm />
+            <LoginForm onTabChange={handleTab} />
           </CardContent>
         </Card>
       </TabsContent>
