@@ -36,10 +36,11 @@
 
     /* CUSTOM: */
     --global-width-content: 700px;
+
     --gradient-primary: linear-gradient(
       30deg,
-      hsl(222, 86%, 53%),
-      hsl(281, 100%, 55%)
+      hsl(252, 100%, 60%),
+      hsl(281, 100%, 60%)
     );
   }
 
@@ -71,6 +72,12 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+     --gradient-primary: linear-gradient(
+      30deg,
+      hsl(222, 86%, 33%),
+      hsl(281, 100%, 25%)
+    );
   }
 }
 
@@ -94,6 +101,10 @@
     @apply duration-300 hover:-translate-y-[4px] hover:border-purple-600;
   }
   .custom-gradient-bg-on-hover:hover {
+    background: var(--gradient-primary);
+  }
+
+  .custom-gradient-bg {
     background: var(--gradient-primary);
   }
 }
