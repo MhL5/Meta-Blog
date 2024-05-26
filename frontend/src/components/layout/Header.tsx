@@ -1,5 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { NavLink } from "react-router-dom";
+import { Avatar } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import { useAuthContext } from "@/features/authentication/AuthContext";
 import Logo from "../ui/Logo";
 import Search from "../ui/Search";
 import ToggleTheme from "../../features/theme/ToggleTheme";
+import UserDropDown from "../ui/UserDropDown";
 
 function Header() {
   return (
@@ -58,7 +59,7 @@ function NavigationMenu() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Button asChild size="sm">
-                    <NavLink to="/signup">
+                    <NavLink to="/signup?tab=signup">
                       <span>Create free account</span>
                     </NavLink>
                   </Button>
@@ -91,12 +92,7 @@ function NavigationMenu() {
 
           <Avatar className="hidden" />
           {auth ? (
-            <Avatar>
-              <AvatarImage
-                src={`http://localhost:3000/${auth?.data.user?.avatar}`}
-              />
-              <AvatarFallback>{auth?.data.user.fullName}</AvatarFallback>
-            </Avatar>
+            <UserDropDown auth={auth} />
           ) : (
             <>
               <Button
@@ -105,7 +101,7 @@ function NavigationMenu() {
                 className="hidden sm:flex"
                 asChild
               >
-                <Link to="/signup?tab=login">Login</Link>
+                <NavLink to="/signup?tab=login">Login</NavLink>
               </Button>
               <Button asChild size="sm" className="hidden sm:flex">
                 <NavLink to="/signup?tab=signup">
