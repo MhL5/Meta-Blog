@@ -41,12 +41,7 @@ export default function UserDropDown({ auth }: UserProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden justify-start sm:flex"
-            asChild
-          >
+          <Button variant="ghost" size="sm" className="justify-start" asChild>
             {/* todo */}
             <NavLink to="#" className="w-full">
               dashboard
@@ -55,12 +50,7 @@ export default function UserDropDown({ auth }: UserProps) {
         </DropdownMenuItem>
 
         <DropdownMenuItem>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden justify-start sm:flex"
-            asChild
-          >
+          <Button variant="ghost" size="sm" className="justify-start" asChild>
             {/* todo */}
             <NavLink to="#" className="w-full">
               Send feedback
@@ -72,7 +62,7 @@ export default function UserDropDown({ auth }: UserProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="hidden justify-start sm:flex"
+            className="justify-start"
             onClick={handleLogout}
           >
             logout
