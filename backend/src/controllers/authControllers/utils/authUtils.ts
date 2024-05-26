@@ -18,7 +18,12 @@ type cookieCleanerParams = {
   res: Response;
 };
 
-export type DecodedAccessToken = { data: { user: IUser }; accessToken: string };
+export type DecodedAccessToken = {
+  data: { user: IUser };
+  accessToken: string;
+  iat: number;
+  exp: number;
+};
 
 export function isDecodedAccessToken(
   token: unknown
