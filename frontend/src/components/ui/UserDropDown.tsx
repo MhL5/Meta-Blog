@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -24,51 +25,54 @@ export default function UserDropDown({ auth }: UserProps) {
       <DropdownMenuTrigger>
         <Avatar className="cursor-pointer">
           <AvatarImage
-            src={`http://localhost:3000/${auth?.data.user?.avatar}`}
+            // todo backend url
+            src={`${import.meta.env.VITE_BACKEND_URL}/${auth?.data.user?.avatar}`}
           />
           <AvatarFallback>{auth?.data.user.fullName}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent>
-        <DropdownMenuItem className="px-4">
-          <ul>
-            <li className="capitalize">{auth.data.user.fullName}</li>
-            <li className="text-xs opacity-70">{auth.data.user.email}</li>
-          </ul>
-        </DropdownMenuItem>
+      <DropdownMenuPortal>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem className="px-4">
+            <ul>
+              <li className="capitalize">{auth.data.user.fullName}</li>
+              <li className="text-xs opacity-70">{auth.data.user.email}</li>
+            </ul>
+          </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <Button variant="ghost" size="sm" className="justify-start" asChild>
-            {/* todo */}
-            <NavLink to="#" className="w-full">
-              dashboard
-            </NavLink>
-          </Button>
-        </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button variant="ghost" size="sm" className="justify-start" asChild>
+              {/* todo */}
+              <NavLink to="#" className="w-full">
+                dashboard
+              </NavLink>
+            </Button>
+          </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <Button variant="ghost" size="sm" className="justify-start" asChild>
-            {/* todo */}
-            <NavLink to="#" className="w-full">
-              Send feedback
-            </NavLink>
-          </Button>
-        </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button variant="ghost" size="sm" className="justify-start" asChild>
+              {/* todo */}
+              <NavLink to="#" className="w-full">
+                Send feedback
+              </NavLink>
+            </Button>
+          </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="justify-start"
-            onClick={handleLogout}
-          >
-            logout
-          </Button>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+          <DropdownMenuItem>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="justify-start"
+              onClick={handleLogout}
+            >
+              logout
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
     </DropdownMenu>
   );
 }
