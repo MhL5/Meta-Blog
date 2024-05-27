@@ -18,8 +18,8 @@ export type IUser = {
   emailVerificationTokenExpires: Date | undefined;
   active: boolean;
   refreshToken: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: NativeDate;
+  updatedAt: NativeDate;
   __v: number;
 };
 
