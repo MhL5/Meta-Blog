@@ -29,11 +29,7 @@ export default function HomePageHeroHeader({ className }: HeroSectionProps) {
       </p>
 
       <div className="mt-12 flex ">
-        <Button
-          className="custom-gradient-bg m-auto rounded-3xl p-6 text-2xl text-gray-100"
-          size="lg"
-          asChild
-        >
+        <Button className="m-auto px-6 py-7 text-2xl" variant="outline" size="lg" asChild>
           <Link to="/signup?tab=signup">Join now, It's free!</Link>
         </Button>
       </div>

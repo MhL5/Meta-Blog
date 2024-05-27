@@ -5,7 +5,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["technology"],
+    "avatar": "articleAvatars/tech.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13dc",
@@ -13,7 +14,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["nature"],
+    "avatar": "articleAvatars/nature.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -21,7 +23,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["food"],
+    "avatar": "articleAvatars/food.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -29,7 +32,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["inspiration"],
+    "avatar": "articleAvatars/inspiration.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -37,7 +41,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["life style"],
+    "avatar": "articleAvatars/lifeStyle.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -45,7 +50,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["health"],
+    "avatar": "articleAvatars/health.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -53,7 +59,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["travel"],
+    "avatar": "articleAvatars/travel.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -61,7 +68,8 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["technology"],
+    "avatar": "articleAvatars/tech.jpg"
   },
   {
     "authorId": "6638c2d5d5d153cbf8db13d8",
@@ -69,6 +77,7 @@
     "content": "<h1 align=\"left\">\n  <strong> Hey 👋!</strong>\n</h1>\n\n<p align=\"left\">I'm a Passionate developer and tech enthusiast</p>\n<p align=\"left\">Constantly learning, building, and pushing 🙂</p>\n\n<br />\n<h2 style=\"font-size: 25px\"><strong>Skills :</strong></h2>\n<div align=\"left\">\n  <img\n    src=\"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg\"\n    height=\"25\"\n    alt=\"html5 logo\"\n  />\n  ...other content...",
     "readingTime": 10,
     "summary": "testing backend app will update the data later after app starts working",
-    "tags": ["technology"]
+    "tags": ["technology"],
+    "avatar": "articleAvatars/tech.jpg"
   }
 ]

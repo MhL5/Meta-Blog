@@ -36,7 +36,7 @@
 
     /* CUSTOM: */
     --global-width-content: 700px;
-    
+    --text-color-main: 230deg 28% 20%; /* hsl(230 28% 20%) */
     --gradient-color-one: 222deg 86% 53%;
     --gradient-color-two: 281deg 100% 55%;
 
@@ -81,6 +81,9 @@
       hsl(222, 86%, 33%),
       hsl(281, 100%, 25%)
     );
+
+    /* Custom */
+    --text-color-main: 0deg 0% 83%; /* hsl(0 0% 83%) */
   }
 }
 
@@ -89,7 +92,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    /* text-foreground */
+    @apply bg-background  text-[hsl(var(--text-color-main))];
   }
   .svg-pattern-background {
     @apply bg-cover bg-center bg-no-repeat [background-image:url("../assets/heroBackground.svg")];

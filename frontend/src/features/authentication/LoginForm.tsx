@@ -135,14 +135,12 @@ export default function LoginForm({ onTabChange }: loginFormProps) {
         <span>
           Don't have an account?{" "}
           <Button
-            variant="ghost"
+            variant="link"
             size="sm"
+            className="text-blue-500 underline"
             onClick={() => onTabChange("signup")}
           >
-            <span className="text-blue-500 underline underline-offset-2">
-              {" "}
-              Sign up{" "}
-            </span>
+            Sign up
           </Button>
         </span>
       </div>

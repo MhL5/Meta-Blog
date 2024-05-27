@@ -145,7 +145,12 @@ export default function SignUpForm({ onTabChange }: SignUpFormProps) {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? <Spinner /> : `Submit`}
           </Button>
-          <Button type="submit" className="w-full" variant="secondary" disabled={isPending}>
+          <Button
+            type="submit"
+            className="w-full"
+            variant="secondary"
+            disabled={isPending}
+          >
             {isPending ? <Spinner /> : `sign up with Google`}
           </Button>
         </form>
@@ -154,13 +159,12 @@ export default function SignUpForm({ onTabChange }: SignUpFormProps) {
           <span>
             Already have an account?
             <Button
-              variant="ghost"
+              variant="link"
               size="sm"
+              className="text-blue-500 underline"
               onClick={() => onTabChange("login")}
             >
-              <span className="text-blue-500 underline underline-offset-2">
-                login
-              </span>
+              login
             </Button>
           </span>
         </div>

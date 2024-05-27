@@ -48,9 +48,7 @@ const updateOne = <K>(FactoryModel: Model<K>) => {
 
     res.status(201).json({
       status: "success",
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 };
@@ -65,9 +63,7 @@ const createOne = <K>(FactoryModel: Model<K>) => {
 
     res.status(201).json({
       status: "success",
-      data: {
-        data: newDoc,
-      },
+      data: newDoc,
     });
   });
 };
@@ -94,9 +90,7 @@ const getOne = <K>(
 
     res.status(200).json({
       status: "success",
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 };
@@ -129,9 +123,7 @@ const getAll = <K>(FactoryModel: Model<K>) => {
     res.status(200).json({
       status: "success",
       results: doc.length,
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 };
