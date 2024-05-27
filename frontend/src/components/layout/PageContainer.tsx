@@ -18,7 +18,7 @@ function SvgPatternBackground({ customWidth = `100%` }) {
 
   return (
     <div
-      className="svg-pattern-background || absolute h-dvh"
+      className="svg-pattern-background || absolute h-dvh -z-50"
       style={customStyles}
     ></div>
   );
