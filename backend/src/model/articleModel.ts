@@ -54,49 +54,8 @@ const articleSchema = new Schema(
       },
     },
   },
-  {
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  { timestamps: true }
 );
-
-// Virtual populate
-// reviews will be added dynamically rather than adding it into schema and keeping some useless data in our documents
-articleSchema.virtual("articleComments", {
-  ref: "ArticleComment",
-  // this part says: "tour" field in the "Review" model should match the _id field in the current model
-  foreignField: "articleId",
-  localField: "_id",
-});
-// // Virtual populate
-// // reviews will be added dynamically rather than adding it into schema and keeping some useless data in our documents
-// articleSchema.virtual("articleComments", {
-//   ref: "ArticleComment",
-//   // this part says: "tour" field in the "Review" model should match the _id field in the current model
-//   foreignField: "articleId",
-//   localField: "_id",
-// });
-// // Virtual populate
-// // reviews will be added dynamically rather than adding it into schema and keeping some useless data in our documents
-// articleSchema.virtual("articleComments", {
-//   ref: "ArticleComment",
-//   // this part says: "tour" field in the "Review" model should match the _id field in the current model
-//   foreignField: "articleId",
-//   localField: "_id",
-// });
-
-// * Query middleware - this keyword points to a query here
-articleSchema.pre(/^find/, function (next) {
-  // populating guides reference with user data
-  // @ts-expect-error sad
-  this.populate({
-    path: "authorId",
-    select: "fullName _id",
-  });
-
-  next();
-});
 
 const ArticleModel = model<Article>("Article", articleSchema);
 
