@@ -20,12 +20,23 @@ const articleCommentSchema = new Schema(
       maxLength: [2000, "Comment is too big"],
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
-const ArticleCommentModel = model<Comment>(
-  "ArticleComment",
-  articleCommentSchema
-);
+// articleCommentSchema.pre(/^find/, function (next) {
+//   // @ts-expect-error sadasdas
+//   this.populate({ path: "articleId", select: "title" }).populate({
+//     path: "userId",
+//     select: "fullName",
+//   });
 
-export { ArticleCommentModel };
+//   next();
+// });
+
+const ArticleComment = model<Comment>("ArticleComment", articleCommentSchema);
+
+export default ArticleComment;
