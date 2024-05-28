@@ -1,4 +1,4 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Query, Schema, model } from "mongoose";
 
 type Article = InferSchemaType<typeof articleSchema>;
 
@@ -56,6 +56,18 @@ const articleSchema = new Schema(
   },
   { timestamps: true }
 );
+
+/**
+ * Populating the author
+ */
+articleSchema.pre<Query<unknown, unknown>>(/^find/, function (next) {
+  this.populate({
+    path: "authorId",
+    select: "fullName avatar _id",
+  });
+
+  next();
+});
 
 const ArticleModel = model<Article>("Article", articleSchema);
 
