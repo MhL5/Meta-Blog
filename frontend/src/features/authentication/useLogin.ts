@@ -45,6 +45,7 @@ export function useLogin() {
       if (!error) error = err.message;
 
       toast({
+        variant:"destructive",
         title: "Something went wrong while logging in",
         description: `${error}`,
       });
