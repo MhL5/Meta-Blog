@@ -1,4 +1,4 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Query, Schema, model } from "mongoose";
 
 type Comment = InferSchemaType<typeof articleCommentSchema>;
 
@@ -22,6 +22,16 @@ const articleCommentSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// auto populating on find
+articleCommentSchema.pre<Query<unknown, unknown>>(/^find/, function (next) {
+  this.populate({
+    path: "userId",
+    select: "fullName avatar _id createdAt updatedAt",
+  });
+
+  next();
+});
 
 const ArticleCommentModel = model<Comment>(
   "ArticleComment",

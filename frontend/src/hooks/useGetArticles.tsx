@@ -13,15 +13,41 @@ type Tag =
 
 export type Article = {
   _id: string;
-  authorId: string;
+  authorId: {
+    _id: string;
+    fullName: string;
+    avatar: string;
+  };
   title: string;
   content: string;
   readingTime: number;
   avatar: string;
   summary: string;
   tags: Tag[];
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
+  articleComments: {
+    _id: string;
+    userId: {
+      _id: string;
+      fullName: string;
+      avatar: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    articleId: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
+  articleLikes: {
+    _id: string;
+    userId: string;
+    articleId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
+  articleViews: { _id: string; articleId: string; createdAt: string }[];
 };
 
 type ArticlesResponse = {

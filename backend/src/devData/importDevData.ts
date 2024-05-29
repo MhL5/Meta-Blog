@@ -23,10 +23,10 @@ import fs from "fs";
  * @example bun importDevData.ts --import
  */
 
-import { ArticleModel as collection } from "../model/articleModel";
+import { UserModel as collection } from "../model/userModel";
 dotenv.config({ path: `${__dirname}/../../config.env` });
 const jsonData = JSON.parse(
-  fs.readFileSync(`${__dirname}/articleData.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/userData.json`, "utf-8")
 );
 
 let DB = null;

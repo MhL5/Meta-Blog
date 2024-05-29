@@ -1,4 +1,7 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Query, Schema, model } from "mongoose";
+import { ArticleCommentModel } from "./articleCommentModel";
+import { ArticleLikeModel } from "./articleLikeModel";
+import { ArticleViewModel } from "./articleViewModel";
 
 type Article = InferSchemaType<typeof articleSchema>;
 
@@ -54,8 +57,46 @@ const articleSchema = new Schema(
       },
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+
+/**
+ * Populating the author
+ */
+articleSchema.pre<Query<unknown, unknown>>(/^find/, function (next) {
+  this.populate({
+    path: "authorId",
+    select: "fullName avatar _id",
+  });
+
+  next();
+});
+
+/**
+ * Populating virtual properties
+ * Likes
+ * Views
+ * Comments
+ */
+articleSchema.virtual("articleComments", {
+  ref: ArticleCommentModel,
+  localField: "_id",
+  foreignField: "articleId",
+});
+articleSchema.virtual("articleLikes", {
+  ref: ArticleLikeModel,
+  localField: "_id",
+  foreignField: "articleId",
+});
+articleSchema.virtual("articleViews", {
+  ref: ArticleViewModel,
+  localField: "_id",
+  foreignField: "articleId",
+});
 
 const ArticleModel = model<Article>("Article", articleSchema);
 

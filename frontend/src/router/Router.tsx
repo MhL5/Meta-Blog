@@ -11,6 +11,7 @@ import Homepage from "@/pages/Homepage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import SignUpPage from "@/pages/SignUpPage";
 import TagsPage from "@/pages/TagsPage";
+import ArticlePage from "@/pages/ArticlePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<Homepage />} />
 
       <Route path="authors" element={<AuthorsPage />} />
+
       <Route path="articles" element={<ArticlesPage />} />
+      <Route path="articles/:id" element={<ArticlePage />} />
+
       <Route path="tags" element={<TagsPage />} />
 
       <Route path="signup" element={<SignUpPage />} />

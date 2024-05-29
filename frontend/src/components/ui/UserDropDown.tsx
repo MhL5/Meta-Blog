@@ -11,6 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./button";
 import { useLogout } from "@/features/authentication/useLogout";
+import {
+  EnvelopeOpenIcon,
+  ExitIcon,
+  GearIcon,
+  QuestionMarkCircledIcon,
+} from "@radix-ui/react-icons";
 
 type UserProps = { auth: Auth };
 export default function UserDropDown({ auth }: UserProps) {
@@ -25,7 +31,6 @@ export default function UserDropDown({ auth }: UserProps) {
       <DropdownMenuTrigger>
         <Avatar className="cursor-pointer">
           <AvatarImage
-            // todo backend url
             src={`${import.meta.env.VITE_BACKEND_URL}/${auth?.data.user?.avatar}`}
           />
           <AvatarFallback>{auth?.data.user.fullName}</AvatarFallback>
@@ -42,35 +47,34 @@ export default function UserDropDown({ auth }: UserProps) {
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
-
-          <DropdownMenuItem>
-            <Button variant="ghost" size="sm" className="justify-start" asChild>
-              {/* todo */}
-              <NavLink to="#" className="w-full">
-                dashboard
-              </NavLink>
-            </Button>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <Button variant="ghost" size="sm" className="justify-start" asChild>
-              {/* todo */}
-              <NavLink to="#" className="w-full">
-                Send feedback
-              </NavLink>
-            </Button>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="justify-start"
-              onClick={handleLogout}
-            >
-              logout
-            </Button>
-          </DropdownMenuItem>
+          {[
+            { to: "#", icon: <GearIcon />, name: "dashboard" },
+            { to: "#", icon: <EnvelopeOpenIcon />, name: "Send feedback" },
+            { to: "#", icon: <QuestionMarkCircledIcon />, name: "FAQ" },
+            {
+              to: "#",
+              icon: <ExitIcon />,
+              name: "logout",
+              onClick: handleLogout,
+            },
+          ].map(({ to, icon, name, onClick }) => {
+            return (
+              <DropdownMenuItem key={to + icon + name}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="justify-start"
+                  asChild
+                  onClick={onClick ? onClick : undefined}
+                >
+                  <NavLink to={to} className="w-full space-x-4">
+                    <span>{icon}</span>
+                    <span>{name}</span>
+                  </NavLink>
+                </Button>
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenuPortal>
     </DropdownMenu>

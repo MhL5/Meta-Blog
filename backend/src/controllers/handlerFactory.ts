@@ -102,7 +102,10 @@ const getOne = <K>(
  *  * field limiting
  *  * pagination
  */
-const getAll = <K>(FactoryModel: Model<K>) => {
+const getAll = <K>(
+  FactoryModel: Model<K>,
+  popOptions?: PopulateOptions | (string | PopulateOptions)[]
+) => {
   return catchAsyncMiddleware(async (req, res, next) => {
     //TODO: Fixing this workaround
     // To allow for nested route reviews on tour
@@ -115,7 +118,9 @@ const getAll = <K>(FactoryModel: Model<K>) => {
       .limitFields()
       .paginate();
 
-    const doc = await features.query;
+    let doc;
+    if (popOptions) doc = await features.query.populate(popOptions);
+    else doc = await features.query;
 
     if (!doc)
       return next(new AppError("Something went wrong! please try again", 500));
