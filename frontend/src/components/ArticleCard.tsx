@@ -16,15 +16,20 @@ import {
   EyeOpenIcon,
   HeartIcon,
 } from "@radix-ui/react-icons";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import RenderMarkDown from "@/features/articles/RenderMarkDown";
+import { truncateText } from "@/utils/truncateText";
+import UserAvatar from "./ui/UserAvatar";
 
 type ArticleCardProps = { article: Article };
 
 export default function ArticleCard({ article }: ArticleCardProps) {
   return (
-    <NavLink to={`/articles/${article._id}`}>
-      <article className="m-auto flex max-w-[400px] cursor-pointer">
-        <Card className="custom-hover">
+    <Card className="custom-hover m-auto flex h-full max-w-[400px] cursor-pointer">
+      <article>
+        <NavLink
+          to={`/articles/${article._id}`}
+          className="flex h-full flex-col"
+        >
           <CardHeader>
             <div>
               <img
@@ -39,23 +44,24 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             </div>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="">
             <CardTitle className="pb-2 text-xl font-bold">
               {article.title}
             </CardTitle>
-            <p>{article.summary}</p>
+            <p>
+              <RenderMarkDown data={truncateText(article.summary, 150)} />
+            </p>
           </CardContent>
 
-          <CardFooter>
+          <CardFooter className="mt-auto">
             <CardDescription className="w-full">
               <span className="flex items-center justify-start space-x-2 pb-3">
                 <span>
-                  <Avatar className="h-6 w-6 cursor-pointer">
-                    <AvatarImage
-                      src={`${import.meta.env.VITE_BACKEND_URL}/${article.authorId.avatar}`}
-                    />
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    className="h-6 w-6 cursor-pointer"
+                    url={article.authorId.avatar}
+                    fallBackText=""
+                  />
                 </span>
                 <span> {article.authorId?.fullName} </span>
               </span>
@@ -91,8 +97,8 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               </span>
             </CardDescription>
           </CardFooter>
-        </Card>
+        </NavLink>
       </article>
-    </NavLink>
+    </Card>
   );
 }

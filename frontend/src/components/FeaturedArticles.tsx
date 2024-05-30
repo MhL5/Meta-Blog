@@ -3,7 +3,7 @@ import Spinner from "./ui/Spinner";
 import { Button } from "./ui/button";
 import ArticleCard from "./ArticleCard";
 
-export default function FeaturedPosts() {
+export default function FeaturedArticles() {
   const { articles, isLoading } = useGetArticles();
 
   if (isLoading)
@@ -35,7 +35,7 @@ export default function FeaturedPosts() {
           {/* <Topics /> */}
         </div>
 
-        <div className="m-auto grid max-w-globalWidthContent gap-4 p-4 md:grid-cols-3">
+        <div className="m-auto grid max-w-globalWidthContent items-stretch tests gap-4 p-4 md:grid-cols-3">
           {articles?.data?.map((article) => {
             return <ArticleCard key={article._id} article={article} />;
           })}

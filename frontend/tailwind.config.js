@@ -28,7 +28,7 @@ module.exports = {
             },
             code: {
               background: "#334155",
-              color: "#e5e5e5",
+              color: "#94a3b8 !important",
               wordWrap: "break-word",
               boxDecorationBreak: "clone",
               padding: ".1rem .3rem .2rem",

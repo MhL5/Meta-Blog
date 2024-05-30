@@ -68,7 +68,7 @@ export default function LoginForm({ onTabChange }: loginFormProps) {
   function handleLogin(values: z.infer<typeof loginFormSchema>) {
     login(values, {
       onSuccess: () => {
-        if (rememberMe) handlePersistLogin();
+        handlePersistLogin({ rememberMe });
         loginForm.reset();
       },
     });
