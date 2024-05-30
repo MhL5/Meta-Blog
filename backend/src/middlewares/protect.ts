@@ -82,7 +82,7 @@ const protect = catchAsyncMiddleware(async (req, res, next) => {
    * 5. Grant access to protected Route
    * saves the user into `res.locals.user`
    */
-  res.locals.user = currentUser;
+  res.locals.user = currentUser.toObject();
   next();
 });
 
