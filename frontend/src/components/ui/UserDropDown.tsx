@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { Auth } from "@/features/authentication/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +16,7 @@ import {
   GearIcon,
   QuestionMarkCircledIcon,
 } from "@radix-ui/react-icons";
+import UserAvatar from "./UserAvatar";
 
 type UserProps = { auth: Auth };
 export default function UserDropDown({ auth }: UserProps) {
@@ -29,12 +29,11 @@ export default function UserDropDown({ auth }: UserProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="cursor-pointer">
-          <AvatarImage
-            src={`${import.meta.env.VITE_BACKEND_URL}/${auth?.data.user?.avatar}`}
-          />
-          <AvatarFallback>{auth?.data.user.fullName}</AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          className="cursor-pointer"
+          url={`${auth?.data.user?.avatar}`}
+          fallBackText={`${auth?.data.user.fullName}`}
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuPortal>

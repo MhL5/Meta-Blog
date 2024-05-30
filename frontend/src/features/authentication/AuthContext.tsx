@@ -13,7 +13,7 @@ import { refreshApi } from "./services/refreshApi";
 type AuthContextType = {
   auth: Auth | null;
   setAuth: Dispatch<SetStateAction<Auth | null>>;
-  handlePersistLogin: () => void;
+  handlePersistLogin: ({ rememberMe }: { rememberMe: boolean }) => void;
   persistLogin: boolean;
   isLoading: boolean;
 };
@@ -41,18 +41,19 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
   const persistLogin = localStorage.getItem("persistLogin") ? true : false;
 
   const { isLoading } = useQuery({
-    queryKey: [`persistLogin`],
+    queryKey: [`persistLogin`, persistLogin],
     queryFn: async () => {
-      try {
-        // if persistLogin does not exist call the logoutApi to clear browser cookies
-        if (!persistLogin) return await logoutApi();
+      // if persistLogin does not exist call the logoutApi to clear browser cookies
+      if (!persistLogin) return await logoutApi();
 
-        const newAccessToken = await refreshApi();
-        setAuth(newAccessToken);
-        return newAccessToken;
-      } catch (error) {
-        await logoutApi();
-      }
+      const newAccessToken = await refreshApi();
+      setAuth((prev) => {
+        return {
+          ...prev,
+          ...newAccessToken,
+        };
+      });
+      return newAccessToken;
     },
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
@@ -61,8 +62,10 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
     staleTime: 1000 * 60 * 60 * 24,
   });
 
-  function handlePersistLogin() {
-    localStorage.setItem("persistLogin", "true");
+  function handlePersistLogin({ rememberMe }: { rememberMe: boolean }) {
+    rememberMe
+      ? localStorage.setItem("persistLogin", "true")
+      : localStorage.setItem("persistLogin", "");
   }
 
   const ctx = {

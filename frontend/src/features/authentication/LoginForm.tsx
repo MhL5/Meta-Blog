@@ -15,7 +15,6 @@ import { Input } from "../../components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLogin } from "./useLogin";
 import { useAuthContext } from "./AuthContext";
-import Spinner from "@/components/ui/Spinner";
 
 type loginFormProps = {
   onTabChange: (tab: "signup" | "login") => void;
@@ -69,7 +68,7 @@ export default function LoginForm({ onTabChange }: loginFormProps) {
   function handleLogin(values: z.infer<typeof loginFormSchema>) {
     login(values, {
       onSuccess: () => {
-        if (rememberMe) handlePersistLogin();
+        handlePersistLogin({ rememberMe });
         loginForm.reset();
       },
     });
@@ -119,7 +118,7 @@ export default function LoginForm({ onTabChange }: loginFormProps) {
           </label>
         </div>
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? <Spinner /> : `Submit`}
+          Submit
         </Button>
         <Button
           type="submit"
@@ -127,7 +126,7 @@ export default function LoginForm({ onTabChange }: loginFormProps) {
           variant="secondary"
           disabled={isPending}
         >
-          {isPending ? <Spinner /> : `login with Google`}
+          login with Google
         </Button>
       </form>
 

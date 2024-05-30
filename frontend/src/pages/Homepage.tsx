@@ -1,4 +1,4 @@
-import FeaturedPosts from "@/components/FeaturedPosts";
+import FeaturedArticles from "@/components/FeaturedArticles";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import HomePageHeroHeader from "@/components/layout/HomePageHeroHeader";
@@ -11,7 +11,7 @@ export default function Homepage() {
       <Header />
       <HomePageHeroHeader />
 
-      <FeaturedPosts />
+      <FeaturedArticles />
       <NewsLetterSubscription />
       <Footer />
     </PageContainer>

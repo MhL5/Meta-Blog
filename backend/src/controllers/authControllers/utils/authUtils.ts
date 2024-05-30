@@ -41,7 +41,7 @@ function generateRefreshToken({ res, user }: TokenGeneratorParams) {
 
 function generateAccessToken({ res, user }: TokenGeneratorParams) {
   return jwt.sign({ data: { user } }, env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "10s",
+    expiresIn: "60s",
   });
 }
 

@@ -21,7 +21,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Spinner from "@/components/ui/Spinner";
 
 type SignUpFormProps = {
   onTabChange: (tab: "signup" | "login") => void;
@@ -143,7 +142,7 @@ export default function SignUpForm({ onTabChange }: SignUpFormProps) {
           ))}
 
           <Button type="submit" className="w-full" disabled={isPending}>
-            {isPending ? <Spinner /> : `Submit`}
+            Submit
           </Button>
           <Button
             type="submit"
@@ -151,7 +150,7 @@ export default function SignUpForm({ onTabChange }: SignUpFormProps) {
             variant="secondary"
             disabled={isPending}
           >
-            {isPending ? <Spinner /> : `sign up with Google`}
+            sign up with Google
           </Button>
         </form>
 

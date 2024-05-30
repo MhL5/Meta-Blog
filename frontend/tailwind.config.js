@@ -17,6 +17,26 @@ module.exports = {
       },
     },
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            "code::before": {
+              content: "&nbsp;&nbsp;",
+            },
+            "code::after": {
+              content: "&nbsp;&nbsp;",
+            },
+            code: {
+              background: "#334155",
+              color: "#94a3b8 !important",
+              wordWrap: "break-word",
+              boxDecorationBreak: "clone",
+              padding: ".1rem .3rem .2rem",
+              borderRadius: ".2rem",
+            },
+          },
+        },
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -78,5 +98,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
