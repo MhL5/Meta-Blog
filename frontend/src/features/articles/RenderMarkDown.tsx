@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
 import { useDarkModeContext } from "../theme/DarkModeContext";
 import {
   oneDark,
@@ -40,3 +40,5 @@ export default function RenderMarkDown({ data }: RenderMarkDownProps) {
     </article>
   );
 }
+
+
