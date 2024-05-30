@@ -2,7 +2,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAxiosPrivate } from "@/features/authentication/useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-type Tag =
+export type Tag =
   | "travel"
   | "nature"
   | "health"
