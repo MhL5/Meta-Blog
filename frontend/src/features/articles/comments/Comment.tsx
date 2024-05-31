@@ -69,7 +69,7 @@ export default function Comment({ comment, loggedInUserId }: CommentProps) {
   return (
     <Card key={comment._id}>
       <div className="flex gap-2 p-2">
-        <UserAvatar url={`${comment.userId.avatar}`} fallBackText="" />
+        <UserAvatar url={`${comment.userId.avatar}`} />
         <div className="w-full">
           <p className="mb-4 w-full text-sm text-gray-500">
             <div className="flex w-full items-center space-x-4">

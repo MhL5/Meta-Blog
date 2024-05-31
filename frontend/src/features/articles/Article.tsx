@@ -115,10 +115,7 @@ export default function Article() {
           className="flex items-center gap-2 font-bold capitalize underline hover:text-blue-500"
           to={`/authors/${data.data.authorId._id}`}
         >
-          <UserAvatar
-            url={`${data.data.authorId.avatar}`}
-            fallBackText={`${data.data.authorId.fullName}`}
-          />
+          <UserAvatar url={`${data.data.authorId.avatar}`} />
           {data.data.authorId.fullName}
         </Link>
 
