@@ -13,7 +13,7 @@ export default function PersistLogin({ children }: PersistLoginProps) {
       {isLoading ? (
         <PageContainer>
           <div className="flex min-h-dvh flex-col items-center justify-center">
-            <MetaBlogLogoSvgIcon className="animate-ping duration-500" />
+            <MetaBlogLogoSvgIcon className="animate-ping duration-1000 w-12 h-12" />
           </div>
         </PageContainer>
       ) : (
