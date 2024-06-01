@@ -79,7 +79,15 @@ const getOne = <K>(
   return catchAsyncMiddleware(async (req, res, next) => {
     const { id } = req.params;
 
-    let query = FactoryModel.findById(id);
+    if (!id) return next(new AppError("id params is required", 401));
+
+    // building the query
+    let query;
+    const isId = /^[0-9a-f]{24}$/.test(id);
+    // req.params.id might be an slug ("The-Sea-Explorer") or id ("5c88fa8cf4afda39709c2951")
+    if (isId) query = FactoryModel.findById(id);
+    else query = FactoryModel.findOne({ slug: id });
+
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
 
