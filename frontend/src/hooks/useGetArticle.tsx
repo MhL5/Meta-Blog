@@ -40,7 +40,7 @@ type ArticleData = {
   tags: Tag[];
   createdAt: string;
   updatedAt: string;
-  articleComments: ArticleLike[];
+  articleComments: ArticleComment[];
   articleLikes: ArticleLike[];
   articleViews: {
     _id: string;
