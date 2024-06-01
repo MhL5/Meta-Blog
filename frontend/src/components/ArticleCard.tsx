@@ -48,9 +48,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             <CardTitle className="pb-2 text-xl font-bold">
               {article.title}
             </CardTitle>
-            <p>
+            <summary>
               <RenderMarkDown data={truncateText(article.summary, 150)} />
-            </p>
+            </summary>
           </CardContent>
 
           <CardFooter className="mt-auto">
