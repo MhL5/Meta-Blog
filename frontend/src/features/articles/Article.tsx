@@ -1,77 +1,20 @@
 import Spinner from "@/components/ui/Spinner";
 import { Badge } from "@/components/ui/badge";
-import { Tag } from "@/hooks/useGetArticles";
-import { axiosApi } from "@/services/axiosApi";
-import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import UserAvatar from "@/components/ui/UserAvatar";
 import { dateConvertor } from "@/utils/dateConvertor";
-import { CalendarIcon, HeartIcon, StopwatchIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, StopwatchIcon } from "@radix-ui/react-icons";
 import RenderMarkDown from "./RenderMarkDown";
 import CommentManager from "./comments/CommentManager";
+import ArticleLike from "./like/ArticleLike";
+import useGetArticle from "@/hooks/useGetArticle";
+import NotFoundPage from "@/pages/NotFoundPage";
 
-export type ArticleComment = {
-  _id: string;
-  userId: {
-    _id: string;
-    fullName: string;
-    avatar: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  articleId: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
-export type ArticleComments = ArticleComment[];
-
-type ArticleData = {
-  _id: string;
-  authorId: {
-    _id: string;
-    fullName: string;
-    avatar: string;
-  };
-  title: string;
-  content: string;
-  readingTime: number;
-  avatar: string;
-  summary: string;
-  tags: Tag[];
-  createdAt: string;
-  updatedAt: string;
-  articleComments: ArticleComments;
-  articleLikes: {
-    _id: string;
-    userId: string;
-    articleId: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
-  articleViews: {
-    _id: string;
-    articleId: string;
-    createdAt: string;
-  }[];
-  id: string;
-};
-type ArticleResponse = {
-  status: "success" | "fail";
-  data: ArticleData;
-};
 
 export default function Article() {
   const { id } = useParams();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["article", id],
-    queryFn: async () => {
-      const res = await axiosApi.get<ArticleResponse>(`articles/${id}`);
-      return res.data;
-    },
-  });
+  const { article, isLoading } = useGetArticle({ articleId: id || "" });
 
   if (isLoading) {
     return (
@@ -82,70 +25,65 @@ export default function Article() {
     );
   }
 
-  if (!data)
-    return <div className="m-40 grid place-items-center">404 Not found 😥</div>;
+  if (!article || !id) return <NotFoundPage />;
 
   return (
     <section className="m-10 max-w-[700px]">
       <div className="flex">
-        {data.data.tags.map((tag) => {
+        {article.data.tags.map((tag) => {
           return (
             <Badge key={Math.random() + tag} variant={tag} className="mr-auto">
               {tag}
             </Badge>
           );
         })}
-
-        <div className="ml-auto flex items-center gap-4 rounded-full border px-4 py-2 font-bold shadow-sm">
-          {data.data.articleLikes.length}
-          {/* todo: activate liking */}
-          <HeartIcon className="h-6 w-6" />
-          {/* <HeartFilledIcon /> */}
-        </div>
       </div>
 
-      <h1 className="py-8 text-5xl font-bold">{data.data.title}</h1>
+      <h1 className="py-8 text-5xl font-bold">{article.data.title}</h1>
 
       <summary>
-        <RenderMarkDown data={data.data.summary} />
+        <RenderMarkDown data={article.data.summary} />
       </summary>
 
       <div className="flex items-center gap-6 pt-8">
         <Link
           className="flex items-center gap-2 font-bold capitalize underline hover:text-blue-500"
-          to={`/authors/${data.data.authorId._id}`}
+          to={`/authors/${article.data.authorId._id}`}
         >
-          <UserAvatar url={`${data.data.authorId.avatar}`} />
-          {data.data.authorId.fullName}
+          <UserAvatar url={`${article.data.authorId.avatar}`} />
+          {article.data.authorId.fullName}
         </Link>
 
         <div className="flex items-center gap-2">
           <span>
             <CalendarIcon />
           </span>
-          <span>{dateConvertor(data.data.createdAt)}</span>
+          <span>{dateConvertor(article.data.createdAt)}</span>
         </div>
 
         <div className="flex items-center gap-2">
           <span>
             <StopwatchIcon />
           </span>
-          {data.data.readingTime} min read
+          {article.data.readingTime} min read
         </div>
+
+        <ArticleLike articleLikes={article.data.articleLikes} articleId={id} />
       </div>
 
       <div className="py-8">
         <img
-          src={`${import.meta.env.VITE_BACKEND_URL}/${data.data.avatar}`}
+          src={`${import.meta.env.VITE_BACKEND_URL}/${article.data.avatar}`}
           alt="article image"
           className="max-h-[400px] w-full rounded-md object-cover"
+          loading="lazy"
         />
       </div>
 
-      <RenderMarkDown data={data.data.content} />
+      <RenderMarkDown data={article.data.content} />
 
       <div className="mt-16 rounded-md">
-        <CommentManager comments={data.data.articleComments} />
+        <CommentManager comments={article.data.articleComments} />
       </div>
     </section>
   );
