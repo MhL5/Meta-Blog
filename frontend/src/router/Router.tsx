@@ -11,7 +11,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import SignUpPage from "@/pages/SignUpPage";
 import Topics from "@/pages/TopicsPage";
 import ArticlePage from "@/pages/ArticlePage";
-import Dashboard from "@/pages/Dashboard";
+import DashboardPage from "@/pages/DashboardPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
 
       <Route path="/topics" element={<Topics />} />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/notfound" element={<NotFoundPage />} />
       <Route path="*" element={<NotFoundPage />} />
