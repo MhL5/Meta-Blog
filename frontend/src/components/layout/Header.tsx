@@ -43,7 +43,7 @@ function NavigationMenu() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Button asChild variant="ghost" size="sm">
-                    <NavLink to="/posts">Posts</NavLink>
+                    <NavLink to="/articles">Articles</NavLink>
                   </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -74,8 +74,8 @@ function NavigationMenu() {
           <NavLink className="hidden sm:inline" to="/authors">
             Authors
           </NavLink>
-          <NavLink className="hidden sm:inline" to="/posts">
-            Posts
+          <NavLink className="hidden sm:inline" to="/articles">
+            Articles
           </NavLink>
           <NavLink className="hidden sm:inline" to="/topics">
             Topics
