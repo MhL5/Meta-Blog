@@ -32,7 +32,6 @@ export default function UserDropDown({ auth }: UserProps) {
         <UserAvatar
           className="cursor-pointer"
           url={`${auth?.data.user?.avatar}`}
-          fallBackText={`${auth?.data.user.fullName}`}
         />
       </DropdownMenuTrigger>
 

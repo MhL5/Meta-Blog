@@ -30,7 +30,8 @@ export default function RenderMarkDown({ data }: RenderMarkDownProps) {
                 wrapLongLines={true}
               />
             ) : (
-              <code {...rest} className={className}>
+              // @ts-expect-error The 'inline' attribute in ReactMarkDown implementation is mistakenly set as a boolean value 'true'. Overwriting it to a string 'true' to prevent console errors in the browser.
+              <code {...rest} className={className} inline="true">
                 {children}
               </code>
             );
@@ -40,5 +41,3 @@ export default function RenderMarkDown({ data }: RenderMarkDownProps) {
     </article>
   );
 }
-
-

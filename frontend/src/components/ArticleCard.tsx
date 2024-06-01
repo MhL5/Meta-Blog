@@ -60,7 +60,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                   <UserAvatar
                     className="h-6 w-6 cursor-pointer"
                     url={article.authorId.avatar}
-                    fallBackText=""
                   />
                 </span>
                 <span> {article.authorId?.fullName} </span>

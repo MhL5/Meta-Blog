@@ -3,6 +3,7 @@ import * as articleController from "../controllers/articleController";
 import * as commentController from "../controllers/commentController";
 import { protect } from "../middlewares/protect";
 import { checkCommentOwnership } from "../middlewares/checkCommentOwnership";
+import { toggleLike } from "../controllers/likeController";
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router
  */
 router.use(protect);
 router.route("/comments").post(commentController.createComment);
+router.route("/likes").post(toggleLike);
 
 router
   .route("/comments/:id")

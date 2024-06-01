@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import { ArticleComment } from "../Article";
 import UserAvatar from "@/components/ui/UserAvatar";
 import { intlFormatDistance } from "date-fns";
 import { Button } from "@/components/ui/button";
@@ -19,10 +18,12 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ArticleComment } from "@/hooks/useGetArticle";
 
 type CommentProps = {
   comment: ArticleComment;
   loggedInUserId: string;
+  className?: string;
 };
 
 const updateCommentSchema = z.object({
@@ -30,7 +31,11 @@ const updateCommentSchema = z.object({
   commentId: z.string(),
 });
 
-export default function Comment({ comment, loggedInUserId }: CommentProps) {
+export default function Comment({
+  comment,
+  loggedInUserId,
+  className,
+}: CommentProps) {
   const [editComment, setEditComment] = useState("");
   const { deleteComment, isDeleting } = useDeleteComment();
   const { isUpdating, updateComment } = useUpdateComment();
@@ -41,6 +46,7 @@ export default function Comment({ comment, loggedInUserId }: CommentProps) {
     resolver: zodResolver(updateCommentSchema),
     defaultValues: {
       commentId: comment._id,
+      content: "",
     },
   });
 
@@ -67,11 +73,11 @@ export default function Comment({ comment, loggedInUserId }: CommentProps) {
   }, [comment.content, updateCommentForm]);
 
   return (
-    <Card key={comment._id}>
+    <Card key={comment._id} className={`${className} `}>
       <div className="flex gap-2 p-2">
-        <UserAvatar url={`${comment.userId.avatar}`} fallBackText="" />
+        <UserAvatar url={`${comment.userId.avatar}`} />
         <div className="w-full">
-          <p className="mb-4 w-full text-sm text-gray-500">
+          <div className="mb-4 w-full text-sm text-gray-500">
             <div className="flex w-full items-center space-x-4">
               <div className="ml-3 mr-auto space-x-4">
                 <span>{comment.userId.fullName}</span>
@@ -107,7 +113,7 @@ export default function Comment({ comment, loggedInUserId }: CommentProps) {
                 </div>
               )}
             </div>
-          </p>
+          </div>
 
           <Form {...updateCommentForm}>
             <form onSubmit={updateCommentForm.handleSubmit(onUpdateComment)}>
