@@ -42,6 +42,7 @@ export default function ArticleLike({
         variant="ghost"
         size="xs"
         onClick={() => toggleLike({ isLiked: !isLiked })}
+        disabled={!auth}
       >
         <div className="flex items-center gap-1">
           {isTogglingLike && (
