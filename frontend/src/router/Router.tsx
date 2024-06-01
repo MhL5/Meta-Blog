@@ -12,6 +12,7 @@ import SignUpPage from "@/pages/SignUpPage";
 import Topics from "@/pages/TopicsPage";
 import ArticlePage from "@/pages/ArticlePage";
 import DashboardPage from "@/pages/DashboardPage";
+import TextEditor from "@/features/textEditor/TextEditor";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +27,11 @@ const router = createBrowserRouter(
 
       <Route path="/topics" element={<Topics />} />
 
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/dashboard" element={<DashboardPage />}>
+        <Route path="user" element={<div>user</div>} />
+        <Route path="text-editor" element={<TextEditor />} />
+      </Route>
+
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/notfound" element={<NotFoundPage />} />
       <Route path="*" element={<NotFoundPage />} />
