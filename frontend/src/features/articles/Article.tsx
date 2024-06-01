@@ -28,8 +28,8 @@ export default function Article() {
   if (!article || !id) return <NotFoundPage />;
 
   return (
-    <section className="m-10 max-w-[700px]">
-      <div className="flex">
+    <section className="m-10 mx-4 sm:m-10 max-w-[700px]">
+      <div className="pb-2">
         {article.data.tags.map((tag) => {
           return (
             <Badge key={Math.random() + tag} variant={tag} className="mr-auto">
@@ -45,7 +45,7 @@ export default function Article() {
         <RenderMarkDown data={article.data.summary} />
       </summary>
 
-      <div className="flex items-center gap-6 pt-8">
+      <div className="flex items-center flex-wrap gap-6 pt-8">
         <Link
           className="flex items-center gap-2 font-bold capitalize underline hover:text-blue-500"
           to={`/authors/${article.data.authorId._id}`}
