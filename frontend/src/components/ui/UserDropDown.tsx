@@ -46,7 +46,7 @@ export default function UserDropDown({ auth }: UserProps) {
 
           <DropdownMenuSeparator />
           {[
-            { to: "#", icon: <GearIcon />, name: "dashboard" },
+            { to: "/dashboard", icon: <GearIcon />, name: "dashboard" },
             { to: "#", icon: <EnvelopeOpenIcon />, name: "Send feedback" },
             { to: "#", icon: <QuestionMarkCircledIcon />, name: "FAQ" },
             {
