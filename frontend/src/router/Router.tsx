@@ -1,18 +1,21 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import ArticlesPage from "@/pages/ArticlesPage";
-import AuthorsPage from "@/pages/AuthorsPage";
-import ErrorPage from "@/pages/ErrorPage";
-import Homepage from "@/pages/Homepage";
-import NotFoundPage from "@/pages/NotFoundPage";
-import SignUpPage from "@/pages/SignUpPage";
-import Topics from "@/pages/TopicsPage";
-import ArticlePage from "@/pages/ArticlePage";
-import DashboardPage from "@/pages/DashboardPage";
-import TextEditor from "@/features/textEditor/TextEditor";
+import { lazy } from "react";
+
+const ArticlePage = lazy(() => import("@/pages/ArticlePage"));
+const ArticlesPage = lazy(() => import("@/pages/ArticlesPage"));
+const AuthorsPage = lazy(() => import("@/pages/AuthorsPage"));
+const ErrorPage = lazy(() => import("@/pages/ErrorPage"));
+const Homepage = lazy(() => import("@/pages/Homepage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+const SignUpPage = lazy(() => import("@/pages/SignUpPage"));
+const Topics = lazy(() => import("@/pages/TopicsPage"));
+const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+const TextEditor = lazy(() => import("@/features/textEditor/TextEditor"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
