@@ -29,7 +29,6 @@ model Articlelike {
   user      User    @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([userId, articleId])
   @@map("articlelikes")
@@ -43,64 +42,73 @@ model FavoriteArticle {
   user      User    @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([userId, articleId])
   @@map("favoriteArticles")
 }
 
+model ArticleView {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  ip        String  @unique
+  articleId String  @db.ObjectId
+  article   Article @relation(fields: [articleId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("articleViews")
+}
+
 model Article {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  avatar      String
-  content     String
-  summary     String
-  title       String
-  readingTime Int
-  tags        String[]
-  authorId    String   @db.ObjectId
-  author      User     @relation(fields: [authorId], references: [id])
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  avatar          String
+  content         String
+  summary         String
+  title           String
+  readingTime     Int
+  tags            String[]
+  articleComments ArticleComment[]
+  articlelikes    Articlelike[]
+  favoriteArticle FavoriteArticle[]
+  articleViews     ArticleView[]
+  authorId        String            @db.ObjectId
+  author          User              @relation(fields: [authorId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  ArticleComments ArticleComment[]
-  Articlelikes    Articlelike[]
-  // todo: can i remove this somehow? i only need favorite articles when i fetch the user not on fucking articles
-  FavoriteArticle FavoriteArticle[]
 
   @@map("articles")
 }
 
-// model subscription
-model subscrice {
+model NewsletterSubscriber {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
+
+  @@map("newsletterSubscribers")
 }
 
-// Next-auth models - BECAREFUL WHILE MODIFING
+// ⚠️⚠️ Next-auth models - BECAREFUL WHILE MODIFING ⚠️⚠️
+// --------------------------------------------------------------------------
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?           @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
   Articles         Article[]
   ArticleComments  ArticleComment[]
   Articlelikes     Articlelike[]
   FavoriteArticles FavoriteArticle[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -111,11 +119,11 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
+  userId            String  @db.ObjectId
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
