@@ -11,7 +11,7 @@ const envSchema = z.object({
   // Mongodb atlas KEY:
   DATABASE_URL: z.string().min(1),
   // RECAPTCHA KEYS:
-  NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY: z.string().min(1),
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1),
   GOOGLE_RECAPTCHA_SECRET: z.string().min(1),
 });
 
