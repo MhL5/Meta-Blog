@@ -69,7 +69,7 @@ model Article {
   articleComments ArticleComment[]
   articlelikes    Articlelike[]
   favoriteArticle FavoriteArticle[]
-  articleViews     ArticleView[]
+  articleViews    ArticleView[]
   authorId        String            @db.ObjectId
   author          User              @relation(fields: [authorId], references: [id])
 
@@ -94,6 +94,7 @@ model User {
   email            String?           @unique
   emailVerified    DateTime?
   image            String?
+  password         String?
   accounts         Account[]
   sessions         Session[]
   Articles         Article[]
