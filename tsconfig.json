@@ -12,6 +12,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    // ----------------------
+    // ⚙️ custom settings:
+    "pretty": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    // "declaration": true,
+    "noUnusedLocals": true,
+    // ⚙️ end of custom settings
+    // ----------------------
     "plugins": [
       {
         "name": "next"
