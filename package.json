@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
+    "@hookform/resolvers": "^3.6.0",
     "@prisma/client": "^5.16.0",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@types/bcrypt": "^5.0.2",
@@ -24,6 +26,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha-v3": "^1.10.1",
+    "react-hook-form": "^7.52.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
