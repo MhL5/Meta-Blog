@@ -6,8 +6,12 @@ import { z } from "zod";
 const envSchema = z.object({
   // NEXT-AUTH KEYS:
   AUTH_SECRET: z.string().min(1),
+  // next-auth google
   AUTH_GOOGLE_SECRET: z.string().min(1),
   AUTH_GOOGLE_ID: z.string().min(1),
+  // next-auth github:
+  AUTH_GITHUB_ID: z.string().min(1),
+  AUTH_GITHUB_SECRET: z.string().min(1),
   // Mongodb atlas KEY:
   DATABASE_URL: z.string().min(1),
   // RECAPTCHA KEYS:
