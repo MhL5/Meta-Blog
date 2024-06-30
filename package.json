@@ -12,6 +12,8 @@
     "@auth/prisma-adapter": "^2.4.1",
     "@prisma/client": "^5.16.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.397.0",
@@ -19,6 +21,7 @@
     "next-auth": "^5.0.0-beta.19",
     "react": "^18",
     "react-dom": "^18",
+    "react-google-recaptcha-v3": "^1.10.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
