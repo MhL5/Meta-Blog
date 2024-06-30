@@ -15,7 +15,6 @@
     // ----------------------
     // ⚙️ custom settings:
     "pretty": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnusedLabels": false,
