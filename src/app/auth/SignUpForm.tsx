@@ -102,6 +102,7 @@ export default function SignUpForm() {
             <Button
               className="basis-1/2"
               type="reset"
+              variant="secondary"
               disabled={isExecuting}
               onClick={() => form.reset()}
             >
