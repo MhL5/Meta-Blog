@@ -2,7 +2,7 @@ import SignUpForm from "./SignUpForm";
 
 export default function Page() {
   return (
-    <div className="min-h-dvh grid place-items-center">
+    <div className="m-auto grid place-items-center">
       <SignUpForm />
     </div>
   );
