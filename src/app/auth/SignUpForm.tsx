@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
+import { useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // raw data object for rendering inputs
 const signUpFormFields = [
@@ -46,6 +48,7 @@ const signUpFormFields = [
 ] as const;
 
 export default function SignUpForm() {
+  const recaptchaRef = useRef(null);
   const { toast } = useToast();
   const { execute, isExecuting } = useAction(signUpAction, {
     onSuccess({ data }) {
@@ -69,11 +72,16 @@ export default function SignUpForm() {
       email: "",
       password: "",
       passwordConfirm: "",
+      captcha: "",
     },
   });
 
-  function onSubmit(values: SignUpSchemaType) {
+  async function onSubmit(values: SignUpSchemaType) {
     execute(values);
+  }
+
+  function handleCaptcha(val: string | null) {
+    form.setValue("captcha", val || "");
   }
 
   return (
@@ -98,6 +106,21 @@ export default function SignUpForm() {
             />
           ))}
 
+          <FormField
+            key="GoogleCaptcha"
+            control={form.control}
+            name="captcha"
+            disabled={isExecuting}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="hidden" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <div className="flex gap-2 justify-between">
             <Button
               className="basis-1/2"
@@ -113,6 +136,17 @@ export default function SignUpForm() {
             </Button>
           </div>
         </form>
+        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+          <ReCAPTCHA
+            // TODO:
+            theme="dark"
+            ref={recaptchaRef}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+            onChange={handleCaptcha}
+          />
+        ) : (
+          "Warning!"
+        )}
       </Form>
     </div>
   );

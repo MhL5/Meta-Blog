@@ -30,6 +30,13 @@ const signUpSchema = z
         invalid_type_error: "Passwords must match",
       })
       .min(1),
+    captcha: z
+      .string({
+        required_error: "Google captcha validation failed, please try again",
+        invalid_type_error:
+          "Google captcha validation failed, please try again",
+      })
+      .min(1, "Google captcha validation failed, please try again"),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "Passwords must match",
