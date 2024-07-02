@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
-import { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 // raw data object for rendering inputs
@@ -48,7 +47,6 @@ const signUpFormFields = [
 ] as const;
 
 export default function SignUpForm() {
-  const recaptchaRef = useRef(null);
   const { toast } = useToast();
   const { execute, isExecuting } = useAction(signUpAction, {
     onSuccess({ data }) {
@@ -138,9 +136,6 @@ export default function SignUpForm() {
         </form>
         {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
           <ReCAPTCHA
-            // TODO:
-            theme="dark"
-            ref={recaptchaRef}
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
             onChange={handleCaptcha}
           />
