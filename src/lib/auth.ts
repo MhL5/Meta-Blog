@@ -7,6 +7,7 @@ import Github from "next-auth/providers/github";
 import { ZodError, z } from "zod";
 import bcrypt from "bcrypt";
 import { fromZodError } from "zod-validation-error";
+import { cache } from "react";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "Invalid identifier or password";
@@ -77,3 +78,10 @@ const AuthOptions = {
 } satisfies NextAuthConfig;
 
 export const { handlers, signIn, signOut, auth } = NextAuth(AuthOptions);
+
+/**
+ * ### Caches next-auth `auth()`,
+ * @description Caches and deduplicates the result of the next-js `auth()` request for a **single server request** with react `cache` function
+ * #### `warning` : Do not use this in server actions, this function only meant to be used inside components and pages
+ */
+export const cachedAuth = cache(auth);
