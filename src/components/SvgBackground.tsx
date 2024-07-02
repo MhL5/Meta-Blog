@@ -9,7 +9,7 @@ export default function SvgBackground({
   ...props
 }: SvgBackgroundProps) {
   return (
-    <main className="min-h-dvh">
+    <main className="min-h-dvh flex flex-col">
       <div
         className={`${className} bg-cover bg-center bg-no-repeat [background-image:url("../assets/heroBackground.svg")] w-full absolute h-dvh -z-50`}
         {...props}
