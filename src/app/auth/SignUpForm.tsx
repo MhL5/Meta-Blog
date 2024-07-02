@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
-import ReCAPTCHA from "react-google-recaptcha";
+import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
 
 // raw data object for rendering inputs
 const signUpFormFields = [
@@ -134,14 +134,7 @@ export default function SignUpForm() {
             </Button>
           </div>
         </form>
-        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-            onChange={handleCaptcha}
-          />
-        ) : (
-          "Warning!"
-        )}
+        <GoogleReCAPTCHA onChange={handleCaptcha} />
       </Form>
     </div>
   );
