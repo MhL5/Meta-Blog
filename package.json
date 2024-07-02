@@ -18,7 +18,6 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
-    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -29,7 +28,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-google-recaptcha-v3": "^1.10.1",
+    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.52.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
@@ -37,9 +36,11 @@
     "zod-validation-error": "^3.3.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-google-recaptcha": "^2.1.9",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
