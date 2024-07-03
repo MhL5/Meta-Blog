@@ -12,30 +12,25 @@ export default function GoogleReCAPTCHA({ onChange }: GoogleReCAPTCHAProps) {
   const clientKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   if (!clientKey) throw new Error("RECAPTCHA_SITE_KEY is not defined");
 
-  function handleTest() {
+  function handleLoading() {
     setLoading(false);
   }
 
   return (
-    <div className="my-4">
-      {clientKey ? (
-        <>
-          <ReCAPTCHA
-            sitekey={clientKey!}
-            onChange={onChange}
-            asyncScriptOnLoad={handleTest}
-          />
-          {loading ? (
-            <Skeleton className="w-[304px] h-[74px] rounded-sm flex">
-              <span className="inline-block m-auto">
-                Loading Google Recaptcha ...
-              </span>
-            </Skeleton>
-          ) : null}
-        </>
-      ) : (
-        "Warning!"
-      )}
-    </div>
+    <>
+      <ReCAPTCHA
+        sitekey={clientKey!}
+        onChange={onChange}
+        asyncScriptOnLoad={handleLoading}
+      />
+
+      {loading ? (
+        <Skeleton className="w-[304px] h-[74px] rounded-sm flex">
+          <span className="inline-block m-auto">
+            Loading Google Recaptcha ...
+          </span>
+        </Skeleton>
+      ) : null}
+    </>
   );
 }
