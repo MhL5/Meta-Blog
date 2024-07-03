@@ -6,9 +6,9 @@ const signUpSchema = z
       .string({
         required_error: "Name is required",
         invalid_type_error:
-          "full name should be between 4 and 50 characters long. Try again please",
+          "full name should be between 3 and 50 characters long. Try again please",
       })
-      .min(4)
+      .min(3, "full name at least should be 3 characters long")
       .max(50),
     email: z
       .string({
@@ -29,7 +29,7 @@ const signUpSchema = z
         required_error: "Passwords must match",
         invalid_type_error: "Passwords must match",
       })
-      .min(1),
+      .min(1, "Passwords confirm must not be empty"),
     captcha: z
       .string({
         required_error: "Google captcha validation failed, please try again",
