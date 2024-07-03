@@ -51,7 +51,7 @@ export const Tabs = ({
       setTabs(newTabs);
       setActive(newTabs[0]);
     }
-    if (tab === "signin") moveSelectedTabToTop(0);
+    if (tab === "signup") moveSelectedTabToTop(0);
     if (tab === "login") moveSelectedTabToTop(1);
   }, [propTabs, tab]);
   // Custom
