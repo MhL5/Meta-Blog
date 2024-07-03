@@ -123,22 +123,21 @@ export default function SignUpForm() {
             />
           ))}
 
+          <GoogleReCAPTCHA onChange={handleCaptcha} />
           <FormField
             key="GoogleCaptcha"
             control={form.control}
             name="captcha"
             disabled={isExecuting}
             render={({ field }) => (
-              <FormItem className="hidden">
+              <FormItem className="p-0 m-0 space-y-0">
                 <FormControl>
-                  <Input type="hidden" {...field} />
+                  <Input type="text" className="hidden" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <GoogleReCAPTCHA onChange={handleCaptcha} />
 
           <Button
             type="submit"
