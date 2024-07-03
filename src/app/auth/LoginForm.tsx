@@ -17,7 +17,7 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import GithubLoginButton from "./GithubLoginButton";
 import loginSchema, { LoginSchemaType } from "./loginSchema";
 import { signIn } from "next-auth/react";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 
 // raw data object for rendering inputs
 const loginFormFields = [
