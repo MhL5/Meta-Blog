@@ -15,7 +15,7 @@ import {
 } from "@radix-ui/react-icons";
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
+import { auth, signOut } from "@/lib/auth";
 
 export default async function UserDropDown() {
   const session = await auth();
@@ -37,15 +37,11 @@ export default async function UserDropDown() {
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
+
           {[
             { to: "/dashboard", icon: <GearIcon />, name: "dashboard" },
             { to: "#", icon: <EnvelopeOpenIcon />, name: "Send feedback" },
             { to: "#", icon: <QuestionMarkCircledIcon />, name: "FAQ" },
-            {
-              to: "#",
-              icon: <ExitIcon />,
-              name: "logout",
-            },
           ].map(({ to, icon, name }) => {
             return (
               <DropdownMenuItem key={to + icon + name}>
@@ -63,6 +59,29 @@ export default async function UserDropDown() {
               </DropdownMenuItem>
             );
           })}
+
+          <DropdownMenuItem>
+            <form
+              action={async () => {
+                "use server";
+                await signOut();
+              }}
+            >
+              <Button
+                variant="ghost"
+                size="sm"
+                type="submit"
+                className="justify-start"
+              >
+                <div className="w-full space-x-4 flex items-center">
+                  <span>
+                    <ExitIcon />
+                  </span>
+                  <span>Logout</span>
+                </div>
+              </Button>
+            </form>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenuPortal>
     </DropdownMenu>
