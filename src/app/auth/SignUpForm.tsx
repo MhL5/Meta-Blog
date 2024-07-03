@@ -12,36 +12,33 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
+import GoogleLoginButton from "./GoogleLoginButton";
+import GithubLoginButton from "./GithubLoginButton";
 
 // raw data object for rendering inputs
 const signUpFormFields = [
   {
     name: "name",
-    label: "full name",
-    placeHolder: "Your Name",
+    placeHolder: "Full name",
     type: "text",
   },
   {
     name: "email",
-    label: "Email",
-    placeHolder: "example@email.com",
+    placeHolder: "email",
     type: "email",
   },
   {
     name: "password",
-    label: "password",
-    placeHolder: "********",
+    placeHolder: "password",
     type: "password",
   },
   {
     name: "passwordConfirm",
-    label: "Password confirm",
-    placeHolder: "********",
+    placeHolder: "password confirm",
     type: "password",
   },
 ] as const;
@@ -83,20 +80,42 @@ export default function SignUpForm() {
   }
 
   return (
-    <div className="border rounded-lg py-8 px-12 w-80">
+    <div className="py-8 px-12 w-full">
+      <h2 className="text-center font-semibold text-2xl mb-5">
+        Create a free account
+      </h2>
+
+      <div className="flex gap-2">
+        <GoogleLoginButton className="basis-1/2" disabled={false} />
+        <GithubLoginButton className="basis-1/2" disabled={false} />
+      </div>
+
+      <div className="flex w-full items-center my-5">
+        <span className="bg-secondary h-[0.7px] w-full"></span>
+        <span className="mx-1 font-semibold text-sm">OR</span>
+        <span className="bg-secondary h-[0.7px] w-full"></span>
+      </div>
+
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {signUpFormFields.map(({ name, label, placeHolder, type }) => (
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 flex flex-col items-center"
+        >
+          {signUpFormFields.map(({ name, placeHolder, type }) => (
             <FormField
-              key={name + label + placeHolder}
+              key={name + placeHolder}
               control={form.control}
               name={name}
               disabled={isExecuting}
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{label}</FormLabel>
+                <FormItem className="w-80 px-1">
                   <FormControl>
-                    <Input type={type} placeholder={placeHolder} {...field} />
+                    <Input
+                      type={type}
+                      placeholder={placeHolder}
+                      {...field}
+                      className="w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,7 +129,7 @@ export default function SignUpForm() {
             name="captcha"
             disabled={isExecuting}
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="hidden">
                 <FormControl>
                   <Input type="hidden" {...field} />
                 </FormControl>
@@ -119,22 +138,31 @@ export default function SignUpForm() {
             )}
           />
 
-          <div className="flex gap-2 justify-between">
-            <Button
-              className="basis-1/2"
-              type="reset"
-              variant="secondary"
-              disabled={isExecuting}
-              onClick={() => form.reset()}
-            >
-              Reset
-            </Button>
-            <Button type="submit" disabled={isExecuting} className="basis-1/2">
-              {isExecuting ? `loading...` : `submit`}
-            </Button>
+          <GoogleReCAPTCHA onChange={handleCaptcha} />
+
+          <Button
+            type="submit"
+            disabled={isExecuting}
+            className="w-full"
+            variant="secondary"
+          >
+            {isExecuting ? `loading...` : `Create free account`}
+          </Button>
+
+          <div className="px-2 pt-2 text-center text-sm">
+            <span>
+              Already have an account?
+              <Button
+                variant="link"
+                size="sm"
+                className="text-blue-500 underline"
+                // TODO: onClick={() => onTabChange("login")}
+              >
+                login
+              </Button>
+            </span>
           </div>
         </form>
-        <GoogleReCAPTCHA onChange={handleCaptcha} />
       </Form>
     </div>
   );

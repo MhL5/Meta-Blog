@@ -1,9 +1,9 @@
-import SignUpForm from "./SignUpForm";
+import AuthForm from "./AuthForm";
 
 export default function Page() {
   return (
-    <div className="m-auto grid place-items-center">
-      <SignUpForm />
+    <div className="mx-auto my-4 grid place-items-center">
+      <AuthForm />
     </div>
   );
 }
