@@ -1,12 +1,13 @@
 import { Tabs } from "@/components/ui/tabs";
 import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 
 const tabs = [
   {
     title: "Sign up",
     value: "signUp",
     content: (
-      <div className="w-full overflow-hidden relative h-full rounded-lg backdrop-blur-sm bg-background border">
+      <div className="w-full overflow-hidden relative h-full rounded-lg bg-background border">
         <SignUpForm />
       </div>
     ),
@@ -15,8 +16,8 @@ const tabs = [
     title: "Login",
     value: "login",
     content: (
-      <div className="w-full overflow-hidden relative h-full rounded-lg backdrop-blur-sm bg-background border">
-        <SignUpForm />
+      <div className="w-full overflow-hidden relative h-full rounded-lg bg-background border">
+        <LoginForm />
       </div>
     ),
   },
