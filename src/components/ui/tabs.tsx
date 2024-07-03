@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 type Tab = {
   title: string;
@@ -23,18 +24,37 @@ export const Tabs = ({
   tabClassName?: string;
   contentClassName?: string;
 }) => {
-  const [active, setActive] = useState<Tab>(propTabs[0]);
-  const [tabs, setTabs] = useState<Tab[]>(propTabs);
+  // Custom
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
+  // Custom
 
-  const moveSelectedTabToTop = (idx: number) => {
+  const [tabs, setTabs] = useState<Tab[]>(propTabs);
+  const [active, setActive] = useState<Tab>(propTabs[0]);
+
+  function moveSelectedTabToTop(idx: number) {
     const newTabs = [...propTabs];
     const selectedTab = newTabs.splice(idx, 1);
     newTabs.unshift(selectedTab[0]);
     setTabs(newTabs);
     setActive(newTabs[0]);
-  };
+  }
 
   const [hovering, setHovering] = useState(false);
+
+  // Custom
+  useEffect(() => {
+    function moveSelectedTabToTop(idx: number) {
+      const newTabs = [...propTabs];
+      const selectedTab = newTabs.splice(idx, 1);
+      newTabs.unshift(selectedTab[0]);
+      setTabs(newTabs);
+      setActive(newTabs[0]);
+    }
+    if (tab === "signin") moveSelectedTabToTop(0);
+    if (tab === "login") moveSelectedTabToTop(1);
+  }, [propTabs, tab]);
+  // Custom
 
   return (
     <>
