@@ -56,8 +56,9 @@ export const Tabs = ({
   );
 
   useEffect(() => {
-    if (tab === "signup") moveSelectedTabToTop(0);
-    if (tab === "login") moveSelectedTabToTop(1);
+    propTabs.forEach(({ value }, i) => {
+      tab === value.toLowerCase() && moveSelectedTabToTop(i);
+    });
   }, [searchParams, propTabs, moveSelectedTabToTop, tab]);
 
   return (
