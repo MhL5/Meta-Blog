@@ -9,7 +9,6 @@ type GoogleLoginButtonProps = {
 } & ButtonProps;
 
 export default function GoogleLoginButton({
-  disabled,
   ...props
 }: GoogleLoginButtonProps) {
   return (
