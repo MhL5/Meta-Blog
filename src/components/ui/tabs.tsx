@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
@@ -8,7 +8,23 @@ import { useSearchParams } from "next/navigation";
 type Tab = {
   title: string;
   value: string;
-  content?: string | React.ReactNode | any;
+  content?: string | ReactNode | any;
+};
+
+type TabsProps = {
+  tabs: Tab[];
+  containerClassName?: string;
+  activeTabClassName?: string;
+  tabClassName?: string;
+  contentClassName?: string;
+};
+
+type FadeInDivProps = {
+  className?: string;
+  key?: string;
+  tabs: Tab[];
+  active: Tab;
+  hovering?: boolean;
 };
 
 export const Tabs = ({
@@ -17,44 +33,30 @@ export const Tabs = ({
   activeTabClassName,
   tabClassName,
   contentClassName,
-}: {
-  tabs: Tab[];
-  containerClassName?: string;
-  activeTabClassName?: string;
-  tabClassName?: string;
-  contentClassName?: string;
-}) => {
+}: TabsProps) => {
   // Custom
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
-  // Custom
-
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [active, setActive] = useState<Tab>(propTabs[0]);
-
-  function moveSelectedTabToTop(idx: number) {
-    const newTabs = [...propTabs];
-    const selectedTab = newTabs.splice(idx, 1);
-    newTabs.unshift(selectedTab[0]);
-    setTabs(newTabs);
-    setActive(newTabs[0]);
-  }
-
   const [hovering, setHovering] = useState(false);
 
-  // Custom
-  useEffect(() => {
-    function moveSelectedTabToTop(idx: number) {
+  const tab = searchParams.get("tab");
+
+  const moveSelectedTabToTop = useCallback(
+    (idx: number) => {
       const newTabs = [...propTabs];
       const selectedTab = newTabs.splice(idx, 1);
       newTabs.unshift(selectedTab[0]);
       setTabs(newTabs);
       setActive(newTabs[0]);
-    }
+    },
+    [propTabs]
+  );
+
+  useEffect(() => {
     if (tab === "signup") moveSelectedTabToTop(0);
     if (tab === "login") moveSelectedTabToTop(1);
-  }, [propTabs, tab]);
-  // Custom
+  }, [searchParams, propTabs, moveSelectedTabToTop, tab]);
 
   return (
     <>
@@ -80,7 +82,11 @@ export const Tabs = ({
             {active.value === tab.value && (
               <motion.div
                 layoutId="clickedbutton"
-                transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                transition={{
+                  type: "spring",
+                  bounce: 0.3,
+                  duration: 0.6,
+                }}
                 className={cn(
                   "absolute inset-0 bg-background rounded-full ",
                   activeTabClassName
@@ -105,17 +111,7 @@ export const Tabs = ({
   );
 };
 
-export const FadeInDiv = ({
-  className,
-  tabs,
-  hovering,
-}: {
-  className?: string;
-  key?: string;
-  tabs: Tab[];
-  active: Tab;
-  hovering?: boolean;
-}) => {
+export const FadeInDiv = ({ className, tabs, hovering }: FadeInDivProps) => {
   const isActive = (tab: Tab) => {
     return tab.value === tabs[0].value;
   };
