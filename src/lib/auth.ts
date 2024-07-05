@@ -66,9 +66,11 @@ const AuthOptions = {
           const user = await prismaClient.user.findUnique({
             where: { email },
           });
-          const isCorrectPassword = !(
-            user?.password && !(await bcrypt.compare(password, user?.password))
-          );
+
+          let isCorrectPassword = false;
+          if (user?.password)
+            isCorrectPassword = await bcrypt.compare(password, user.password);
+
           if (!user || !isCorrectPassword) throw new InvalidLoginError();
 
           // * 3. if everything ok send the data
