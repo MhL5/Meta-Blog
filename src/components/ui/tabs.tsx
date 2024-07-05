@@ -3,7 +3,8 @@
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type Tab = {
   title: string;
@@ -35,6 +36,8 @@ export const Tabs = ({
   contentClassName,
 }: TabsProps) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [hovering, setHovering] = useState(false);
@@ -70,6 +73,7 @@ export const Tabs = ({
             key={tab.title}
             onClick={() => {
               moveSelectedTabToTop(idx);
+              router.push(`${pathname}`);
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
