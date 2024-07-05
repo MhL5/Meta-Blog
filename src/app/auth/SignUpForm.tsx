@@ -18,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
 import GoogleLoginButton from "./GoogleLoginButton";
 import GithubLoginButton from "./GithubLoginButton";
+import Link from "next/link";
 
 // raw data object for rendering inputs
 const signUpFormFields = [
@@ -86,8 +87,8 @@ export default function SignUpForm() {
       </h2>
 
       <div className="flex gap-2">
-        <GoogleLoginButton className="basis-1/2" disabled={false} />
-        <GithubLoginButton className="basis-1/2" disabled={false} />
+        <GoogleLoginButton className="basis-1/2" disabled={isExecuting} />
+        <GithubLoginButton className="basis-1/2" disabled={isExecuting} />
       </div>
 
       <div className="flex w-full items-center my-5">
@@ -101,27 +102,37 @@ export default function SignUpForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 flex flex-col items-center"
         >
-          {signUpFormFields.map(({ name, placeHolder, type }) => (
-            <FormField
-              key={name + placeHolder}
-              control={form.control}
-              name={name}
-              disabled={isExecuting}
-              render={({ field }) => (
-                <FormItem className="w-80 px-1">
-                  <FormControl>
-                    <Input
-                      type={type}
-                      placeholder={placeHolder}
-                      {...field}
-                      className="w-full"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
+          {signUpFormFields.map(({ name, placeHolder, type }) => {
+            let valid = "";
+
+            if (form.getValues(name).length > 0) {
+              !!form.formState.dirtyFields[name] && !form.formState.errors[name]
+                ? (valid = "border-b-[3px] border-b-green-500")
+                : (valid = "border-b-[3px] border-b-red-500");
+            }
+
+            return (
+              <FormField
+                key={name + placeHolder}
+                control={form.control}
+                name={name}
+                disabled={isExecuting}
+                render={({ field }) => (
+                  <FormItem className="w-80 px-1 font-semibold">
+                    <FormControl>
+                      <Input
+                        type={type}
+                        placeholder={placeHolder}
+                        {...field}
+                        className={`w-full duration-300 ${valid}`}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+          })}
 
           <GoogleReCAPTCHA onChange={handleCaptcha} />
           <FormField
@@ -155,9 +166,9 @@ export default function SignUpForm() {
                 variant="link"
                 size="sm"
                 className="text-blue-500 underline"
-                // TODO: onClick={() => onTabChange("login")}
+                disabled={isExecuting}
               >
-                login
+                <Link href="/auth?tab=login">login</Link>
               </Button>
             </span>
           </div>
