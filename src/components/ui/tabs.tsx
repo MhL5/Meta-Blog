@@ -34,7 +34,6 @@ export const Tabs = ({
   tabClassName,
   contentClassName,
 }: TabsProps) => {
-  // Custom
   const searchParams = useSearchParams();
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [active, setActive] = useState<Tab>(propTabs[0]);
