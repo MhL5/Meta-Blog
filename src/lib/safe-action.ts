@@ -9,7 +9,28 @@ const clientInputSchema = z.object({
   captcha: z.string().min(1),
 });
 
-export const actionClient = createSafeActionClient();
+/**
+ * Represents an error type specifically designed to be used in client-facing scenarios.
+ * This class extends the built-in JavaScript Error class, adding a custom message property.
+ * ### Do not add the whole error object for security, only a message
+ */
+export class ActionClientError extends Error {
+  message: string;
+  constructor(message: string) {
+    super();
+    this.message = message;
+  }
+}
+
+export const actionClient = createSafeActionClient({
+  handleReturnedServerError(err) {
+    if (err instanceof ActionClientError) {
+      return err.message;
+    }
+
+    return "Oh no, something went wrong!";
+  },
+});
 
 /**
  * This client extends the base one and ensures that the user is authenticated before running
@@ -39,7 +60,8 @@ export const captchaActionClient = actionClient.use(
       }
     );
 
-    if (!response.success) throw new Error("Google verification failed.");
+    if (!response.success)
+      throw new ActionClientError("Google verification failed.");
 
     return next({ ctx: {} });
   }
