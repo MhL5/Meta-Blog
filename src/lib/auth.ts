@@ -4,28 +4,13 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prismaClient from "./prismaClient";
 import credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
-import { ZodError, z } from "zod";
+import { ZodError } from "zod";
 import bcrypt from "bcrypt";
 import { fromZodError } from "zod-validation-error";
 import { cache } from "react";
 import { googleApi } from "./fetchInstance";
 import { env } from "process";
-
-class InvalidLoginError extends CredentialsSignin {
-  code = "Invalid identifier or password";
-}
-class InvalidCaptchaError extends CredentialsSignin {
-  code = "Invalid Captcha";
-}
-class InvalidValidationError extends CredentialsSignin {
-  code = "Incorrect input";
-}
-
-const signInSchema = z.object({
-  email: z.string().email().min(1),
-  password: z.string().min(1),
-  captcha: z.string().min(1),
-});
+import loginSchema from "@/app/auth/loginSchema";
 
 const AuthOptions = {
   adapter: PrismaAdapter(prismaClient),
@@ -49,18 +34,22 @@ const AuthOptions = {
         },
       },
       /**
-       * Todo: add error handling for frontend
        * 1. Check google Recaptcha validate username and password exist
        * 2. user exist and password match?
        * 3. if everything ok send the data
+       *
+       * So far the only workaround to handle errors in V5 is to use a server action with signIn
+       * @see "../app/auth/action.ts" loginAction for more info
        */
       authorize: async (credentials) => {
         try {
           // * 1. Check google Recaptcha validate username and password exist
-          const { email, password, captcha } = signInSchema.parse(credentials);
+          const { email, password, captcha } = loginSchema.parse(credentials);
 
           if (!(await isValidGoogleCaptcha(captcha)))
-            throw new InvalidCaptchaError();
+            throw new CredentialsSignin(
+              "google captcha verification failed. please try again"
+            );
 
           // * 2. user exist and password match?
           const user = await prismaClient.user.findUnique({
@@ -71,14 +60,17 @@ const AuthOptions = {
           if (user?.password)
             isCorrectPassword = await bcrypt.compare(password, user.password);
 
-          if (!user || !isCorrectPassword) throw new InvalidLoginError();
+          if (!user || !isCorrectPassword)
+            throw new CredentialsSignin(
+              "Invalid Email or password, please try again!"
+            );
 
           // * 3. if everything ok send the data
           return user;
         } catch (error) {
           // handling zod error with zod-validation-error library
           if (error instanceof ZodError && fromZodError(error))
-            throw new InvalidValidationError(
+            throw new CredentialsSignin(
               error.issues.map((i) => `${i.path} ${i.message}`).join(", ")
             );
 
