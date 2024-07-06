@@ -1,4 +1,3 @@
-import { Avatar } from "@/components/ui/avatar";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -107,7 +106,6 @@ async function NavigationMenu() {
           <Search />
           <ToggleTheme />
 
-          <Avatar className="hidden" />
           {user ? (
             <UserDropDown user={user} />
           ) : (
