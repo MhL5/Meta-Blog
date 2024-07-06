@@ -31,3 +31,4 @@ dist-ssr
 # Custom 
 *.env
 config.env
+.next
