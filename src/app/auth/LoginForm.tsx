@@ -16,9 +16,10 @@ import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
 import GoogleLoginButton from "./GoogleLoginButton";
 import GithubLoginButton from "./GithubLoginButton";
 import loginSchema, { LoginSchemaType } from "./loginSchema";
-import { signIn } from "next-auth/react";
-import { useTransition } from "react";
 import Link from "next/link";
+import { useAction } from "next-safe-action/hooks";
+import { loginAction } from "./action";
+import { useRouter } from "next/navigation";
 
 // raw data object for rendering inputs
 const loginFormFields = [
@@ -36,7 +37,23 @@ const loginFormFields = [
 
 export default function LoginForm() {
   const { toast } = useToast();
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const { execute, isExecuting } = useAction(loginAction, {
+    onSuccess() {
+      toast({
+        title: "Welcome back",
+        description: `You are now logged in.`,
+      });
+      router.replace("/");
+    },
+    onError(err) {
+      toast({
+        variant: "destructive",
+        title: "login failed",
+        description: `${err.error.serverError || "something went wrong! please try again."}`,
+      });
+    },
+  });
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -49,22 +66,7 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: LoginSchemaType) {
-    try {
-      startTransition(async () => {
-        await signIn("credentials", { callbackUrl: "/", ...values });
-      });
-    } catch (error) {
-      if (error instanceof Error)
-        toast({
-          title: "login failed",
-          description: `${error?.message}`,
-        });
-
-      toast({
-        title: "login failed",
-        description: `${error}`,
-      });
-    }
+    execute({ ...values });
   }
 
   function handleCaptcha(val: string | null) {
@@ -78,8 +80,8 @@ export default function LoginForm() {
       </h2>
 
       <div className="flex gap-2">
-        <GoogleLoginButton className="basis-1/2" disabled={isPending} />
-        <GithubLoginButton className="basis-1/2" disabled={isPending} />
+        <GoogleLoginButton className="basis-1/2" disabled={isExecuting} />
+        <GithubLoginButton className="basis-1/2" disabled={isExecuting} />
       </div>
 
       <div className="flex w-full items-center my-8">
@@ -98,7 +100,7 @@ export default function LoginForm() {
               key={name + placeHolder}
               control={form.control}
               name={name}
-              disabled={isPending}
+              disabled={isExecuting}
               render={({ field }) => {
                 let valid = "";
 
@@ -131,7 +133,7 @@ export default function LoginForm() {
             key="GoogleCaptcha"
             control={form.control}
             name="captcha"
-            disabled={isPending}
+            disabled={isExecuting}
             render={({ field }) => (
               <FormItem className="p-0 m-0 space-y-0">
                 <FormControl>
@@ -144,11 +146,11 @@ export default function LoginForm() {
 
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isExecuting}
             className="w-full"
             variant="secondary"
           >
-            {isPending ? `loading...` : `Login`}
+            {isExecuting ? `loading...` : `Login`}
           </Button>
         </form>
       </Form>
