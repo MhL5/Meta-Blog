@@ -1,5 +1,5 @@
 import { Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,7 @@ import Link from "next/link";
 import { cachedAuth } from "@/lib/auth";
 import ToggleTheme from "../ToggleTheme";
 import { EllipsisVertical } from "lucide-react";
+import { UUIDGenerator } from "@/lib/utils";
 
 function Header() {
   return (
@@ -22,6 +23,24 @@ function Header() {
     </header>
   );
 }
+
+const dropDownMenuItems = [
+  {
+    id: UUIDGenerator(),
+    href: "/authors",
+    label: "Authors",
+  },
+  {
+    id: UUIDGenerator(),
+    href: "/articles",
+    label: "Articles",
+  },
+  {
+    id: UUIDGenerator(),
+    href: "/topics",
+    label: "Topics",
+  },
+];
 
 async function NavigationMenu() {
   const session = await cachedAuth();
@@ -38,43 +57,24 @@ async function NavigationMenu() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Button asChild variant="ghost" size="xs">
-                    <Link href="/authors">Authors</Link>
-                  </Button>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem>
-                  <Button asChild variant="ghost" size="xs">
-                    <Link href="/articles">Articles</Link>
-                  </Button>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem>
-                  <Button asChild variant="ghost" size="xs">
-                    <Link href="/topics">Topics</Link>
-                  </Button>
-                </DropdownMenuItem>
+                {dropDownMenuItems.map(({ href, label, id }) => {
+                  return (
+                    <DropdownMenuItem key={id}>
+                      <Button asChild variant="ghost" size="xs">
+                        <Link href={href}>{label}</Link>
+                      </Button>
+                    </DropdownMenuItem>
+                  );
+                })}
 
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem>
-                  <Button
-                    variant="outline"
-                    size="xs"
-                    className="w-full"
-                    asChild
-                  >
-                    <Link href="/auth?tab=login">Login</Link>
-                  </Button>
+                  <HeaderLoginButton className="w-full" />
                 </DropdownMenuItem>
 
                 <DropdownMenuItem>
-                  <Button asChild size="xs">
-                    <Link href="/auth?tab=signup">
-                      <span>Create free account</span>
-                    </Link>
-                  </Button>
+                  <HeaderSignUpButton />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -83,15 +83,20 @@ async function NavigationMenu() {
           <div className="opacity-0 sm:opacity-100">
             <Logo />
           </div>
-          <Link className="hidden sm:inline" href="/authors">
-            Authors
-          </Link>
-          <Link className="hidden sm:inline" href="/articles">
-            Articles
-          </Link>
-          <Link className="hidden sm:inline" href="/topics">
-            Topics
-          </Link>
+
+          {dropDownMenuItems.map(({ href, label, id }) => {
+            return (
+              <Button
+                asChild
+                variant="ghost"
+                size="sm"
+                key={id}
+                className="hidden sm:flex"
+              >
+                <Link href={href}>{label}</Link>
+              </Button>
+            );
+          })}
         </li>
 
         <li className="sm:opacity-0">
@@ -107,25 +112,44 @@ async function NavigationMenu() {
             <UserDropDown user={user} />
           ) : (
             <>
-              <Button
-                variant="outline"
-                size="xs"
-                className="hidden sm:flex"
-                asChild
-              >
-                <Link href="/auth?tab=login">Login</Link>
-              </Button>
-              <Button asChild size="xs" className="hidden sm:flex">
-                <Link href="/auth?tab=signup">
-                  <span className="hidden md:inline">Create free account</span>
-                  <span className="md:hidden">Sign up</span>
-                </Link>
-              </Button>
+              <HeaderLoginButton className="hidden sm:flex" />
+              <HeaderSignUpButton className="hidden sm:flex" />
             </>
           )}
         </li>
       </ul>
     </nav>
+  );
+}
+
+function HeaderSignUpButton({
+  className,
+  ...props
+}: { className?: string } & ButtonProps) {
+  return (
+    <Button asChild size="xs" className={`${className} w-full`} {...props}>
+      <Link href="/auth?tab=signup">
+        <span className="hidden md:inline">Create free account</span>
+        <span className="md:hidden">Sign up</span>
+      </Link>
+    </Button>
+  );
+}
+
+function HeaderLoginButton({
+  className,
+  ...props
+}: { className?: string } & ButtonProps) {
+  return (
+    <Button
+      variant="outline"
+      size="xs"
+      className={`${className} `}
+      asChild
+      {...props}
+    >
+      <Link href="/auth?tab=login">Login</Link>
+    </Button>
   );
 }
 
