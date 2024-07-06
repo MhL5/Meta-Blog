@@ -34,7 +34,11 @@ export default async function UserDropDown({ user }: UserDropDownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <UserAvatar className="cursor-pointer" imageSrc={user?.image || ""} />
+        <UserAvatar
+          className="cursor-pointer"
+          username={user.name || ""}
+          imageSrc={user?.image || ""}
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuPortal>
