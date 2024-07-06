@@ -11,8 +11,8 @@ import Logo from "@/components/Logo";
 import Search from "@/components/Search";
 import UserDropDown from "@/components/UserDropDown";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
-import ToggleTheme from "./ToggleTheme";
+import { cachedAuth } from "@/lib/auth";
+import ToggleTheme from "../ToggleTheme";
 import { EllipsisVertical } from "lucide-react";
 
 function Header() {
@@ -24,7 +24,7 @@ function Header() {
 }
 
 async function NavigationMenu() {
-  const session = await auth();
+  const session = await cachedAuth();
   const user = session?.user;
 
   return (
@@ -36,28 +36,39 @@ async function NavigationMenu() {
               <DropdownMenuTrigger>
                 <EllipsisVertical />
               </DropdownMenuTrigger>
+
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <Button asChild variant="ghost" size="xs">
                     <Link href="/authors">Authors</Link>
                   </Button>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Button asChild variant="ghost" size="xs">
                     <Link href="/articles">Articles</Link>
                   </Button>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Button asChild variant="ghost" size="xs">
                     <Link href="/topics">Topics</Link>
                   </Button>
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem>
-                  <Button variant="outline" size="xs" className="w-full">
-                    Login
+                  <Button
+                    variant="outline"
+                    size="xs"
+                    className="w-full"
+                    asChild
+                  >
+                    <Link href="/auth?tab=login">Login</Link>
                   </Button>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Button asChild size="xs">
                     <Link href="/auth?tab=signup">
@@ -78,7 +89,9 @@ async function NavigationMenu() {
           <Link className="hidden sm:inline" href="/articles">
             Articles
           </Link>
-          <Link href="/topics">Topics</Link>
+          <Link className="hidden sm:inline" href="/topics">
+            Topics
+          </Link>
         </li>
 
         <li className="sm:opacity-0">
@@ -91,7 +104,7 @@ async function NavigationMenu() {
 
           <Avatar className="hidden" />
           {user ? (
-            <UserDropDown />
+            <UserDropDown user={user} />
           ) : (
             <>
               <Button
