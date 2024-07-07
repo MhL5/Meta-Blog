@@ -26,12 +26,16 @@ function ToggleTheme(): ReactElement {
     );
 
   return (
-    <Button variant="ghost" type="button">
-      {resolvedTheme === "dark" ? (
-        <SunIcon onClick={() => setTheme("light")} />
-      ) : (
-        <MoonIcon onClick={() => setTheme("dark")} />
-      )}
+    <Button
+      variant="ghost"
+      type="button"
+      onClick={() =>
+        setTheme(() => {
+          return resolvedTheme === "dark" ? "light" : "dark";
+        })
+      }
+    >
+      {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
     </Button>
   );
 }
