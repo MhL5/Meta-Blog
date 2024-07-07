@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   motion,
@@ -7,7 +8,7 @@ import {
   useSpring,
   MotionValue,
 } from "framer-motion";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import TextGradient from "./textGradient";
 
@@ -137,7 +138,7 @@ export const ProductCard = ({
         href={product.link}
         className="block group-hover/product:shadow-2xl "
       >
-        <Image
+        <CldImage
           src={product.thumbnail}
           height="600"
           width="600"
