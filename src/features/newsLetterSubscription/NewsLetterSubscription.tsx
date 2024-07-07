@@ -3,32 +3,39 @@
 import { subscribeToNewsLetter } from "@/features/newsLetterSubscription/actions";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Input } from "@/components/ui/input";
-import { FormEvent, useState, useTransition } from "react";
+import { FormEvent, useState } from "react";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import { useAction } from "next-safe-action/hooks";
 
 const emailSchema = z.string().email();
 
 export default function NewsLetterSubscription() {
-  const [pending, startTransition] = useTransition();
   const [email, setEmail] = useState("");
   const { toast } = useToast();
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    const validEmail = emailSchema.parse(email);
-    startTransition(async () => {
-      const res = await subscribeToNewsLetter(validEmail);
+  const { execute, isExecuting } = useAction(subscribeToNewsLetter, {
+    onSuccess(res) {
+      toast({ description: `${res?.data?.message + " 🎉"}` });
       setEmail("");
-      if (res?.data?.status === "success")
-        toast({ description: `${res?.data?.message + " 🎉"}` });
-      else
-        toast({
-          variant: "destructive",
-          description: `${res?.data?.message + " 🎉"}`,
-        });
-    });
+    },
+    onError(err) {
+      toast({
+        variant: "destructive",
+        description: `${err.error.serverError}`,
+      });
+    },
+  });
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const validEmail = emailSchema.safeParse(email);
+    if (!validEmail.success)
+      toast({
+        variant: "destructive",
+        description: `Invalid email, please try again with a valid email.`,
+      });
+    execute(validEmail);
   }
 
   return (
@@ -43,22 +50,23 @@ export default function NewsLetterSubscription() {
         </p>
 
         <form
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           className="relative flex gap-4 items-center justify-center mt-4"
         >
           <Input
             type="email"
-            value={pending ? "Subscribing..." : email}
-            disabled={pending}
+            required
+            value={isExecuting ? "Subscribing..." : email}
+            disabled={isExecuting}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="example@email.com"
-            className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 bg-muted placeholder:text-neutral-700"
+            className="transition-all duration-300 rounded-lg border border-neutral-800 focus:ring-2 focus:!ring-border  w-full relative z-10 bg-muted placeholder:text-neutral-700"
           />
           <Button
             size="md"
             variant="outline"
-            className="z-10"
-            disabled={pending}
+            className="absolute rounded-md dark:hover:bg-green-700 dark:hover:text-slate-100 right-[0.2%] border h-9 z-10 bg-green-400 focus:!ring-border dark:text-slate-300 dark:bg-green-950 duration-300 transition-all"
+            disabled={isExecuting}
           >
             Subscribe
           </Button>

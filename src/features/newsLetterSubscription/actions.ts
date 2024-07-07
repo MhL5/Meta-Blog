@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { actionClient } from "@/lib/safe-action";
+import { actionClient, ActionClientError } from "@/lib/safe-action";
 import prismaClient from "@/lib/prismaClient";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
@@ -21,11 +21,8 @@ export const subscribeToNewsLetter = actionClient
         error instanceof PrismaClientKnownRequestError &&
         error?.name === "PrismaClientKnownRequestError"
       )
-        return { status: "fail", message: "You are already subscribed!" };
+        throw new ActionClientError("You are already subscribed!");
 
-      return {
-        status: "fail",
-        message: "Something went wrong! please try again",
-      };
+      throw new ActionClientError("Something went wrong! please try again");
     }
   });
