@@ -14,6 +14,30 @@ import loginSchema from "@/app/auth/loginSchema";
 
 const AuthOptions = {
   adapter: PrismaAdapter(prismaClient),
+  /**
+   * adding id to user object
+   * by default next-auth doesn't add id 
+   * there is no point to hide the id if email is available in frontend
+   * so its safe to add it
+   */
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = `${token.id}`;
+      return session;
+    },
+  },
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/auth",
+  },
   providers: [
     Google,
     Github,
@@ -79,12 +103,6 @@ const AuthOptions = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/auth",
-  },
 } satisfies NextAuthConfig;
 
 export const { handlers, signIn, signOut, auth } = NextAuth(AuthOptions);
