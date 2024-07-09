@@ -21,7 +21,7 @@ model ArticleComment {
   @@map("articlecomments")
 }
 
-model Articlelike {
+model ArticleLike {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   articleId String  @db.ObjectId
   article   Article @relation(fields: [articleId], references: [id])
@@ -47,17 +47,6 @@ model FavoriteArticle {
   @@map("favoriteArticles")
 }
 
-model ArticleView {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  ip        String  @unique
-  articleId String  @db.ObjectId
-  article   Article @relation(fields: [articleId], references: [id])
-
-  createdAt DateTime @default(now())
-
-  @@map("articleViews")
-}
-
 model Article {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
   avatar          String
@@ -67,9 +56,8 @@ model Article {
   readingTime     Int
   tags            String[]
   articleComments ArticleComment[]
-  articlelikes    Articlelike[]
+  articlelikes    ArticleLike[]
   favoriteArticle FavoriteArticle[]
-  articleViews    ArticleView[]
   authorId        String            @db.ObjectId
   author          User              @relation(fields: [authorId], references: [id])
 
@@ -99,7 +87,7 @@ model User {
   sessions         Session[]
   Articles         Article[]
   ArticleComments  ArticleComment[]
-  Articlelikes     Articlelike[]
+  Articlelikes     ArticleLike[]
   FavoriteArticles FavoriteArticle[]
 
   createdAt DateTime @default(now())
