@@ -83,6 +83,7 @@ model User {
   emailVerified    DateTime?
   image            String?
   password         String?
+  bio              String?
   accounts         Account[]
   sessions         Session[]
   Articles         Article[]
