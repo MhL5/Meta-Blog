@@ -31,7 +31,7 @@ model ArticleLike {
   createdAt DateTime @default(now())
 
   @@unique([userId, articleId])
-  @@map("articlelikes")
+  @@map("articleLikes")
 }
 
 model FavoriteArticle {
@@ -56,7 +56,7 @@ model Article {
   readingTime     Int
   tags            String[]
   articleComments ArticleComment[]
-  articlelikes    ArticleLike[]
+  articleLikes    ArticleLike[]
   favoriteArticle FavoriteArticle[]
   authorId        String            @db.ObjectId
   author          User              @relation(fields: [authorId], references: [id])
@@ -87,7 +87,7 @@ model User {
   sessions         Session[]
   Articles         Article[]
   ArticleComments  ArticleComment[]
-  Articlelikes     ArticleLike[]
+  ArticleLikes     ArticleLike[]
   FavoriteArticles FavoriteArticle[]
 
   createdAt DateTime @default(now())
