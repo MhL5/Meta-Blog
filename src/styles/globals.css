@@ -67,6 +67,10 @@
   .no-visible-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  summary {
+    list-style: none;
+  }
 }
 
 @layer utilities {
