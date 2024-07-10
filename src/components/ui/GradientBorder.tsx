@@ -35,10 +35,7 @@ export default function GradientBorder({
   return (
     <div
       ref={cardRef}
-      className={cn(
-        "gradient-border-card-animation || bg-background after:bg-background",
-        className,
-      )}
+      className={cn("gradient-border-card-animation", className)}
       onMouseMove={handleMouseMove}
       {...props}
     >

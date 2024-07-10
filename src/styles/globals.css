@@ -82,7 +82,9 @@
     --gradient-color-one: #215dee;
     --gradient-color-two: #b61cff;
 
-    /* background-color: var(--background); */
+    /* because of tailwindcss weird color syntax we have to use apply */
+    /* using var(--bg-background) wont work because of tailwindcss syntax */
+    @apply bg-background;
     position: relative;
     --rotation: 0deg;
     & > * {
@@ -107,10 +109,12 @@
       );
     }
     &::after {
+      /* because of tailwindcss weird color syntax we have to use apply */
+      /* using var(--bg-background) wont work because of tailwindcss syntax */
+      @apply bg-background;
       content: "";
       position: absolute;
       inset: 1px;
-      /* background-color: var(--card-background-color); */
       z-index: 1;
       border-radius: var(--radius);
     }
