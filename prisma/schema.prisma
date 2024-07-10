@@ -54,6 +54,7 @@ model Article {
   summary         String
   title           String
   readingTime     Int
+  slug            String            @unique
   tags            String[]
   articleComments ArticleComment[]
   articleLikes    ArticleLike[]
