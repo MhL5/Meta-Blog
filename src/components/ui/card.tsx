@@ -1,20 +1,22 @@
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
+import GradientBorder from "./GradientBorder";
 
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "custom-hover || rounded-lg border bg-card text-card-foreground shadow-sm",
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  return (
+    <GradientBorder
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        className,
+      )}
+    >
+      <div ref={ref} {...props} />
+    </GradientBorder>
+  );
+});
 Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
