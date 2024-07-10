@@ -84,7 +84,7 @@
 
     /* because of tailwindcss weird color syntax we have to use apply */
     /* using var(--bg-background) wont work because of tailwindcss syntax */
-    @apply bg-background;
+    @apply bg-background duration-300 hover:-translate-y-[4px];
     position: relative;
     --rotation: 0deg;
     & > * {
@@ -126,6 +126,9 @@
   }
 
   .gradient-underline-animation {
+    --gradient-color-one: #215dee;
+    --gradient-color-two: #b61cff;
+
     cursor: pointer;
     display: inline;
     background: linear-gradient(
