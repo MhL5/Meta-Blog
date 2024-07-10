@@ -52,7 +52,7 @@
   }
 
   * {
-    @apply border-border scroll-smooth;
+    @apply scroll-smooth border-border;
   }
   body {
     @apply bg-background text-foreground;
@@ -75,10 +75,70 @@
 
 @layer utilities {
   .custom-hover {
-    @apply duration-300 hover:-translate-y-[4px] hover:border-purple-500 shadow-2xl;
+    @apply shadow-2xl duration-300 hover:-translate-y-[4px] hover:border-purple-500;
+  }
+
+  .gradient-border-card-animation {
+    --gradient-color-one: #215dee;
+    --gradient-color-two: #b61cff;
+
+    /* background-color: var(--background); */
+    position: relative;
+    --rotation: 0deg;
+    & > * {
+      position: relative;
+      z-index: 2;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      background: transparent;
+      inset: 0px;
+      z-index: 1;
+      opacity: 0;
+      border-radius: var(--radius);
+      transition: opacity 0.25s;
+
+      background: linear-gradient(
+        var(--rotation),
+        transparent 60%,
+        var(--gradient-color-one) 70%,
+        var(--gradient-color-two) 90%
+      );
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      /* background-color: var(--card-background-color); */
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .gradient-underline-animation {
+    cursor: pointer;
+    display: inline;
+    background: linear-gradient(
+        to right,
+        var(--gradient-color-one),
+        var(--gradient-color-two)
+      )
+      no-repeat;
+    background-size: 0 2px;
+    background-position: 0 98%;
+    transition: background-size 0.5s cubic-bezier(0.2, 0.63, 0.36, 1);
+
+    &:hover {
+      background-size: 100% 2px;
+    }
   }
 }
-
 @layer components {
   .spinner {
     width: 60px;
