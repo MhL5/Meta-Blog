@@ -7,12 +7,13 @@ import SvgBackground from "@/components/SvgBackground";
 import Header from "@/components/layout/Header";
 import Providers from "@/Providers/Providers";
 import "@/styles/globals.css";
+import Footer from "@/components/layout/Footer";
 
 type layoutProps = Readonly<{
   children: ReactNode;
 }>;
 
-const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
+const fontSans = FontSans({ subsets: ["latin-ext"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Meta Blog",
@@ -22,12 +23,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: layoutProps) {
   return (
-    // suppressHydrationWarning only works on level deep and its safe to use, we are using it for Theme functionality
+    // suppressHydrationWarning only works on level deep
+    // it's safe to use, we are using it for Theme functionality
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <Providers>
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: layoutProps) {
         </Providers>
 
         <Toaster />
+        <Footer />
       </body>
     </html>
   );
