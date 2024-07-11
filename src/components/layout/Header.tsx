@@ -118,10 +118,10 @@ async function NavigationMenu() {
         </li>
 
         <li className="flex items-center justify-center gap-4">
-          <span className="hidden">
+          <span className="hidden sm:inline">
             <Search />
           </span>
-          <span className="hidden">
+          <span className="hidden sm:inline">
             <ToggleTheme />
           </span>
 
