@@ -69,15 +69,6 @@ export const FollowPointer = ({
   y: any;
   title?: string | React.ReactNode;
 }) => {
-  const colors = [
-    "var(--sky-500)",
-    "var(--neutral-500)",
-    "var(--teal-500)",
-    "var(--green-500)",
-    "var(--blue-500)",
-    "var(--red-500)",
-    "var(--yellow-500)",
-  ];
   return (
     <motion.div
       className="absolute z-50 h-4 w-4 rounded-full"
@@ -112,9 +103,6 @@ export const FollowPointer = ({
         <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z"></path>
       </svg>
       <motion.div
-        style={{
-          backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-        }}
         initial={{
           scale: 0.5,
           opacity: 0,
@@ -128,7 +116,7 @@ export const FollowPointer = ({
           opacity: 0,
         }}
         className={
-          "min-w-max whitespace-nowrap rounded-full bg-neutral-200 px-2 py-2 text-xs text-white"
+          "min-w-max whitespace-nowrap rounded-full bg-neutral-200 bg-secondary px-2 py-2 text-xs text-primary"
         }
       >
         {title || `William Shakespeare`}
