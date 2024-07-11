@@ -129,7 +129,6 @@
     --gradient-color-one: #215dee;
     --gradient-color-two: #b61cff;
 
-    cursor: pointer;
     display: inline;
     background: linear-gradient(
         to right,
