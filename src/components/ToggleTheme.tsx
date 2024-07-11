@@ -1,12 +1,18 @@
 "use client";
 
-import { ReactElement, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { PropsWithChildren, ReactElement, useEffect, useState } from "react";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 
-function ToggleTheme(): ReactElement {
+type ToggleThemeProps = PropsWithChildren & ButtonProps;
+
+function ToggleTheme({
+  children,
+  className,
+  ...props
+}: ToggleThemeProps): ReactElement {
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
@@ -34,7 +40,10 @@ function ToggleTheme(): ReactElement {
           return resolvedTheme === "dark" ? "light" : "dark";
         })
       }
+      className={`${className}`}
+      {...props}
     >
+      {children}
       {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
     </Button>
   );
