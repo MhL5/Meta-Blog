@@ -18,9 +18,7 @@ export default function UserAvatar({
   return (
     <Avatar className={`${className} outline outline-[0.1px]`}>
       <AvatarImage src={imageSrc} referrerPolicy="no-referrer" />
-      <AvatarFallback>
-        {username.slice(0, 2).toLocaleLowerCase()}
-      </AvatarFallback>
+      <AvatarFallback>{username.slice(0, 2).toUpperCase()}</AvatarFallback>
     </Avatar>
   );
 }
