@@ -14,6 +14,7 @@ import { cachedAuth } from "@/lib/auth";
 import ToggleTheme from "../ToggleTheme";
 import { EllipsisVertical } from "lucide-react";
 import { UUIDGenerator } from "@/lib/utils";
+import GradientUnderlineText from "../ui/GradientUnderlineText";
 
 function Header() {
   return (
@@ -23,7 +24,7 @@ function Header() {
   );
 }
 
-const dropDownMenuItems = [
+const navigationLinks = [
   {
     id: UUIDGenerator(),
     href: "/authors",
@@ -46,9 +47,9 @@ async function NavigationMenu() {
   const user = session?.user;
 
   return (
-    <nav className="m-auto p-2 sm:p-4 max-w-7xl">
+    <nav className="m-auto max-w-7xl px-2 py-3 sm:p-4">
       <ul className="flex items-center justify-between text-sm">
-        <li className="flex items-center justify-center gap-10">
+        <li className="flex items-center justify-center gap-4 sm:gap-10">
           <div className="sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -56,61 +57,79 @@ async function NavigationMenu() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent>
-                {dropDownMenuItems.map(({ href, label, id }) => {
+                {navigationLinks.map(({ href, label, id }) => {
                   return (
                     <DropdownMenuItem key={id}>
                       <Button asChild variant="ghost" size="xs">
-                        <Link href={href}>{label}</Link>
+                        <Link href={href} className="w-full">
+                          <GradientUnderlineText>{label}</GradientUnderlineText>
+                        </Link>
                       </Button>
                     </DropdownMenuItem>
                   );
                 })}
 
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem>
-                  <HeaderLoginButton className="w-full" />
+                <DropdownMenuItem className="grid w-full place-items-center text-xs">
+                  <ToggleTheme>
+                    <GradientUnderlineText className="pr-2">
+                      theme
+                    </GradientUnderlineText>
+                  </ToggleTheme>
                 </DropdownMenuItem>
 
-                <DropdownMenuItem>
-                  <HeaderSignUpButton />
-                </DropdownMenuItem>
+                {!user && (
+                  <>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem>
+                      <HeaderLoginButton className="w-full" />
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem>
+                      <HeaderSignUpButton />
+                    </DropdownMenuItem>
+                  </>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
 
-          <div className="opacity-0 sm:opacity-100">
+          <div className="hidden sm:block">
             <Logo />
           </div>
 
-          {dropDownMenuItems.map(({ href, label, id }) => {
+          {navigationLinks.map(({ href, label, id }) => {
             return (
-              <Button
-                asChild
-                variant="ghost"
-                size="sm"
+              <Link
+                href={href}
                 key={id}
-                className="hidden sm:flex"
+                className="mx-1 hidden font-semibold sm:flex"
               >
-                <Link href={href}>{label}</Link>
-              </Button>
+                <GradientUnderlineText className="z-50">
+                  {label}
+                </GradientUnderlineText>
+              </Link>
             );
           })}
         </li>
 
-        <li className="sm:opacity-0">
+        <li className="mx-auto sm:hidden">
           <Logo />
         </li>
 
         <li className="flex items-center justify-center gap-4">
-          <Search />
-          <ToggleTheme />
+          <span className="hidden">
+            <Search />
+          </span>
+          <span className="hidden">
+            <ToggleTheme />
+          </span>
 
           {user ? (
             <UserDropDown user={user} />
           ) : (
             <>
-              <HeaderLoginButton className="hidden sm:flex" />
+              <HeaderLoginButton />
               <HeaderSignUpButton className="hidden sm:flex" />
             </>
           )}
