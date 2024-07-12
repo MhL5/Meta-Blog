@@ -51,7 +51,6 @@ model Article {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
   avatar          String
   content         String
-  summary         String
   title           String
   readingTime     Int
   slug            String            @unique
