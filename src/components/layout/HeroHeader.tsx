@@ -1,72 +1,37 @@
-"use client";
-import React from "react";
-import { HeroParallax } from "../ui/hero-parallax";
+import TextGradient from "@/components/ui/textGradient";
+import GradientBorder from "@/components/ui/GradientBorder";
+import Link from "next/link";
 
-export const products = [
-  {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
+export default function HeroHeader() {
+  return (
+    <section className={`max-w-globalWidthContent m-auto p-8`}>
+      <div>
+        <h1 className="mt-10 text-center text-3xl font-bold leading-relaxed sm:text-6xl">
+          Hello 👋, We are Meta Blog,
+          <TextGradient> dive Into the World of Code </TextGradient>
+        </h1>
+      </div>
 
-  {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
+      <p className="m-6 text-center text-lg font-semibold leading-relaxed">
+        Discover the latest programming tutorials, tips, and insights to elevate
+        your coding skills. Whether you&apos;re{" "}
+        <span className="font-extrabold">
+          a beginner or a seasoned developer
+        </span>
+        , join our community and stay ahead in the ever-evolving world of
+        technology.
+      </p>
 
-  {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-  {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg",
-  },
-];
-
-export function HeroParallaxDemo() {
-  return <HeroParallax products={products} />;
+      <div className="mt-12 flex justify-center">
+        <GradientBorder className="rounded-lg border">
+          <Link
+            href="/auth?tab=signup"
+            className="inline-block px-8 py-4 text-lg font-bold"
+          >
+            Join now, It&apos;s free!
+          </Link>
+        </GradientBorder>
+      </div>
+    </section>
+  );
 }
