@@ -35,12 +35,12 @@ export default function RootLayout({ children }: layoutProps) {
         <Providers>
           <SvgBackground>
             <Header />
-            <main className="max-w-7xl w-full mx-auto">{children}</main>
+            <main className="mx-auto w-full max-w-7xl">{children}</main>
           </SvgBackground>
+          <Footer />
         </Providers>
 
         <Toaster />
-        <Footer />
       </body>
     </html>
   );
