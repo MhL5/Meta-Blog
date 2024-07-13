@@ -35,7 +35,7 @@ export default function RootLayout({ children }: layoutProps) {
         <Providers>
           <SvgBackground>
             <Header />
-            {children}
+            <main className="max-w-7xl w-full mx-auto">{children}</main>
           </SvgBackground>
         </Providers>
 
