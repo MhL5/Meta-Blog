@@ -7,27 +7,37 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-  EnvelopeOpenIcon,
-  ExitIcon,
-  GearIcon,
-  QuestionMarkCircledIcon,
-} from "@radix-ui/react-icons";
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
 import { signOut } from "@/lib/auth";
 import { User } from "next-auth";
 import FormSubmitButton from "./FormSubmitButton";
 import Spinner from "./Spinner";
+import {
+  CircleHelp,
+  LogOut,
+  MailOpen,
+  NotebookPen,
+  Settings,
+} from "lucide-react";
 
 type UserDropDownProps = {
   user: User;
 };
 
 const dropDownMenuLi = [
-  { to: "/dashboard", icon: <GearIcon />, name: "dashboard" },
-  { to: "#", icon: <EnvelopeOpenIcon />, name: "Send feedback" },
-  { to: "#", icon: <QuestionMarkCircledIcon />, name: "FAQ" },
+  {
+    to: "/dashboard",
+    icon: <Settings className="h-5 w-5" />,
+    name: "dashboard",
+  },
+  {
+    to: "/write-article",
+    icon: <NotebookPen className="h-5 w-5" />,
+    name: "Write article",
+  },
+  { to: "#", icon: <CircleHelp className="h-5 w-5" />, name: "FAQ" },
+  { to: "#", icon: <MailOpen className="h-5 w-5" />, name: "Send feedback" },
 ];
 
 export default async function UserDropDown({ user }: UserDropDownProps) {
@@ -92,9 +102,9 @@ function LogoutForm() {
         variant="ghost"
         size="sm"
         type="submit"
-        className="justify-start w-full"
+        className="w-full justify-start"
         pendingLabel={
-          <div className="w-full flex items-center gap-3 justify-start">
+          <div className="flex w-full items-center justify-start gap-3">
             <span>
               <Spinner size="sm" />
             </span>
@@ -102,9 +112,9 @@ function LogoutForm() {
           </div>
         }
       >
-        <div className="w-full space-x-4 flex items-center">
+        <div className="flex w-full items-center space-x-4">
           <span>
-            <ExitIcon />
+            <LogOut className="h-5 w-5" />
           </span>
           <span>Logout</span>
         </div>
