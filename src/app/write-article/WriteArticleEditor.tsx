@@ -1,6 +1,6 @@
 "use client";
 
-import { TextEditor } from "@/features/textEditor/Editor";
+import TextEditor from "@/features/textEditor/Editor";
 import { useRef } from "react";
 import {
   AdmonitionDirectiveDescriptor,
