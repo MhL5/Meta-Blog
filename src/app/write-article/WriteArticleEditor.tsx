@@ -33,20 +33,62 @@ import {
   UndoRedo,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
+import imageSchema from "./imageSchema";
+import { ZodError } from "zod";
+import { useToast } from "@/components/ui/use-toast";
+import { fromZodError } from "zod-validation-error";
+import { urlSchema } from "@/lib/utils";
 
 export default function WriteArticleEditor() {
   const ref = useRef<MDXEditorMethods>(null);
+  const { toast } = useToast();
+
+  async function imageUploadHandlerFn(image: File) {
+    try {
+      const validImage = imageSchema.parse(image);
+      const formData = new FormData();
+      formData.append("image", validImage);
+      const response = await fetch("http://localhost:3000/api/uploadImage", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) throw new Error("Network response was not ok");
+      const json = await response.json();
+      const validUrl = urlSchema.parse(json);
+      return validUrl;
+    } catch (error) {
+      if (error instanceof ZodError && fromZodError(error))
+        toast({
+          variant: "destructive",
+          title: "upload failed",
+          description: `${error.issues
+            .map((i) => `${i.path} ${i.message}`)
+            .join(", ")}`,
+        });
+      else
+        toast({
+          variant: "destructive",
+          title: "upload failed,please try again!",
+          description: (
+            <a
+              className="underline-blue-500 text-blue-500"
+              href="https://t.me/mhl_5"
+              target="_blank"
+            >
+              Contact customer support
+            </a>
+          ),
+        });
+
+      return "/failed-to-upload.png";
+    }
+  }
 
   return (
     <>
-      <button
-        onClick={() => ref.current?.insertMarkdown("new markdown to insert")}
-      >
-        Insert new markdown
-      </button>
-      <button onClick={() => console.log(ref.current?.getMarkdown())}>
+      {/* todo: <button onClick={() => console.log(ref.current?.getMarkdown())}>
         Get markdown
-      </button>
+      </button> */}
       <article className="prose prose-slate w-full max-w-[200rem]">
         <TextEditor
           className="h-full min-h-96 rounded-lg bg-white"
@@ -65,38 +107,28 @@ export default function WriteArticleEditor() {
             codeMirrorPlugin({
               codeBlockLanguages: {
                 js: "JavaScript",
-                css: "CSS",
                 ts: "typescript",
+                css: "CSS",
                 html: "html",
+                jsx: "jsx",
+                python: "python",
+                java: "Java",
+                csharp: "C#",
+                markdown: "Markdown",
+                json: "JSON",
+                ruby: "Ruby",
+                swift: "Swift",
+                php: "PHP",
+                go: "Go",
+                rust: "Rust",
+                c: "C",
+                "c++": "C++",
               },
             }),
-            // TODO: adding images
             imagePlugin({
-              imageUploadHandler: async (image: File) => {
-                console.log(`hello there`);
-                // TODO:
-                // steps ?
-                // a loader while its uploading and something when its done in client side
-                // sanitize validation
-                // below 2mb
-                // upload
-                // return url
-
-                // plan?
-                // execute a server action that handles image upload and returns the url to client
-                // error handling ? will see
-
-                const formData = new FormData();
-                formData.append("image", image);
-                // send the file to your server and return
-                // the URL of the uploaded image in the response
-                const response = await fetch("/uploads/new", {
-                  method: "POST",
-                  body: formData,
-                });
-                const json = (await response.json()) as { url: string };
-                return json.url;
-              },
+              // since its ssr false and only renders on client we can not use server actions
+              // we need an api route
+              imageUploadHandler: imageUploadHandlerFn,
               imageAutocompleteSuggestions: [
                 "https://res.cloudinary.com/",
                 "https://picsum.photos/",
