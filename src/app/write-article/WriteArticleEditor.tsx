@@ -89,7 +89,7 @@ export default function WriteArticleEditor() {
       {/* todo: <button onClick={() => console.log(ref.current?.getMarkdown())}>
         Get markdown
       </button> */}
-      <article className="prose prose-slate w-full max-w-[200rem]">
+      <article className="prose prose-slate w-full max-w-7xl py-4">
         <TextEditor
           className="h-full min-h-96 rounded-lg bg-white"
           markdown={`initial value do i need? `}
@@ -183,9 +183,6 @@ export default function WriteArticleEditor() {
                   <Separator />
 
                   <InsertAdmonition />
-
-                  <Separator />
-                  <div className="w-96"></div>
                 </>
               ),
             }),
