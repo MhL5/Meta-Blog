@@ -17,6 +17,11 @@ const envSchema = z.object({
   // RECAPTCHA KEYS:
   NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1),
   GOOGLE_RECAPTCHA_SECRET: z.string().min(1),
+  // cloudinary
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().min(1),
+  CLOUDINARY_URL: z.string().min(1),
+  NEXT_PUBLIC_CLOUDINARY_API_KEY: z.string().min(1),
+  CLOUDINARY_API_SECRET: z.string().min(1),
 });
 
 /**
