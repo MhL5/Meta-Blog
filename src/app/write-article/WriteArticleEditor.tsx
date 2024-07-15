@@ -91,7 +91,7 @@ export default function WriteArticleEditor() {
       </button> */}
       <article className="prose prose-slate w-full max-w-7xl py-4">
         <TextEditor
-          className="h-full min-h-96 rounded-lg bg-white"
+          className="rounded-md bg-white"
           markdown={`initial value do i need? `}
           ref={ref}
           plugins={[
