@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,3 +21,8 @@ export function UUIDGenerator(): string {
 export function truncateText(str: string, limit = 100) {
   return str.length > limit ? str.slice(0, limit) + "..." : str;
 }
+
+/**
+ * zod schema for validating urls
+ */
+export const urlSchema = z.string().url();
