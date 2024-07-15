@@ -1,10 +1,12 @@
+/**
+ * this is the starting point for making editors for different pages  
+ * `TextEditor` should be imported and never InitializedMDXEditor
+ */
 "use client";
 
 import { MDXEditorMethods, MDXEditorProps } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
 import { forwardRef } from "react";
-
-// ForwardRefEditor.tsx
 
 // This is the only place InitializedMDXEditor is imported directly.
 const Editor = dynamic(() => import("./InitializedMDXEditor"), {
@@ -14,9 +16,10 @@ const Editor = dynamic(() => import("./InitializedMDXEditor"), {
 
 // This is what is imported by other components. Pre-initialized with plugins, and ready
 // to accept other props, including a ref.
-export const TextEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
+const TextEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
   (props, ref) => <Editor {...props} editorRef={ref} />,
 );
 
 // TS complains without the following line
 TextEditor.displayName = "ForwardRefEditor";
+export default TextEditor;

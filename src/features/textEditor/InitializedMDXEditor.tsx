@@ -13,8 +13,8 @@ import {
   type MDXEditorProps,
 } from "@mdxeditor/editor";
 
-// Only import this to the next file
 /**
+ * Only import this to `./Editor.tsx` file
  * Initializes an MDX editor instance.
  *
  * This function creates a basic MDX editor with some essential plugins
