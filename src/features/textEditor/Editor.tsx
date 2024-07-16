@@ -1,5 +1,5 @@
 /**
- * this is the starting point for making editors for different pages  
+ * this is the starting point for making editors for different pages
  * `TextEditor` should be imported and never InitializedMDXEditor
  */
 "use client";
