@@ -12,7 +12,6 @@ import {
 import { CldImage } from "next-cloudinary";
 
 export default function CarouselHomepage() {
-  const [curIndex, setCurIndex] = React.useState(1);
   // TODO : SHOULD BE A LINK
   // fix stuff bottom
   return (
@@ -23,11 +22,9 @@ export default function CarouselHomepage() {
       <CarouselContent className="gird h-[500px] items-center">
         {Array.from({ length: 5 }).map((_, index) => {
           return (
-            <CarouselItem key={index} className={`basis-2/3`}>
+            <CarouselItem key={index} className="basis-2/3">
               <div className="px-3 py-4">
-                <Card
-                  className={`hover:-translate-y-0 ${curIndex === index && "scale-[1.08]"}`}
-                >
+                <Card className="hover:-translate-y-0">
                   <CardContent className="relative m-0 flex aspect-video items-center justify-center p-0">
                     <div className="stackContent || relative h-full w-full">
                       <CldImage
@@ -51,23 +48,8 @@ export default function CarouselHomepage() {
           );
         })}
       </CarouselContent>
-      <CarouselPrevious
-        onClick={() => {
-          // TODO: BUG ONLY WORKS FOR ONCLICK WHAT ABOUT OTHERS LIKE TOUCH
-          setCurIndex((i) => {
-            if (i - 1 < 0) return 4;
-            return i - 1;
-          });
-        }}
-      />
-      <CarouselNext
-        onClick={() => {
-          setCurIndex((i) => {
-            if (i + 1 === 5) return 0;
-            return i + 1;
-          });
-        }}
-      />
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
   );
 }
