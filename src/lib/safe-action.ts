@@ -1,7 +1,5 @@
 import { createSafeActionClient } from "next-safe-action";
-import { auth } from "./auth";
-import { googleApi } from "./fetchInstance";
-import { env } from "./env";
+import { auth, isValidGoogleCaptcha } from "./auth";
 import { z } from "zod";
 
 // ZOD schema:
@@ -51,18 +49,9 @@ export const captchaActionClient = actionClient.use(
   async ({ next, clientInput }) => {
     const { captcha } = clientInputSchema.parse(clientInput);
 
-    const response = await googleApi.post(
-      `/siteverify?secret=${env.GOOGLE_RECAPTCHA_SECRET}&response=${captcha}`,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    );
-
-    if (!response.success)
+    if (!isValidGoogleCaptcha(captcha))
       throw new ActionClientError("Google verification failed.");
 
     return next({ ctx: {} });
-  }
+  },
 );
