@@ -84,14 +84,14 @@ function FooterIcons() {
           asChild
           key={id}
         >
-          <a
+          <Link
             href={url}
             target="_blank"
             className="flex min-h-10 items-center justify-between gap-2 sm:w-36"
           >
             <span className="hidden sm:inline">{label}</span>
             <span>{icon}</span>
-          </a>
+          </Link>
         </Button>
       ))}
     </ul>
