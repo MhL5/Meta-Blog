@@ -6,13 +6,14 @@ import { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
 type FooterProps = { className?: string };
+type SvgIconsProps = ComponentPropsWithoutRef<"svg">;
 
 /**
  * A customizable footer component for a React application.
  * This component includes a logo, social media icons, and copyright information.
  * It also provides links to the authors GitHub repository and the original theme author's website.
  */
-function Footer({ className }: FooterProps) {
+export default function Footer({ className }: FooterProps) {
   return (
     <div className="mt-8 border-t">
       <footer
@@ -45,7 +46,7 @@ function Footer({ className }: FooterProps) {
         <div className="flex flex-col">
           <div className="mb-2 px-3 text-sm dark:text-white/60">
             <span className="hidden sm:inline">Socials:</span>
-            <Footer.Icons />
+            <FooterIcons />
           </div>
         </div>
       </footer>
@@ -61,24 +62,27 @@ function FooterIcons() {
           url: "https://github.com/MhL5",
           icon: <GitHubLogoIcon className="scale-125 dark:fill-white" />,
           label: "github",
+          id: "ce48a0309d29adb52623308a4107a1d70d690b507fe814145483",
         },
         {
           url: "https://t.me/mhl_5",
           icon: <TelegramSvgIcon className="h-4 w-4 dark:fill-white" />,
           label: "telegram",
+          id: "979d5c5c2a53e79732e0da4d672f6c8e2cf40592c83c04508e82",
         },
         {
           url: "https://discord.com/users/649998586154844160",
           icon: <DiscordLogoIcon className="scale-125 dark:fill-white" />,
           label: "discord",
+          id: "0ef76e1177c9fa6eb71dfe9a5c9ef187a93900d5204ecb68a933",
         },
-      ].map(({ url, icon, label }) => (
+      ].map(({ url, icon, label, id }) => (
         <Button
           variant="outline"
           size="sm"
-          className="custom-hover || rounded-lg px-6 py-4 transition-all duration-300"
+          className="rounded-lg px-6 py-4 transition-all duration-300"
           asChild
-          key={url}
+          key={id}
         >
           <a
             href={url}
@@ -93,7 +97,6 @@ function FooterIcons() {
     </ul>
   );
 }
-type SvgIconsProps = ComponentPropsWithoutRef<"svg">;
 
 export function TelegramSvgIcon({ className, ...props }: SvgIconsProps) {
   return (
@@ -108,6 +111,3 @@ export function TelegramSvgIcon({ className, ...props }: SvgIconsProps) {
     </svg>
   );
 }
-
-Footer.Icons = FooterIcons;
-export default Footer;
