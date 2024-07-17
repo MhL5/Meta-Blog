@@ -69,13 +69,9 @@ export default function LoginForm() {
     execute({ ...values });
   }
 
-  function handleCaptcha(val: string | null) {
-    form.setValue("captcha", val || "");
-  }
-
   return (
-    <div className="py-8 px-12 w-full">
-      <h2 className="text-center font-semibold text-2xl mb-5 m-2">
+    <div className="w-full px-12 py-8">
+      <h2 className="m-2 mb-5 text-center text-2xl font-semibold">
         Log in to your account
       </h2>
 
@@ -84,16 +80,16 @@ export default function LoginForm() {
         <GithubLoginButton className="basis-1/2" disabled={isExecuting} />
       </div>
 
-      <div className="flex w-full items-center my-8">
-        <span className="bg-secondary h-[0.7px] w-full"></span>
-        <span className="mx-1 font-semibold text-sm">OR</span>
-        <span className="bg-secondary h-[0.7px] w-full"></span>
+      <div className="my-8 flex w-full items-center">
+        <span className="h-[0.7px] w-full bg-secondary"></span>
+        <span className="mx-1 text-sm font-semibold">OR</span>
+        <span className="h-[0.7px] w-full bg-secondary"></span>
       </div>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 flex flex-col items-center"
+          className="flex flex-col items-center space-y-6"
         >
           {loginFormFields.map(({ name, placeHolder, type }) => (
             <FormField
@@ -128,14 +124,16 @@ export default function LoginForm() {
             />
           ))}
 
-          <GoogleReCAPTCHA onChange={handleCaptcha} />
+          <GoogleReCAPTCHA
+            onChange={(val) => form.setValue("captcha", val || "")}
+          />
           <FormField
             key="GoogleCaptcha"
             control={form.control}
             name="captcha"
             disabled={isExecuting}
             render={({ field }) => (
-              <FormItem className="p-0 m-0 space-y-0">
+              <FormItem className="m-0 space-y-0 p-0">
                 <FormControl>
                   <Input type="text" className="hidden" {...field} />
                 </FormControl>
@@ -154,7 +152,7 @@ export default function LoginForm() {
           </Button>
         </form>
       </Form>
-      <div className="px-2 my-4 pt-4 text-center text-sm">
+      <div className="my-4 px-2 pt-4 text-center text-sm">
         <span>
           Don&apos;t have an account?{" "}
           <Button variant="link" size="sm" className="text-blue-500 underline">

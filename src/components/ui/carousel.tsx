@@ -31,6 +31,7 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
+// TODO: SHADOW AT THE EDGE
 function useCarousel() {
   const context = React.useContext(CarouselContext);
 

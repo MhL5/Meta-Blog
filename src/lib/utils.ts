@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
+import crypto from "crypto";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,4 +21,23 @@ export function UUIDGenerator(): string {
  */
 export function truncateText(str: string, limit = 100) {
   return str.length > limit ? str.slice(0, limit) + "..." : str;
+}
+
+/**
+ * zod schema for validating urls
+ */
+export const urlSchema = z.string().url();
+
+/**
+ * Slugify
+ * generate a slug from a string and adds a random string to avoid duplicates using crypto.
+ * 
+ * @example
+ * slugify('My New Post') returns 'my-new-post-07a85ca32ff56498'
+ */
+export function slugify(str: string): string {
+  return `${str
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "")}-${crypto.randomBytes(8).toString("hex")}`;
 }
