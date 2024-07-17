@@ -38,6 +38,7 @@ import { ZodError } from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import { fromZodError } from "zod-validation-error";
 import { urlSchema } from "@/lib/utils";
+import Link from "next/link";
 
 const WriteArticleEditor = forwardRef<MDXEditorMethods>(
   function WriteArticleEditor(_, ref) {
@@ -73,13 +74,13 @@ const WriteArticleEditor = forwardRef<MDXEditorMethods>(
             variant: "destructive",
             title: "upload failed,please try again!",
             description: (
-              <a
+              <Link
                 className="underline-blue-500 text-blue-500"
                 href="https://t.me/mhl_5"
                 target="_blank"
               >
                 Contact customer support
-              </a>
+              </Link>
             ),
           });
 
