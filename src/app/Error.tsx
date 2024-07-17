@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+
 type ErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
@@ -7,16 +9,13 @@ type ErrorProps = {
 
 export default function Error({ error, reset }: ErrorProps) {
   return (
-    <main className="flex justify-center items-center flex-col gap-6">
+    <main className="my-24 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-semibold">Something went wrong!</h1>
-      <p className="text-lg">{error.message}</p>
+      <p className="my-8 text-lg font-bold text-red-500">{error.message}</p>
 
-      <button
-        className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"
-        onClick={reset}
-      >
+      <Button className="my-12" onClick={reset}>
         Try again
-      </button>
+      </Button>
     </main>
   );
 }

@@ -16,7 +16,7 @@ export default async function Page() {
   });
 
   return (
-    <div className="mx-auto my-8 w-full max-w-7xl px-2">
+    <div className="my-8 px-2">
       <HeroHeader />
 
       <section className="my-48 w-full max-w-7xl">
