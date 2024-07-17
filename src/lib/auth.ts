@@ -8,7 +8,6 @@ import { ZodError } from "zod";
 import bcrypt from "bcrypt";
 import { fromZodError } from "zod-validation-error";
 import { cache } from "react";
-import { googleApi } from "./fetchInstance";
 import { env } from "process";
 import loginSchema from "@/app/auth/loginSchema";
 
@@ -16,7 +15,7 @@ const AuthOptions = {
   adapter: PrismaAdapter(prismaClient),
   /**
    * adding id to user object
-   * by default next-auth doesn't add id 
+   * by default next-auth doesn't add id
    * there is no point to hide the id if email is available in frontend
    * so its safe to add it
    */
@@ -72,7 +71,7 @@ const AuthOptions = {
 
           if (!(await isValidGoogleCaptcha(captcha)))
             throw new CredentialsSignin(
-              "google captcha verification failed. please try again"
+              "google captcha verification failed. please try again",
             );
 
           // * 2. user exist and password match?
@@ -86,7 +85,7 @@ const AuthOptions = {
 
           if (!user || !isCorrectPassword)
             throw new CredentialsSignin(
-              "Invalid Email or password, please try again!"
+              "Invalid Email or password, please try again!",
             );
 
           // * 3. if everything ok send the data
@@ -95,7 +94,7 @@ const AuthOptions = {
           // handling zod error with zod-validation-error library
           if (error instanceof ZodError && fromZodError(error))
             throw new CredentialsSignin(
-              error.issues.map((i) => `${i.path} ${i.message}`).join(", ")
+              error.issues.map((i) => `${i.path} ${i.message}`).join(", "),
             );
 
           throw error;
@@ -118,16 +117,18 @@ export const cachedAuth = cache(auth);
  * Receives captcha string and validates it against google site verify api
  */
 export async function isValidGoogleCaptcha(captcha: string) {
-  const response = await googleApi.post(
-    `/siteverify?secret=${env.GOOGLE_RECAPTCHA_SECRET}&response=${captcha}`,
+  const response = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${env.GOOGLE_RECAPTCHA_SECRET}&response=${captcha}`,
     {
+      method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-    }
+    },
   );
+  const data = await response.json();
 
-  if (!response.success) return false;
+  if (!data?.success) return false;
 
   return true;
 }
