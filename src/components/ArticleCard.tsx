@@ -66,7 +66,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     >
       <Card className="m-auto flex h-full w-full max-w-[400px]">
         <Link
-          href={`/articles/${article.id}`}
+          href={`/articles/${article.slug}`}
           className="flex h-full w-full cursor-none flex-col"
         >
           <CardHeader className="relative m-4 mb-0 aspect-square max-h-80">
