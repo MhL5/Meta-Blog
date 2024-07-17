@@ -4,9 +4,12 @@ import ArticleCard from "@/components/ArticleCard";
 import CarouselHomepage from "../components/CarouselHomepage";
 import HeroHeader from "@/components/layout/HeroHeader";
 import PopularTopics from "@/components/PopularTopics";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 
-export default async function Page() {
-  const articles = await prismaClient.article.findMany({
+// automatic caching only happens for fetch so here we have cache it manually
+const getArticles = cache(async () => {
+  const product = await prismaClient.article.findMany({
     include: {
       author: true,
       articleLikes: true,
@@ -14,6 +17,13 @@ export default async function Page() {
       favoriteArticle: true,
     },
   });
+
+  if (!product) notFound();
+  return product;
+});
+
+export default async function Page() {
+  const articles = await getArticles();
 
   return (
     <div className="my-8 px-2">
