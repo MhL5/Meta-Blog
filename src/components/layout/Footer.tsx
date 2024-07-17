@@ -80,7 +80,7 @@ function FooterIcons() {
         <Button
           variant="outline"
           size="sm"
-          className="rounded-lg px-6 py-4 transition-all duration-300"
+          className="custom-hover || rounded-lg px-6 py-4 transition-all duration-300"
           asChild
           key={id}
         >
