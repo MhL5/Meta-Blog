@@ -3,7 +3,8 @@ import { auth, isValidGoogleCaptcha } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
 import { slugify } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import xss from "xss";
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 
 /**
  * This function is used to create a new article in the database.
@@ -35,7 +36,9 @@ export async function POST(req: Request, res: Response) {
       throw new Error("Something went wrong! please login and try again.");
 
     // 5. sanitizes markdown content
-    const sanitizeMarkdown = xss(validBlogData.content);
+    const window = new JSDOM("").window;
+    const DOMPurify = createDOMPurify(window);
+    const sanitizeMarkdown = DOMPurify.sanitize(validBlogData.content);
 
     // 6. creates a new slug for the article
     const articleSlug = `${slugify(validBlogData.title)}`;
