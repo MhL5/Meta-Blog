@@ -53,7 +53,7 @@ export default function RenderMarkdownWithSanitization({
           },
         }}
       >
-        {sanitize ? sanitizeMarkdown : markdown}
+        {sanitizeMarkdown}
       </Markdown>
     </article>
   );
