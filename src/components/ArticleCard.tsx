@@ -15,7 +15,7 @@ import GradientUnderlineText from "./ui/GradientUnderlineText";
 import { FollowerPointerCard } from "./ui/following-pointer";
 import UserAvatar from "./UserAvatar";
 import { truncateText } from "@/lib/utils";
-import RenderMarkdown from "@/features/markdown/RenderMarkdown";
+import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
 
 type ArticleCardProps = {
   article: Prisma.ArticleGetPayload<{
@@ -89,7 +89,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               <GradientUnderlineText>{article.title}</GradientUnderlineText>
             </CardTitle>
             <summary className="my-4 text-sm leading-relaxed">
-              <RenderMarkdown markdown={truncateText(article.content, 150)} />
+              <RenderMarkdownWithSanitization
+                markdown={truncateText(article.content, 150)}
+              />
             </summary>
           </CardContent>
 

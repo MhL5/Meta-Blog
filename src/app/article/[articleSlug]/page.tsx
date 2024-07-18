@@ -1,4 +1,4 @@
-import RenderMarkdown from "@/features/markdown/RenderMarkdown";
+import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
 import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -36,7 +36,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
   return (
     <>
       <h1>Hello, Next.js!</h1>
-      <RenderMarkdown markdown={content} />
+      <RenderMarkdownWithSanitization markdown={content} />
     </>
   );
 }
