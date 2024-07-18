@@ -82,6 +82,7 @@ export const Tabs = ({
             style={{
               transformStyle: "preserve-3d",
             }}
+            type="button"
           >
             {active.value === tab.value && (
               <motion.div
