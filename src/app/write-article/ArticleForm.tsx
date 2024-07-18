@@ -17,7 +17,6 @@ import {
   CldUploadButton,
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
-import WriteArticleEditor from "./WriteArticleEditor";
 import { CloudUpload, ImageUp } from "lucide-react";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
 import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
@@ -27,6 +26,7 @@ import writeArticleSchema, {
   WriteArticleSchemaType,
 } from "./writeArticleSchema";
 import { useRouter } from "next/navigation";
+import TextEditorSection from "./TextEditorSection";
 
 export default function ArticleForm() {
   const markdownRef = useRef<MDXEditorMethods>(null);
@@ -176,55 +176,55 @@ export default function ArticleForm() {
             );
           },
         )}
-        <div className="flex flex-col gap-3">
-          <FormField
-            control={form.control}
-            name="avatar"
-            disabled={loading}
-            render={({ field }) => (
-              <FormItem className="m-0 w-full space-y-1 p-0">
-                <FormLabel>upload a picture for your blog avatar:</FormLabel>
-                <FormDescription>
-                  blog avatar Max image size is 2MB.Only .jpg, .jpeg, .png and
-                  .webp formats are supported.
-                </FormDescription>
-                <Button asChild variant="secondary">
-                  <CldUploadButton
-                    uploadPreset="blog-avatar"
-                    onSuccess={handleUploadButton}
-                    className="w-full"
-                  >
-                    <span className="px-2">
-                      <ImageUp />
-                    </span>
-                    Upload article avatar
-                  </CldUploadButton>
-                </Button>
-                <FormControl>
-                  <Input type="text" className="hidden" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <FormField
-            control={form.control}
-            name="content"
-            disabled={loading}
-            render={({ field }) => (
-              <FormItem className="m-0 w-full space-y-1 p-0">
-                <FormLabel>This is your blog content:</FormLabel>
-                <FormControl>
-                  <Input type="text" className="hidden" {...field} />
-                </FormControl>
-                <FormMessage />
-                <WriteArticleEditor ref={markdownRef} />
-              </FormItem>
-            )}
-          />
-        </div>
+
+        <FormField
+          control={form.control}
+          name="avatar"
+          disabled={loading}
+          render={({ field }) => (
+            <FormItem className="m-0 w-full space-y-1 p-0">
+              <FormLabel>upload a picture for your blog avatar:</FormLabel>
+              <FormDescription>
+                blog avatar Max image size is 2MB.Only .jpg, .jpeg, .png and
+                .webp formats are supported.
+              </FormDescription>
+              <Button asChild variant="secondary">
+                <CldUploadButton
+                  uploadPreset="blog-avatar"
+                  onSuccess={handleUploadButton}
+                  className="w-full"
+                >
+                  <span className="px-2">
+                    <ImageUp />
+                  </span>
+                  Upload article avatar
+                </CldUploadButton>
+              </Button>
+              <FormControl>
+                <Input type="text" className="hidden" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="content"
+          disabled={loading}
+          render={({ field }) => (
+            <FormItem className="m-0 w-full space-y-1 p-0">
+              <FormLabel>This is your blog content:</FormLabel>
+              <FormControl>
+                <Input type="text" className="hidden" {...field} />
+              </FormControl>
+              <FormMessage />
+
+              <TextEditorSection ref={markdownRef} />
+            </FormItem>
+          )}
+        />
+
         <GoogleReCAPTCHA
           onChange={(val) => form.setValue("captcha", val || "")}
         />
