@@ -177,6 +177,23 @@
       z-index: -1;
     }
   }
+
+  /* For text editor admonitions like tip danger note caution info */
+  .tip {
+    @apply rounded-lg border border-blue-500 bg-blue-100 p-2 text-blue-950 dark:bg-blue-500 dark:text-blue-50;
+  }
+  .danger {
+    @apply rounded-lg border border-red-500 bg-red-100 p-2 text-red-950 dark:bg-red-500 dark:text-red-50;
+  }
+  .caution {
+    @apply rounded-lg border border-yellow-500 bg-yellow-100 p-2 text-yellow-950 dark:bg-yellow-500 dark:text-yellow-50;
+  }
+  .note {
+    @apply rounded-lg border border-slate-500 bg-slate-100 p-2 text-slate-950 dark:bg-slate-500 dark:text-slate-50;
+  }
+  .info {
+    @apply rounded-lg border border-green-500 bg-green-100 p-2 text-green-950 dark:bg-green-500 dark:text-green-50;
+  }
 }
 @layer components {
   .spinner {
