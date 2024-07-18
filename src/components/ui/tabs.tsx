@@ -52,7 +52,7 @@ export const Tabs = ({
       setTabs(newTabs);
       setActive(newTabs[0]);
     },
-    [propTabs]
+    [propTabs],
   );
 
   useEffect(() => {
@@ -65,8 +65,8 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full ",
-          containerClassName
+          "no-visible-scrollbar relative flex w-full max-w-full flex-row items-center justify-start overflow-auto [perspective:1000px] sm:overflow-visible",
+          containerClassName,
         )}
       >
         {propTabs.map((tab, idx) => (
@@ -78,7 +78,7 @@ export const Tabs = ({
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
-            className={cn("relative px-4 py-2 rounded-full", tabClassName)}
+            className={cn("relative rounded-full px-4 py-2", tabClassName)}
             style={{
               transformStyle: "preserve-3d",
             }}
@@ -93,8 +93,8 @@ export const Tabs = ({
                   duration: 0.6,
                 }}
                 className={cn(
-                  "absolute inset-0 bg-background rounded-full ",
-                  activeTabClassName
+                  "absolute inset-0 rounded-full bg-background",
+                  activeTabClassName,
                 )}
               />
             )}
@@ -121,7 +121,7 @@ export const FadeInDiv = ({ className, tabs, hovering }: FadeInDivProps) => {
     return tab.value === tabs[0].value;
   };
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       {tabs.map((tab, idx) => (
         <motion.div
           key={tab.value}
@@ -135,7 +135,7 @@ export const FadeInDiv = ({ className, tabs, hovering }: FadeInDivProps) => {
           animate={{
             y: isActive(tab) ? [0, 40, 0] : 0,
           }}
-          className={cn("w-full h-full absolute top-0 left-0", className)}
+          className={cn("absolute left-0 top-0 h-full w-full", className)}
         >
           {tab.content}
         </motion.div>
