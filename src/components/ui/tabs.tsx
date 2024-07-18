@@ -74,7 +74,7 @@ export const Tabs = ({
             key={tab.title}
             onClick={() => {
               moveSelectedTabToTop(idx);
-              router.push(`${pathname}`);
+              router.push(`${pathname}`, { scroll: false });
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
