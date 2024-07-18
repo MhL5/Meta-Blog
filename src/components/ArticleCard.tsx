@@ -7,8 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "./ui/badge";
-// TODO:
-// import RenderMarkDown from "@/features/articles/RenderMarkDown";
 import Link from "next/link";
 import Image from "next/image";
 import { Prisma } from "@prisma/client";
@@ -17,6 +15,7 @@ import GradientUnderlineText from "./ui/GradientUnderlineText";
 import { FollowerPointerCard } from "./ui/following-pointer";
 import UserAvatar from "./UserAvatar";
 import { truncateText } from "@/lib/utils";
+import RenderMarkdown from "@/features/markdown/RenderMarkdown";
 
 type ArticleCardProps = {
   article: Prisma.ArticleGetPayload<{
@@ -90,8 +89,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               <GradientUnderlineText>{article.title}</GradientUnderlineText>
             </CardTitle>
             <summary className="my-4 text-sm leading-relaxed">
-              {truncateText(article.content, 150)}
-              {/* TODO: <RenderMarkDown data={truncateText(article.summary, 150)} /> */}
+              <RenderMarkdown markdown={truncateText(article.content, 150)} />
             </summary>
           </CardContent>
 
