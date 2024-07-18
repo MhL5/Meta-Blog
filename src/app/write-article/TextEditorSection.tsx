@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button";
 import RenderMarkdown from "@/features/markdown/RenderMarkdown";
 import { cn } from "@/lib/utils";
 
+/**
+ * We use css for displaying the tabs instead of state 
+ * because we don't want to reset editor state
+ */
 const TextEditorSection = forwardRef<MDXEditorMethods, any>(
   (_, markdownRef) => {
     const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
@@ -41,13 +45,13 @@ const TextEditorSection = forwardRef<MDXEditorMethods, any>(
         </div>
 
         <div
-          className={`${!isEditTab && "h-0 opacity-0"} overflow-hidden transition-all duration-200 ease-in`}
+          className={`${!isEditTab && "h-0 opacity-0"} overflow-hidden transition-all duration-300 ease-linear`}
         >
           <WriteArticleEditor ref={markdownRef} />
         </div>
 
         <div
-          className={`${!IsPreviewTab && "h-0 opacity-0"} overflow-hidden transition-all duration-200 ease-in`}
+          className={`${!IsPreviewTab && "h-0 opacity-0"} overflow-hidden transition-all duration-300 ease-linear`}
         >
           <div className="my-4 rounded-lg border px-3 py-8">
             <RenderMarkdown
