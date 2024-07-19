@@ -95,21 +95,19 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             </summary>
           </CardContent>
 
-          <CardFooter className="mt-auto border-t px-4 pt-4">
-            <CardDescription className="w-full">
-              <ul className="flex items-center justify-between">
-                {articleStats.map(({ icon, text }) => {
-                  return (
-                    <li
-                      key={`${Math.random()}${icon + text}`}
-                      className="flex scale-75 items-center gap-2 font-semibold"
-                    >
-                      {icon} {text}
-                    </li>
-                  );
-                })}
-              </ul>
-            </CardDescription>
+          <CardFooter className="mt-auto border-t pb-4 pt-4">
+            <ul className="flex w-full items-center justify-between">
+              {articleStats.map(({ icon, text }) => {
+                return (
+                  <li
+                    key={`${Math.random()}${icon + text}`}
+                    className="flex scale-75 items-center gap-2 font-semibold"
+                  >
+                    {icon} {text}
+                  </li>
+                );
+              })}
+            </ul>
           </CardFooter>
         </Link>
       </Card>
