@@ -124,6 +124,7 @@ const WriteArticleEditor = forwardRef<MDXEditorMethods>(
                   rust: "Rust",
                   c: "C",
                   "c++": "C++",
+                  bash: "bash",
                 },
               }),
               imagePlugin({
