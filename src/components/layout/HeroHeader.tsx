@@ -1,6 +1,6 @@
 import TextGradient from "@/components/ui/textGradient";
-import GradientBorder from "@/components/ui/GradientBorder";
 import Link from "next/link";
+import { BorderBeam } from "../ui/borderBeam";
 
 export default function HeroHeader() {
   return (
@@ -23,14 +23,13 @@ export default function HeroHeader() {
       </p>
 
       <div className="mt-12 flex justify-center">
-        <GradientBorder className="rounded-lg border">
-          <Link
-            href="/auth?tab=signup"
-            className="inline-block px-8 py-4 text-lg font-bold"
-          >
-            Join now, It&apos;s free!
-          </Link>
-        </GradientBorder>
+        <Link
+          href="/auth?tab=signup"
+          className="custom-hover || relative inline-block rounded-full border px-8 py-4 text-lg font-bold"
+        >
+          <BorderBeam duration={5} />
+          Join now, It&apos;s free!
+        </Link>
       </div>
     </section>
   );
