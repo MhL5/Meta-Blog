@@ -1,16 +1,30 @@
 import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
+import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
 import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import ArticleButtons from "./ArticleButtons";
+import ArticleComments from "./ArticleComments";
+import ArticleInfo from "./ArticleInfo";
+import YouMightAlsoLike from "./YouMightAlsoLike";
 
 type PageProps = {
   params: { articleSlug: string };
 };
 
+// todo: USE GET STATIC PROPS TO to make it static
+// todo: revalidate 15m
+
 const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
     where: { slug: articleSlug },
+    include: {
+      articleComments: true,
+      author: true,
+      articleLikes: true,
+      favoriteArticle: true,
+    },
   });
 
   if (!article) return notFound();
@@ -29,14 +43,53 @@ export async function generateMetadata({
   };
 }
 
-// TODO: not even close to done
 export default async function Page({ params: { articleSlug } }: PageProps) {
-  const { content } = await getArticle(articleSlug);
+  const {
+    content,
+    avatar,
+    author,
+    createdAt,
+    readingTime,
+    articleComments,
+    articleLikes,
+    favoriteArticle,
+    tags,
+    title,
+  } = await getArticle(articleSlug);
+
+  const articleInfoProps = {
+    avatarUrl: avatar,
+    authorImgUrl: author.image || "",
+    authorName: author.name || "Unknown",
+    createdAt,
+    readingTime,
+    articleLikesLength: articleLikes.length,
+    articleCommentsLength: articleComments.length,
+    favoriteArticleLength: favoriteArticle.length,
+    tags,
+  };
 
   return (
     <>
-      <h1>Hello, Next.js!</h1>
-      <RenderMarkdownWithSanitization markdown={content} />
+      <article className="relative mx-auto w-full max-w-4xl">
+        <ArticleInfo {...articleInfoProps} />
+
+        <section className="mb-14">
+          <h1 className="text-balance text-4xl font-bold"> {title} </h1>
+        </section>
+
+        <section>
+          <RenderMarkdownWithSanitization markdown={content} />
+        </section>
+
+        <ArticleComments articleComments={articleComments} />
+
+        <ArticleButtons />
+
+        <YouMightAlsoLike />
+      </article>
+
+      <NewsLetterSubscription />
     </>
   );
 }
