@@ -1,9 +1,9 @@
-import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
-import prismaClient from "@/lib/prismaClient";
 import ArticleCard from "@/components/ArticleCard";
-import CarouselHomepage from "../components/CarouselHomepage";
+import CarouselHomepage from "@/components/CarouselHomepage";
 import HeroHeader from "@/components/layout/HeroHeader";
 import PopularTopics from "@/components/PopularTopics";
+import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
+import prismaClient from "@/lib/prismaClient";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
