@@ -16,9 +16,7 @@ const UserAvatar = memo(
     const randomBg = useMemo(() => randomBgColor(username), [username]);
 
     return (
-      <Avatar
-        className={`${className} outline outline-[0.1px] outline-primary`}
-      >
+      <Avatar className={`${className} text-slate-800 dark:text-slate-300`}>
         <AvatarImage
           src={imageSrc}
           referrerPolicy="no-referrer"
@@ -31,27 +29,26 @@ const UserAvatar = memo(
     );
   },
 );
-
 UserAvatar.displayName = `UserAvatar`;
 
 function randomBgColor(username: string) {
   const randomBgColor = [
-    "bg-blue-500",
-    "bg-purple-500",
-    "bg-yellow-500",
+    "bg-blue-600",
+    "bg-purple-600",
     "bg-red-600",
-    "bg-slate-500",
-    "bg-green-500",
-    "bg-pink-500",
-    "bg-orange-500",
-    "bg-teal-500",
-    "bg-indigo-500",
-    "bg-rose-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-lime-500",
-    "bg-violet-500",
-    "bg-fuchsia-500",
+    "bg-slate-600",
+    "bg-green-600",
+    "bg-yellow-600",
+    "bg-pink-600",
+    "bg-orange-600",
+    "bg-teal-600",
+    "bg-indigo-600",
+    "bg-rose-600",
+    "bg-emerald-600",
+    "bg-amber-600",
+    "bg-lime-600",
+    "bg-violet-600",
+    "bg-fuchsia-600",
   ];
 
   // const randomIndex = Math.floor(Math.random() * randomBgColor.length);
