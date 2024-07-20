@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import ArticleButtons from "./ArticleButtons";
-import ArticleComments from "./ArticleComments";
+import CommentsList from "./CommentsList";
 import ArticleInfo from "./ArticleInfo";
 import YouMightAlsoLike from "./YouMightAlsoLike";
 
@@ -20,7 +20,7 @@ const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
     where: { slug: articleSlug },
     include: {
-      articleComments: true,
+      articleComments: { include: { user: true } },
       author: true,
       articleLikes: true,
       favoriteArticle: true,
@@ -54,6 +54,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
     articleLikes,
     favoriteArticle,
     tags,
+    id,
     title,
   } = await getArticle(articleSlug);
 
@@ -82,7 +83,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
           <RenderMarkdownWithSanitization markdown={content} />
         </section>
 
-        <ArticleComments articleComments={articleComments} />
+        <CommentsList articleComments={articleComments} articleId={id} />
 
         <ArticleButtons />
 
