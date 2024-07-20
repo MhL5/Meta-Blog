@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import ArticleButtons from "./ArticleButtons";
-import CommentsList from "./CommentsList";
 import ArticleInfo from "./ArticleInfo";
+import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
 
 type PageProps = {
