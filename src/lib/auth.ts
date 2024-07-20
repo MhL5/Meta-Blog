@@ -12,6 +12,8 @@ import { env } from "process";
 import loginSchema from "@/app/auth/loginSchema";
 
 const AuthOptions = {
+  // This is a bug in next-auth V5 beta
+  trustHost: true,
   adapter: PrismaAdapter(prismaClient),
   /**
    * adding id to user object
