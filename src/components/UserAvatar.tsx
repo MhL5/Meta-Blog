@@ -16,7 +16,7 @@ export default function UserAvatar({
   username,
 }: UserAvatarProps) {
   return (
-    <Avatar className={`${className} outline outline-[0.1px]`}>
+    <Avatar className={`${className} outline outline-[0.1px] outline-primary`}>
       <AvatarImage
         src={imageSrc}
         referrerPolicy="no-referrer"
