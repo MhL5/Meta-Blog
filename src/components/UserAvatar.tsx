@@ -17,7 +17,11 @@ export default function UserAvatar({
 }: UserAvatarProps) {
   return (
     <Avatar className={`${className} outline outline-[0.1px]`}>
-      <AvatarImage src={imageSrc} referrerPolicy="no-referrer" />
+      <AvatarImage
+        src={imageSrc}
+        referrerPolicy="no-referrer"
+        alt="logged in user profile picture"
+      />
       <AvatarFallback>{username.slice(0, 2).toUpperCase()}</AvatarFallback>
     </Avatar>
   );
