@@ -37,9 +37,15 @@ export const actionClient = createSafeActionClient({
  */
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth();
-  if (!session?.user && !session?.user?.id)
-    throw new Error("Session is not valid!");
-  return next({ ctx: { session } });
+  const userSchema = z.object({
+    id: z.string().min(1),
+    email: z.string().min(1),
+    image: z.string().min(1),
+    name: z.string().min(1),
+  });
+  const validSession = userSchema.parse(session?.user);
+
+  return next({ ctx: { curUser: validSession } });
 });
 
 /**
