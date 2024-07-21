@@ -1,18 +1,11 @@
 import { z } from "zod";
 
-export const addCommentSchema = z.object({
+export const createCommentSchema = z.object({
   content: z.string().min(1),
-  authorId: z.string().min(1),
   articleId: z.string().min(1),
   articleSlug: z.string().min(1),
-  authorImage: z.string().min(1),
-  authorName: z.string().min(1),
-  // authorId: z.string().min(1),
-  id: z.string().min(6),
-  createdAt: z.date(),
-  updatedAt: z.date(),
 });
-export type AddCommentSchema = z.infer<typeof addCommentSchema>;
+export type CreateCommentSchema = z.infer<typeof createCommentSchema>;
 
 export const deleteCommentSchema = z.object({
   commentId: z.string().min(1),
