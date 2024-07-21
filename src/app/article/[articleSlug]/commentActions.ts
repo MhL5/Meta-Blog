@@ -4,7 +4,7 @@ import prismaClient from "@/lib/prismaClient";
 import { ActionClientError, authActionClient } from "@/lib/safe-action";
 import { revalidatePath } from "next/cache";
 import {
-  addCommentSchema,
+  createCommentSchema,
   deleteCommentSchema,
   updateCommentSchema,
 } from "./commentSchema";
@@ -24,7 +24,7 @@ import {
  * 6. return the data
  */
 export const createComment = authActionClient
-  .schema(addCommentSchema)
+  .schema(createCommentSchema)
   .action(
     async ({
       ctx: { curUser },
