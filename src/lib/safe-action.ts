@@ -37,7 +37,8 @@ export const actionClient = createSafeActionClient({
  */
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth();
-  if (!session?.user) throw new Error("Session is not valid!");
+  if (!session?.user && !session?.user?.id)
+    throw new Error("Session is not valid!");
   return next({ ctx: { session } });
 });
 
