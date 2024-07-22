@@ -21,7 +21,7 @@ const UserAvatar = ({ className, imageSrc, username }: UserAvatarProps) => {
         referrerPolicy="no-referrer"
         alt="logged in user profile picture"
       />
-      <AvatarFallback className={`${randomBg}`}>
+      <AvatarFallback className={`${randomBg}`} delayMs={600}>
         {username.slice(0, 2).toUpperCase()}
       </AvatarFallback>
     </Avatar>
