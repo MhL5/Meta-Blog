@@ -10,6 +10,8 @@ import ArticleContextProvider from "./ArticleContext";
 import ArticleInfo from "./ArticleInfo";
 import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
+import { z } from "zod";
+import { Session } from "next-auth";
 
 type PageProps = {
   params: { articleSlug: string };
@@ -49,9 +51,10 @@ export async function generateMetadata({
 
 export default async function Page({ params: { articleSlug } }: PageProps) {
   const session = await cachedAuth();
-
   const article = await getArticle(articleSlug);
 
+  const curUser = session ? validateUser(session) : null;
+  
   const articleInfoProps = {
     avatar: article.avatar,
     authorImgUrl: article.author.image || "",
@@ -65,14 +68,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
   };
 
   return (
-    <ArticleContextProvider
-      article={article}
-      loggedInUserSession={{
-        id: session?.user?.id || null,
-        image: session?.user?.image || null,
-        name: session?.user?.name || null,
-      }}
-    >
+    <ArticleContextProvider article={article} loggedInUserSession={curUser}>
       <article className="relative mx-auto w-full max-w-4xl">
         <ArticleInfo {...articleInfoProps} />
 
@@ -94,4 +90,23 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
       <NewsLetterSubscription />
     </ArticleContextProvider>
   );
+}
+
+function validateUser(session: Session) {
+  const user = {
+    image: session?.user?.image,
+    name: session?.user?.name,
+    id: session?.user?.id,
+  };
+
+  const userSchema = z.object({
+    image: z.string().min(1),
+    name: z.string(),
+    id: z.string().min(1),
+  });
+
+  const validUser = userSchema.safeParse(user);
+
+  if (validUser.success) return validUser.data;
+  return null;
 }
