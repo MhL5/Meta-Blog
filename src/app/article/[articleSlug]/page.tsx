@@ -1,12 +1,13 @@
 import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
+import { cachedAuth } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import ArticleButtons from "./ArticleButtons";
+import ArticleContextProvider from "./ArticleContext";
 import ArticleInfo from "./ArticleInfo";
-import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
 
 type PageProps = {
@@ -16,7 +17,7 @@ type PageProps = {
 // todo: USE GET STATIC PROPS TO to make it static
 // todo: revalidate 15m
 
-const getArticle = cache(async (articleSlug: string) => {
+export const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
     where: { slug: articleSlug },
     include: {
@@ -44,46 +45,39 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { articleSlug } }: PageProps) {
-  const {
-    content,
-    avatar,
-    author,
-    createdAt,
-    readingTime,
-    articleComments,
-    articleLikes,
-    favoriteArticle,
-    tags,
-    id,
-    title,
-  } = await getArticle(articleSlug);
+  const session = await cachedAuth();
+
+  const article = await getArticle(articleSlug);
 
   const articleInfoProps = {
-    avatarUrl: avatar,
-    authorImgUrl: author.image || "",
-    authorName: author.name || "Unknown",
-    createdAt,
-    readingTime,
-    articleLikesLength: articleLikes.length,
-    articleCommentsLength: articleComments.length,
-    favoriteArticleLength: favoriteArticle.length,
-    tags,
+    avatar: article.avatar,
+    authorImgUrl: article.author.image || "",
+    authorName: article.author.name || "Unknown",
+    createdAt: article.createdAt,
+    readingTime: article.readingTime,
+    articleLikesLength: article.articleLikes.length,
+    articleCommentsLength: article.articleComments.length,
+    favoriteArticleLength: article.favoriteArticle.length,
+    tags: article.tags,
   };
 
   return (
-    <>
+    <ArticleContextProvider
+      article={article}
+      curUserId={session?.user?.id || ""}
+    >
       <article className="relative mx-auto w-full max-w-4xl">
         <ArticleInfo {...articleInfoProps} />
 
         <section className="mb-14">
-          <h1 className="text-balance text-4xl font-bold"> {title} </h1>
+          <h1 className="text-balance text-4xl font-bold"> {article.title} </h1>
         </section>
 
         <section>
-          <RenderMarkdownWithSanitization markdown={content} />
+          <RenderMarkdownWithSanitization markdown={article.content} />
         </section>
 
-        <CommentsList articleComments={articleComments} articleId={id} />
+        <CommentsList />
 
         <ArticleButtons />
 
@@ -91,6 +85,6 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
       </article>
 
       <NewsLetterSubscription />
-    </>
+    </ArticleContextProvider>
   );
 }
