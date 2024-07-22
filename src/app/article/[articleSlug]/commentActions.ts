@@ -42,7 +42,7 @@ export const createComment = authActionClient
       });
 
       // 5. clear next js cache
-      revalidatePath(`article/${articleSlug}`);
+      revalidatePath(`/article/${articleSlug}`);
 
       // 6. return new comment object
       return newComment;
