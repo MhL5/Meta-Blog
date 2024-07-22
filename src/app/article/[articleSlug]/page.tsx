@@ -22,7 +22,9 @@ export const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
     where: { slug: articleSlug },
     include: {
-      articleComments: { include: { user: true } },
+      articleComments: {
+        include: { user: { select: { id: true, name: true, image: true } } },
+      },
       author: true,
       articleLikes: true,
       favoriteArticle: true,
@@ -65,7 +67,11 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
   return (
     <ArticleContextProvider
       article={article}
-      curUserId={session?.user?.id || ""}
+      loggedInUserSession={{
+        id: session?.user?.id || null,
+        image: session?.user?.image || null,
+        name: session?.user?.name || null,
+      }}
     >
       <article className="relative mx-auto w-full max-w-4xl">
         <ArticleInfo {...articleInfoProps} />
