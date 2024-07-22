@@ -11,44 +11,51 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import addCommentSchema, { addCommentSchemaType } from "./addCommentSchema";
+import { createCommentSchema, CreateCommentSchema } from "./commentSchema";
+import { useArticleContext } from "./ArticleContext";
 
 type AddCommentProps = {
-  articleId: string;
-  loggedInUserId: string;
-  articleSlug: string;
   createCommentAction: (input: {
+    id: string;
     content: string;
+    authorId: string;
     articleId: string;
-    userId: string;
     articleSlug: string;
+    authorImage: string;
+    authorName: string;
+    createdAt: Date;
+    updatedAt: Date;
   }) => void;
 };
 
-export default function AddComment({
-  articleId,
-  loggedInUserId,
-  createCommentAction,
-  articleSlug,
-}: AddCommentProps) {
-  const commentForm = useForm<addCommentSchemaType>({
-    resolver: zodResolver(addCommentSchema),
+export default function AddComment({ createCommentAction }: AddCommentProps) {
+  const {
+    article: { id: articleId, slug: articleSlug },
+  } = useArticleContext();
+
+  const commentForm = useForm<CreateCommentSchema>({
+    resolver: zodResolver(createCommentSchema),
     defaultValues: {
       content: "",
-      userId: loggedInUserId,
       articleId,
       articleSlug,
     },
   });
 
-  function onCreateComment(values: addCommentSchemaType) {
-    createCommentAction(values);
+  function onCreateComment(values: CreateCommentSchema) {
+    console.log(`called`);
+    console.log(values);
+    // createCommentAction(values);
     commentForm.reset();
   }
 
   return (
     <Form {...commentForm}>
-      <form onSubmit={commentForm.handleSubmit(onCreateComment)}>
+      <form
+        onSubmit={(e) => {
+          commentForm.handleSubmit(onCreateComment)(e);
+        }}
+      >
         <FormField
           control={commentForm.control}
           name="content"
