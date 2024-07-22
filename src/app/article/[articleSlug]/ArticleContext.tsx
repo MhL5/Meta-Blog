@@ -6,18 +6,18 @@ import { getArticle } from "./page";
 type ArticleContextProviderProps = PropsWithChildren<{
   article: Awaited<ReturnType<typeof getArticle>>;
   loggedInUserSession: {
-    id: string | null;
-    name: string | null;
-    image: string | null;
-  };
+    id: string;
+    name: string;
+    image: string;
+  } | null;
 }>;
 type ArticleContextType = {
   article: Awaited<ReturnType<typeof getArticle>>;
   loggedInUserSession: {
-    id: string | null;
-    name: string | null;
-    image: string | null;
-  };
+    id: string;
+    name: string;
+    image: string;
+  } | null;
 };
 
 const ArticleContext = createContext<null | ArticleContextType>(null);
@@ -42,31 +42,3 @@ export function useArticleContext() {
     );
   return context;
 }
-
-/*
- // const articleCommentsList = articleComments.map(
-  //   (comment): CreateCommentSchema => {
-  //     const { image: authorImage, name: authorName } = comment.user;
-  //     const {
-  //       id,
-  //       content,
-  //       userId: authorId,
-  //       createdAt,
-  //       updatedAt,
-  //       articleId,
-  //     } = comment;
-
-  //     return {
-  //       id,
-  //       content,
-  //       authorId,
-  //       authorName: authorName || "",
-  //       authorImage: authorImage || "",
-  //       articleId,
-  //       articleSlug: slug,
-  //       createdAt,
-  //       updatedAt,
-  //     };
-  //   },
-  // );
-*/
