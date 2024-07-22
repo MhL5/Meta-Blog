@@ -11,20 +11,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { createCommentSchema, CreateCommentSchema } from "./commentSchema";
 import { useArticleContext } from "./ArticleContext";
+import { createCommentSchema, CreateCommentSchema } from "./commentSchema";
 
 type AddCommentProps = {
   createCommentAction: (input: {
-    id: string;
     content: string;
-    authorId: string;
     articleId: string;
     articleSlug: string;
-    authorImage: string;
-    authorName: string;
-    createdAt: Date;
-    updatedAt: Date;
   }) => void;
 };
 
@@ -43,9 +37,7 @@ export default function AddComment({ createCommentAction }: AddCommentProps) {
   });
 
   function onCreateComment(values: CreateCommentSchema) {
-    console.log(`called`);
-    console.log(values);
-    // createCommentAction(values);
+    createCommentAction(values);
     commentForm.reset();
   }
 
