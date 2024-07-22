@@ -5,11 +5,19 @@ import { getArticle } from "./page";
 
 type ArticleContextProviderProps = PropsWithChildren<{
   article: Awaited<ReturnType<typeof getArticle>>;
-  curUserId: string;
+  loggedInUserSession: {
+    id: string | null;
+    name: string | null;
+    image: string | null;
+  };
 }>;
 type ArticleContextType = {
   article: Awaited<ReturnType<typeof getArticle>>;
-  curUserId: string;
+  loggedInUserSession: {
+    id: string | null;
+    name: string | null;
+    image: string | null;
+  };
 };
 
 const ArticleContext = createContext<null | ArticleContextType>(null);
@@ -17,10 +25,10 @@ const ArticleContext = createContext<null | ArticleContextType>(null);
 export default function ArticleContextProvider({
   children,
   article,
-  curUserId,
+  loggedInUserSession,
 }: ArticleContextProviderProps) {
   return (
-    <ArticleContext.Provider value={{ article, curUserId }}>
+    <ArticleContext.Provider value={{ article, loggedInUserSession }}>
       {children}
     </ArticleContext.Provider>
   );
@@ -34,7 +42,6 @@ export function useArticleContext() {
     );
   return context;
 }
-
 
 /*
  // const articleCommentsList = articleComments.map(
