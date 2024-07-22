@@ -8,6 +8,7 @@ import { cache } from "react";
 import ArticleButtons from "./ArticleButtons";
 import ArticleContextProvider from "./ArticleContext";
 import ArticleInfo from "./ArticleInfo";
+import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
 
 type PageProps = {
