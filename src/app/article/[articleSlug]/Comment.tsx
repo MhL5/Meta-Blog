@@ -22,10 +22,22 @@ import { updateCommentSchema, UpdateCommentSchema } from "./commentSchema";
 import { Prisma } from "@prisma/client";
 
 type CommentProps = {
-  comment: Prisma.ArticleCommentGetPayload<{ include: { user: true } }>;
-  loggedInUserId: string;
+  comment: Prisma.ArticleCommentGetPayload<{
+    include: { user: { select: { image: true; name: true } } };
+  }>;
+  loggedInUserId: string | null;
   articleSlug: string;
   className?: string;
+  isWorking: boolean;
+  deleteCommentAction: (input: {
+    articleSlug: string;
+    commentId: string;
+  }) => void;
+  updateCommentAction: (input: {
+    commentId: string;
+    articleSlug: string;
+    content: string;
+  }) => void;
 };
 
 export default function Comment({
@@ -33,12 +45,11 @@ export default function Comment({
   loggedInUserId,
   className,
   articleSlug,
+  deleteCommentAction,
+  updateCommentAction,
+  isWorking,
 }: CommentProps) {
   const [editComment, setEditComment] = useState("");
-  //   const { deleteComment, isDeleting } = useDeleteComment();
-  //   const { isUpdating, updateComment } = useUpdateComment();
-
-  //   const isWorking = isDeleting || isUpdating;
 
   const updateCommentForm = useForm<UpdateCommentSchema>({
     resolver: zodResolver(updateCommentSchema),
@@ -50,16 +61,13 @@ export default function Comment({
   });
 
   function onDeleteComment(commentId: string) {
-    // deleteComment({ commentId });
+    deleteCommentAction({ commentId, articleSlug });
   }
 
   function onUpdateComment(values: z.infer<typeof updateCommentSchema>) {
-    // updateComment(values, {
-    //   onSuccess: () => {
-    //     updateCommentForm.reset();
-    //     setEditComment((ec) => (!ec ? "true" : ""));
-    //   },
-    // });
+    updateCommentAction(values);
+    updateCommentForm.reset();
+    setEditComment((ec) => (!ec ? "true" : ""));
   }
 
   function handleToggleEdit() {
@@ -90,9 +98,9 @@ export default function Comment({
                 <div className="ml-auto space-x-2">
                   <Button
                     variant="destructive"
-                    className="space-x-2"
+                    className="space-x-2 disabled:opacity-100"
                     size="xs"
-                    // disabled={isWorking}
+                    disabled={isWorking}
                     onClick={() => onDeleteComment(comment.id)}
                   >
                     <span>
@@ -102,9 +110,9 @@ export default function Comment({
                   </Button>
                   <Button
                     variant="secondary"
-                    className="space-x-2"
+                    className="space-x-2 disabled:opacity-100"
                     size="xs"
-                    // disabled={isWorking}
+                    disabled={isWorking}
                     onClick={handleToggleEdit}
                   >
                     <span>
@@ -130,7 +138,6 @@ export default function Comment({
                         required
                         type="text"
                         disabled={!editComment}
-                        // disabled={!editComment || isWorking}
                         className="disabled:cursor-default disabled:border-none disabled:opacity-100 disabled:shadow-none"
                         {...field}
                       />
@@ -145,17 +152,21 @@ export default function Comment({
                     size="sm"
                     variant="secondary"
                     type="reset"
-                    onClick={() => updateCommentForm.reset()}
-                    // disabled={isWorking}
+                    disabled={isWorking}
+                    onClick={() => setEditComment((ec) => (!ec ? "true" : ""))}
                   >
-                    clear
+                    Cancel
                   </Button>
                   <Button
                     size="sm"
-                    //   disabled={isWorking}
+                    variant="secondary"
+                    type="reset"
+                    disabled={isWorking}
+                    onClick={() => updateCommentForm.reset()}
                   >
-                    submit
+                    clear
                   </Button>
+                  <Button size="sm">submit</Button>
                 </div>
               )}
             </form>
