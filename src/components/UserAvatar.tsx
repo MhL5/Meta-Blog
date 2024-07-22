@@ -19,6 +19,7 @@ const UserAvatar = memo(
       <Avatar className={`${className} text-slate-800 dark:text-slate-300`}>
         <AvatarImage
           src={imageSrc}
+          loading="lazy"
           referrerPolicy="no-referrer"
           alt="logged in user profile picture"
         />
