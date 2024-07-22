@@ -11,33 +11,33 @@ import {
 } from "lucide-react";
 
 type ArticleInfoProps = {
-  avatarUrl: string;
-  authorImgUrl: string;
-  authorName: string;
+  avatar: string;
   createdAt: Date;
   readingTime: number;
   articleLikesLength: number;
   articleCommentsLength: number;
   favoriteArticleLength: number;
   tags: string[];
+  authorName: string;
+  authorImgUrl: string;
 };
 
 export default function ArticleInfo({
-  avatarUrl,
+  articleCommentsLength,
+  articleLikesLength,
   authorImgUrl,
   authorName,
+  avatar,
   createdAt,
-  readingTime,
-  articleLikesLength,
-  articleCommentsLength,
   favoriteArticleLength,
+  readingTime,
   tags,
 }: ArticleInfoProps) {
   return (
     <>
       <figure className="relative mx-auto mt-4 aspect-video h-[400px] w-full max-w-7xl sm:mb-8 sm:mt-6">
         <CloudinaryImage
-          src={avatarUrl}
+          src={avatar}
           fill
           className="h-full w-full object-cover sm:rounded-lg"
           alt="blog avatar"
