@@ -69,14 +69,14 @@ export default function AddComment({ createCommentAction }: AddCommentProps) {
 
         <div className="flex justify-end gap-4 py-2">
           <Button
-            size="sm"
+            size="xs"
             variant="secondary"
             type="reset"
             onClick={() => commentForm.reset()}
           >
             clear
           </Button>
-          <Button size="sm">submit</Button>
+          <Button size="xs">submit</Button>
         </div>
       </form>
     </Form>
