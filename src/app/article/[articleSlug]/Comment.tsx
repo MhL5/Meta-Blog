@@ -51,6 +51,14 @@ export default function Comment({
 }: CommentProps) {
   const [editComment, setEditComment] = useState("");
 
+  // to prevent timestamp flickering in ui when real data arrives from backend
+  // like 1 seconds ago turns into 3 seconds ago which is not ideal
+  const commentUpdatedAt = intlFormatDistance(comment.updatedAt, new Date());
+  const commentUpdatedAtWithoutSeconds =
+    commentUpdatedAt.includes("second") || commentUpdatedAt.includes("now")
+      ? "a few seconds ago"
+      : commentUpdatedAt;
+
   const updateCommentForm = useForm<UpdateCommentSchema>({
     resolver: zodResolver(updateCommentSchema),
     defaultValues: {
@@ -83,8 +91,6 @@ export default function Comment({
     <Card className={`${className} `}>
       <div className="flex gap-2 p-2">
         <div>
-          {/* To prevent image flickering when real data comes from backend we have to use next Image */}
-          {/* TODO: temp solution, Radix ui avatar component flickers for some reason */}
           <Image
             src={comment.user.image || "unknown!"}
             alt={comment.user.name || "unknown!"}
@@ -98,7 +104,7 @@ export default function Comment({
             <div className="flex w-full items-center space-x-4">
               <div className="ml-3 mr-auto space-x-4">
                 <span>{comment.user.name}</span>
-                <span>{intlFormatDistance(comment.updatedAt, new Date())}</span>
+                <span>{commentUpdatedAtWithoutSeconds}</span>
               </div>
 
               {loggedInUserId && loggedInUserId === comment.userId && (
