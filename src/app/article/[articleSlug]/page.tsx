@@ -20,6 +20,7 @@ type PageProps = {
 // todo: USE GET STATIC PROPS TO to make it static
 // todo: revalidate 15m
 // TODO: REMOVE CARD BG
+// TODO: move comment logic to its context not comment list component :|
 
 export const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
