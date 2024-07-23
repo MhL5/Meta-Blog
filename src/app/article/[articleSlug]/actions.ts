@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import {
   createCommentSchema,
   deleteCommentSchema,
+  toggleFavoriteSchema,
   toggleLikeSchema,
   updateCommentSchema,
 } from "./schema";
@@ -147,7 +148,6 @@ export const toggleLike = authActionClient
   .schema(toggleLikeSchema)
   .action(
     async ({ ctx: { curUser }, parsedInput: { articleId, articleSlug } }) => {
-      await new Promise((res) => setTimeout(res, 7000));
       // 3. Verify if the article exists.
       const article = await prismaClient.article.findUnique({
         where: { id: articleId },
@@ -166,6 +166,50 @@ export const toggleLike = authActionClient
         });
       else
         await prismaClient.articleLike.create({
+          data: { articleId, userId: curUser.id },
+        });
+
+      // 5. Validate the path to clear the cache.
+      revalidatePath(`/article/${articleSlug}`);
+
+      // 6. Return a simple response indicating success.
+      return { status: "success" };
+    },
+  );
+
+/**
+ * toggle Favorite Article
+ *
+ * Steps:
+ * 1. Check if the user is logged in.
+ * 2. Validate the input.
+ * 3. Verify if the article exists.
+ * 4. Toggling Favorite
+ * 5. Validate the path to clear the cache.
+ * 6. Return a simple response indicating success.
+ */
+export const toggleFavorite = authActionClient
+  .schema(toggleFavoriteSchema)
+  .action(
+    async ({ ctx: { curUser }, parsedInput: { articleId, articleSlug } }) => {
+      // 3. Verify if the article exists.
+      const article = await prismaClient.article.findUnique({
+        where: { id: articleId },
+      });
+      if (!article)
+        throw new ActionClientError(`Article with id ${articleId} not found`);
+
+      // 4. Toggling Favorite:
+      const favorite = await prismaClient.favoriteArticle.findUnique({
+        where: { userId_articleId: { articleId, userId: curUser.id } },
+      });
+
+      if (favorite)
+        await prismaClient.favoriteArticle.delete({
+          where: { id: favorite.id },
+        });
+      else
+        await prismaClient.favoriteArticle.create({
           data: { articleId, userId: curUser.id },
         });
 

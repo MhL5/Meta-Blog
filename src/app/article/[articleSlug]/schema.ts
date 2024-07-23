@@ -25,3 +25,9 @@ export const toggleLikeSchema = z.object({
   articleSlug: z.string().min(1),
 });
 export type ToggleLikeSchema = z.infer<typeof toggleLikeSchema>;
+
+export const toggleFavoriteSchema = z.object({
+  articleId: z.string().min(1),
+  articleSlug: z.string().min(1),
+});
+export type ToggleFavoriteSchema = z.infer<typeof toggleFavoriteSchema>;
