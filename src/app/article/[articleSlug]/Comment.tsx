@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { updateCommentSchema, UpdateCommentSchema } from "./commentSchema";
+import { updateCommentSchema, UpdateCommentSchema } from "./schema";
 import { SquarePen, Trash2 } from "lucide-react";
 
 type CommentProps = {

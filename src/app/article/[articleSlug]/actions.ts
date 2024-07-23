@@ -7,7 +7,7 @@ import {
   createCommentSchema,
   deleteCommentSchema,
   updateCommentSchema,
-} from "./commentSchema";
+} from "./schema";
 
 /**
  * TODO: handle errors i should throw regular errors here

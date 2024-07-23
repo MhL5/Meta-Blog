@@ -2,10 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Bookmark, Heart, MessageCircleMore, Share2 } from "lucide-react";
 import Link from "next/link";
 
+/*
+Lets go bitches: Optimistic like with an animation
+Save: Optimistic save with bg color change smooth animation for changing bg
+Share: idk lets investigate, if its too much work will go with a simple url copy clipboard
+*/
 export default function ArticleButtons() {
   return (
     <>
-      <section className="sticky bottom-[5%] my-8 flex items-center justify-center text-lg">
+      <section className="sticky bottom-[5%] z-20 my-8 flex items-center justify-center text-lg">
         <Button
           variant="outline"
           size="lg"

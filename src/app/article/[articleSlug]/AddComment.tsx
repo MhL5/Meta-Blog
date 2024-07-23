@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useArticleContext } from "./ArticleContext";
-import { createCommentSchema, CreateCommentSchema } from "./commentSchema";
+import { createCommentSchema, CreateCommentSchema } from "./schema";
 
 type AddCommentProps = {
   createCommentAction: (input: {

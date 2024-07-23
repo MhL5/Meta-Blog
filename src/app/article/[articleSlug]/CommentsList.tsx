@@ -6,7 +6,7 @@ import Link from "next/link";
 import AddComment from "./AddComment";
 import { useArticleContext } from "./ArticleContext";
 import Comment from "./Comment";
-import { createComment, deleteComment, updateComment } from "./commentActions";
+import { createComment, deleteComment, updateComment } from "./actions";
 import { useState } from "react";
 
 export default function CommentsList() {
