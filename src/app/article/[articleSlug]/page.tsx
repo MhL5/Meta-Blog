@@ -19,6 +19,7 @@ type PageProps = {
 
 // todo: USE GET STATIC PROPS TO to make it static
 // todo: revalidate 15m
+// TODO: REMOVE CARD BG
 
 export const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
@@ -54,7 +55,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
   const article = await getArticle(articleSlug);
 
   const curUser = session ? validateUser(session) : null;
-  
+
   const articleInfoProps = {
     avatar: article.avatar,
     authorImgUrl: article.author.image || "",
