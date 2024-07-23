@@ -7,18 +7,18 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Prisma } from "@prisma/client";
-import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateCommentSchema, UpdateCommentSchema } from "./commentSchema";
+import { SquarePen, Trash2 } from "lucide-react";
 
 type CommentProps = {
   comment: Prisma.ArticleCommentGetPayload<{
@@ -110,9 +110,7 @@ export default function Comment({
                     disabled={isWorking}
                     onClick={() => onDeleteComment(comment.id)}
                   >
-                    <span>
-                      <TrashIcon />
-                    </span>
+                    <Trash2 className="h-4 w-4" />
                     <span>Delete</span>
                   </Button>
                   <Button
@@ -122,9 +120,7 @@ export default function Comment({
                     disabled={isWorking}
                     onClick={() => setToggleEdit((te) => !te)}
                   >
-                    <span>
-                      <Pencil2Icon />
-                    </span>
+                    <SquarePen className="h-4 w-4" />
                     <span>Edit</span>
                   </Button>
                 </div>
@@ -155,7 +151,7 @@ export default function Comment({
               {!!toggleEdit && (
                 <div className="flex justify-end gap-4 py-2">
                   <Button
-                    size="sm"
+                    size="xs"
                     variant="secondary"
                     type="reset"
                     disabled={isWorking}
@@ -163,7 +159,7 @@ export default function Comment({
                   >
                     Cancel
                   </Button>
-                  <Button size="sm">submit</Button>
+                  <Button size="xs">Submit</Button>
                 </div>
               )}
             </form>
