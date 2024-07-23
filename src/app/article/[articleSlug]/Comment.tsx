@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateCommentSchema, UpdateCommentSchema } from "./commentSchema";
 import { Prisma } from "@prisma/client";
+import Image from "next/image";
 
 type CommentProps = {
   comment: Prisma.ArticleCommentGetPayload<{
@@ -82,10 +83,17 @@ export default function Comment({
   return (
     <Card className={`${className} `}>
       <div className="flex gap-2 p-2">
-        <UserAvatar
-          imageSrc={comment.user.image || "unknown!"}
-          username={comment.user.name || "unknown!"}
-        />
+        <div>
+          {/* To prevent image flickering when real data comes from backend we have to use next Image */}
+          {/* TODO: temp solution, Radix ui avatar component flickers for some reason */}
+          <Image
+            src={comment.user.image || "unknown!"}
+            alt={comment.user.name || "unknown!"}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        </div>
         <div className="w-full">
           <div className="mb-4 w-full text-sm text-gray-500">
             <div className="flex w-full items-center space-x-4">
