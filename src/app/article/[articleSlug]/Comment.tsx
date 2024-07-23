@@ -11,16 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import UserAvatar from "@/components/UserAvatar";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Prisma } from "@prisma/client";
 import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateCommentSchema, UpdateCommentSchema } from "./commentSchema";
-import { Prisma } from "@prisma/client";
-import Image from "next/image";
 
 type CommentProps = {
   comment: Prisma.ArticleCommentGetPayload<{
