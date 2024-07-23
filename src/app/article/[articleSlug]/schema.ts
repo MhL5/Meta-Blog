@@ -19,3 +19,9 @@ export const updateCommentSchema = z.object({
   articleSlug: z.string().min(1),
 });
 export type UpdateCommentSchema = z.infer<typeof updateCommentSchema>;
+
+export const toggleLikeSchema = z.object({
+  articleId: z.string().min(1),
+  articleSlug: z.string().min(1),
+});
+export type ToggleLikeSchema = z.infer<typeof toggleLikeSchema>;

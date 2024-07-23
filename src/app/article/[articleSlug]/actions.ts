@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import {
   createCommentSchema,
   deleteCommentSchema,
+  toggleLikeSchema,
   updateCommentSchema,
 } from "./schema";
 
@@ -124,5 +125,54 @@ export const updateComment = authActionClient
 
       // 6. retuning updatedComment
       return updatedComment;
+    },
+  );
+
+/**
+ * Toggle the Like button functionality
+ *
+ * Steps:
+ * 1. Check if the user is logged in.
+ * 2. Validate the input.
+ * 3. Verify if the article exists.
+ *
+ * 4. Toggling Like:
+ *    - If a like exists: the user clicked to dislike the article, so we remove the like.
+ *    - If a like does not exist: the user clicked to like the article, so we add the like.
+ *
+ * 5. Validate the path to clear the cache.
+ * 6. Return a simple response indicating success.
+ */
+export const toggleLike = authActionClient
+  .schema(toggleLikeSchema)
+  .action(
+    async ({ ctx: { curUser }, parsedInput: { articleId, articleSlug } }) => {
+      await new Promise((res) => setTimeout(res, 7000));
+      // 3. Verify if the article exists.
+      const article = await prismaClient.article.findUnique({
+        where: { id: articleId },
+      });
+      if (!article)
+        throw new ActionClientError(`Article with id ${articleId} not found`);
+
+      // 4. Toggling Like:
+      const like = await prismaClient.articleLike.findUnique({
+        where: { userId_articleId: { articleId, userId: curUser.id } },
+      });
+
+      if (like)
+        await prismaClient.articleLike.delete({
+          where: { id: like.id },
+        });
+      else
+        await prismaClient.articleLike.create({
+          data: { articleId, userId: curUser.id },
+        });
+
+      // 5. Validate the path to clear the cache.
+      revalidatePath(`/article/${articleSlug}`);
+
+      // 6. Return a simple response indicating success.
+      return { status: "success" };
     },
   );
