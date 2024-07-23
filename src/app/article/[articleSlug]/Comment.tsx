@@ -7,8 +7,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,7 +48,7 @@ export default function Comment({
   updateCommentAction,
   isWorking,
 }: CommentProps) {
-  const [editComment, setEditComment] = useState("");
+  const [toggleEdit, setToggleEdit] = useState(false);
 
   // to prevent timestamp flickering in ui when real data arrives from backend
   // like 1 seconds ago turns into 3 seconds ago which is not ideal
@@ -63,7 +62,7 @@ export default function Comment({
     resolver: zodResolver(updateCommentSchema),
     defaultValues: {
       commentId: comment.id,
-      content: "",
+      content: comment.content,
       articleSlug,
     },
   });
@@ -75,12 +74,7 @@ export default function Comment({
   function onUpdateComment(values: z.infer<typeof updateCommentSchema>) {
     updateCommentAction(values);
     updateCommentForm.reset();
-    setEditComment((ec) => (!ec ? "true" : ""));
-  }
-
-  function handleToggleEdit() {
-    setEditComment((ec) => (!ec ? "true" : ""));
-    updateCommentForm.setValue("content", comment.content);
+    setToggleEdit(false);
   }
 
   useEffect(() => {
@@ -126,7 +120,7 @@ export default function Comment({
                     className="space-x-2 disabled:opacity-100"
                     size="xs"
                     disabled={isWorking}
-                    onClick={handleToggleEdit}
+                    onClick={() => setToggleEdit((te) => !te)}
                   >
                     <span>
                       <Pencil2Icon />
@@ -145,12 +139,11 @@ export default function Comment({
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel></FormLabel>
                     <FormControl>
                       <Input
                         required
                         type="text"
-                        disabled={!editComment}
+                        disabled={!toggleEdit}
                         className="disabled:cursor-default disabled:border-none disabled:opacity-100 disabled:shadow-none"
                         {...field}
                       />
@@ -159,25 +152,16 @@ export default function Comment({
                   </FormItem>
                 )}
               />
-              {!!editComment && (
+              {!!toggleEdit && (
                 <div className="flex justify-end gap-4 py-2">
                   <Button
                     size="sm"
                     variant="secondary"
                     type="reset"
                     disabled={isWorking}
-                    onClick={() => setEditComment((ec) => (!ec ? "true" : ""))}
+                    onClick={() => setToggleEdit(false)}
                   >
                     Cancel
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    type="reset"
-                    disabled={isWorking}
-                    onClick={() => updateCommentForm.reset()}
-                  >
-                    clear
                   </Button>
                   <Button size="sm">submit</Button>
                 </div>
