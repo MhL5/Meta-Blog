@@ -180,19 +180,19 @@
 
   /* For text editor admonitions like tip danger note caution info */
   .tip {
-    @apply rounded-lg border border-blue-500 bg-blue-100 p-2 text-blue-950 dark:bg-blue-500 dark:text-blue-50;
+    @apply rounded-lg bg-blue-100 p-2 text-blue-700 dark:bg-blue-800/50 dark:text-blue-300;
   }
   .danger {
-    @apply rounded-lg border border-red-500 bg-red-100 p-2 text-red-950 dark:bg-red-500 dark:text-red-50;
+    @apply rounded-lg bg-red-100 p-2 text-red-700 dark:bg-red-800/50 dark:text-red-300;
   }
   .caution {
-    @apply rounded-lg border border-yellow-500 bg-yellow-100 p-2 text-yellow-950 dark:bg-yellow-500 dark:text-yellow-50;
+    @apply rounded-lg bg-yellow-100 p-2 text-yellow-700 dark:bg-yellow-800/50 dark:text-yellow-300;
   }
   .note {
-    @apply rounded-lg border border-slate-500 bg-slate-100 p-2 text-slate-950 dark:bg-slate-500 dark:text-slate-50;
+    @apply rounded-lg bg-slate-100 p-2 text-slate-700 dark:bg-slate-800/50 dark:text-slate-300;
   }
   .info {
-    @apply rounded-lg border border-green-500 bg-green-100 p-2 text-green-950 dark:bg-green-500 dark:text-green-50;
+    @apply rounded-lg bg-green-100 p-2 text-green-700 dark:bg-green-800/50 dark:text-green-300;
   }
 }
 @layer components {
