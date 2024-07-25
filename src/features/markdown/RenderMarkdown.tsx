@@ -1,8 +1,9 @@
 import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import CopyToClipboard from "./CopyToClipboard";
 import customAdmonitionPlugin from "./customAdmonitionPlugin";
 
 type RenderMarkdownProps = { markdown: string };
@@ -34,15 +35,21 @@ export default function RenderMarkdown({ markdown }: RenderMarkdownProps) {
             const match = /language-(\w+)/.exec(className || "");
 
             return !inline && match ? (
-              <SyntaxHighlighter
-                style={oneDark}
-                PreTag="div"
-                language={match[1]}
-                showLineNumbers={true}
-                {...props}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
+              <div className="relative">
+                <CopyToClipboard
+                  content={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                />
+                <SyntaxHighlighter
+                  style={oneDark}
+                  PreTag="div"
+                  language={match[1]}
+                  showLineNumbers={true}
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+              </div>
             ) : (
               <code className={className} {...props}>
                 {children}
