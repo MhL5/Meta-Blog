@@ -35,20 +35,30 @@ export default function RenderMarkdown({ markdown }: RenderMarkdownProps) {
             const match = /language-(\w+)/.exec(className || "");
 
             return !inline && match ? (
-              <div className="relative">
-                <CopyToClipboard
-                  content={String(children).replace(/\n$/, "")}
-                  language={match[1]}
-                />
-                <SyntaxHighlighter
-                  style={oneDark}
-                  PreTag="div"
-                  language={match[1]}
-                  showLineNumbers={true}
-                  {...props}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
+              <div className="flex items-center">
+                <div className="basis-11/12">
+                  <SyntaxHighlighter
+                    style={oneDark}
+                    PreTag="div"
+                    language={match[1]}
+                    showLineNumbers={true}
+                    customStyle={{
+                      borderTopRightRadius: "0",
+                      borderBottomRightRadius: "0",
+                    }}
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                </div>
+                <div className="h-full basis-1/12 rounded-r-md bg-[#282c34] py-[8.5px]">
+                  <div className="flex items-start">
+                    <CopyToClipboard
+                      content={String(children).replace(/\n$/, "")}
+                      language={match[1]}
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
               <code className={className} {...props}>
