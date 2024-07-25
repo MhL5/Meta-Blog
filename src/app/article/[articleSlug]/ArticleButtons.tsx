@@ -15,9 +15,13 @@ import { useOptimisticAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useMemo } from "react";
 import {
+  LinkedinIcon,
   LinkedinShareButton,
+  TelegramIcon,
   TelegramShareButton,
+  TwitterIcon,
   TwitterShareButton,
+  WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
 import { toggleFavorite, toggleLike } from "./actions";
@@ -145,27 +149,32 @@ function ShareArticleButton() {
     title: `Meta blog: ${title}`,
   };
 
+  // static object[] for rendering buttons
   const shareButtons = useMemo(
     () => [
       {
         platform: "linkedin",
         Component: LinkedinShareButton,
         id: "2d2d5a081f9bf2d1ee1e90a230df7504acd39459857235f868768545cb4169e01eb02fab8e2ae22baafca0da6bfd30541f5ed391ea8e55cc7b4b9adf8a1ad0e4",
+        Icon: LinkedinIcon,
       },
       {
         platform: "twitter",
         Component: TwitterShareButton,
         id: "0c7e52cadc212e5c3ea4bca45c01dc104a93e18ec82067ea3a6946bf9505793fe73610c8e0e318337d24273ba84ffe9615bfd67969e9035c0577bef4bd25ebab",
+        Icon: TwitterIcon,
       },
       {
         platform: "whatsapp",
         Component: WhatsappShareButton,
         id: "7949c55b43811078ad9adca34447493c463ab33631f35d851a04adab0ee7f393688ce2e396f68f5fd3ecfe6e35a8669b8b553cdf42497ddc2d78d5d686dba7da",
+        Icon: WhatsappIcon,
       },
       {
         platform: "telegram",
         Component: TelegramShareButton,
         id: "407b43dd25e3f801bb2804c64865be42587b9b189199b6e1da820853be09c471acea3523cb0d5c178b511a864d9dfc9dfda506b64c4cf36750085e0e9b4f58b7",
+        Icon: TelegramIcon,
       },
     ],
     [],
@@ -192,11 +201,23 @@ function ShareArticleButton() {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            {shareButtons.map(({ platform, Component, id }) => {
+            {shareButtons.map(({ platform, Component, id, Icon }) => {
               return (
-                <DropdownMenuItem key={id} className="w-full px-2 py-1 text-sm">
-                  <Button asChild variant="ghost" size="xs">
-                    <Component {...ShareButtonProps}>{platform}</Component>
+                <DropdownMenuItem key={id} className="w-full space-y-2 text-sm">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="xs"
+                    className="w-full justify-start"
+                  >
+                    <Component {...ShareButtonProps}>
+                      <div className="flex items-center gap-1 px-2">
+                        <Icon className="h-6 w-6 rounded-lg" />
+                        <span className="inline-block pl-2 font-semibold">
+                          {platform}
+                        </span>
+                      </div>
+                    </Component>
                   </Button>
                 </DropdownMenuItem>
               );
