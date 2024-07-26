@@ -28,7 +28,7 @@ export default function CopyToClipboard({
   const MotionCopy = motion(Copy);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center p-2 pr-0">
       <span className="text-xs font-bold">{language}</span>
 
       <Button variant="ghost" size="xs" onClick={handleCopyClick}>

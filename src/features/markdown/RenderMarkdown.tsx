@@ -51,7 +51,7 @@ export default function RenderMarkdown({ markdown }: RenderMarkdownProps) {
                     {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
                 </div>
-                <div className="m-[7px] ml-0 flex-1 basis-1/12 rounded-r-md bg-[#282c34] p-[14px]">
+                <div className="m-[7px] ml-0 flex-1 basis-1/12 rounded-r-md bg-[#282c34]">
                   <div className="flex items-start">
                     <CopyToClipboard
                       content={String(children).replace(/\n$/, "")}
