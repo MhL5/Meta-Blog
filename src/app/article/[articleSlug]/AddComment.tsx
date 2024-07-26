@@ -14,17 +14,10 @@ import { useForm } from "react-hook-form";
 import { useArticleContext } from "./ArticleContext";
 import { createCommentSchema, CreateCommentSchema } from "./schema";
 
-type AddCommentProps = {
-  createCommentAction: (input: {
-    content: string;
-    articleId: string;
-    articleSlug: string;
-  }) => void;
-};
-
-export default function AddComment({ createCommentAction }: AddCommentProps) {
+export default function AddComment() {
   const {
     article: { id: articleId, slug: articleSlug },
+    articleCommentsOptimistic: { addOptimisticComment },
   } = useArticleContext();
 
   const commentForm = useForm<CreateCommentSchema>({
@@ -37,7 +30,7 @@ export default function AddComment({ createCommentAction }: AddCommentProps) {
   });
 
   function onCreateComment(values: CreateCommentSchema) {
-    createCommentAction(values);
+    addOptimisticComment(values);
     commentForm.reset();
   }
 
