@@ -25,9 +25,11 @@ function checkAndAddClass(node: any, string: string) {
   if (!isAdmonition) return;
   // Modify the first child to remove ':::tip' and add a class
 
-  children[0].value = children[0].value
-    .replace(`:::${string}`, "")
-    .replace(":::", "")
+  children[0].value = children[0].value.replace(`:::${string}`, "").trim();
+  children[children.length - 1].value = children[children.length - 1].value
+    .replace(`:::`, "")
+    .replace(`:::'`, "")
+    .replace(`:::"`, "")
     .trim();
 
   node.data = {
