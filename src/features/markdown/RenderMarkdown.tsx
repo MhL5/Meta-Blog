@@ -35,8 +35,8 @@ export default function RenderMarkdown({ markdown }: RenderMarkdownProps) {
             const match = /language-(\w+)/.exec(className || "");
 
             return !inline && match ? (
-              <div className="flex items-center">
-                <div className="basis-11/12">
+              <div className="flex items-stretch">
+                <div className="flex-1 basis-11/12">
                   <SyntaxHighlighter
                     style={oneDark}
                     PreTag="div"
@@ -51,7 +51,7 @@ export default function RenderMarkdown({ markdown }: RenderMarkdownProps) {
                     {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
                 </div>
-                <div className="h-full basis-1/12 rounded-r-md bg-[#282c34] py-[8.5px]">
+                <div className="m-[7px] ml-0 flex-1 basis-1/12 rounded-r-md bg-[#282c34] p-[14px]">
                   <div className="flex items-start">
                     <CopyToClipboard
                       content={String(children).replace(/\n$/, "")}
