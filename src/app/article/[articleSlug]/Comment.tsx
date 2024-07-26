@@ -13,41 +13,31 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Prisma } from "@prisma/client";
 import { intlFormatDistance } from "date-fns";
+import { SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useArticleContext } from "./ArticleContext";
 import { updateCommentSchema, UpdateCommentSchema } from "./schema";
-import { SquarePen, Trash2 } from "lucide-react";
 
 type CommentProps = {
   comment: Prisma.ArticleCommentGetPayload<{
     include: { user: { select: { image: true; name: true } } };
   }>;
-  loggedInUserId: string | null;
-  articleSlug: string;
   className?: string;
-  isWorking: boolean;
-  deleteCommentAction: (input: {
-    articleSlug: string;
-    commentId: string;
-  }) => void;
-  updateCommentAction: (input: {
-    commentId: string;
-    articleSlug: string;
-    content: string;
-  }) => void;
 };
 
-export default function Comment({
-  comment,
-  loggedInUserId,
-  className,
-  articleSlug,
-  deleteCommentAction,
-  updateCommentAction,
-  isWorking,
-}: CommentProps) {
+export default function Comment({ comment, className }: CommentProps) {
+  const {
+    articleCommentsOptimistic: {
+      deleteOptimisticComment,
+      updateOptimisticComment,
+      pendingOptimisticComment,
+    },
+    article: { slug: articleSlug },
+    loggedInUserSession,
+  } = useArticleContext();
   const [toggleEdit, setToggleEdit] = useState(false);
 
   // to prevent timestamp flickering in ui when real data arrives from backend
@@ -68,11 +58,11 @@ export default function Comment({
   });
 
   function onDeleteComment(commentId: string) {
-    deleteCommentAction({ commentId, articleSlug });
+    deleteOptimisticComment({ commentId, articleSlug });
   }
 
   function onUpdateComment(values: z.infer<typeof updateCommentSchema>) {
-    updateCommentAction(values);
+    updateOptimisticComment(values);
     updateCommentForm.reset();
     setToggleEdit(false);
   }
@@ -101,30 +91,31 @@ export default function Comment({
                 <span>{commentUpdatedAtWithoutSeconds}</span>
               </div>
 
-              {loggedInUserId && loggedInUserId === comment.userId && (
-                <div className="ml-auto space-x-2">
-                  <Button
-                    variant="destructive"
-                    className="space-x-2 disabled:opacity-100"
-                    size="xs"
-                    disabled={isWorking}
-                    onClick={() => onDeleteComment(comment.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    <span>Delete</span>
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    className="space-x-2 disabled:opacity-100"
-                    size="xs"
-                    disabled={isWorking}
-                    onClick={() => setToggleEdit((te) => !te)}
-                  >
-                    <SquarePen className="h-4 w-4" />
-                    <span>Edit</span>
-                  </Button>
-                </div>
-              )}
+              {loggedInUserSession?.id &&
+                loggedInUserSession.id === comment.userId && (
+                  <div className="ml-auto space-x-2">
+                    <Button
+                      variant="destructive"
+                      className="space-x-2"
+                      size="xs"
+                      disabled={pendingOptimisticComment}
+                      onClick={() => onDeleteComment(comment.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>Delete</span>
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      className="space-x-2"
+                      size="xs"
+                      disabled={pendingOptimisticComment}
+                      onClick={() => setToggleEdit((te) => !te)}
+                    >
+                      <SquarePen className="h-4 w-4" />
+                      <span>Edit</span>
+                    </Button>
+                  </div>
+                )}
             </div>
           </div>
 
@@ -154,7 +145,7 @@ export default function Comment({
                     size="xs"
                     variant="secondary"
                     type="reset"
-                    disabled={isWorking}
+                    disabled={pendingOptimisticComment}
                     onClick={() => setToggleEdit(false)}
                   >
                     Cancel
