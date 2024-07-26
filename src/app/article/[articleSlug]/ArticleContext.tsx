@@ -1,6 +1,7 @@
 "use client";
 
 import { useToast } from "@/components/ui/use-toast";
+import { Prisma } from "@prisma/client";
 import {
   createContext,
   PropsWithChildren,
@@ -9,13 +10,11 @@ import {
   useTransition,
 } from "react";
 import { createComment, deleteComment, updateComment } from "./actions";
-import { getArticle } from "./page";
 import {
   CreateCommentSchema,
   DeleteCommentSchema,
   UpdateCommentSchema,
 } from "./schema";
-import { Prisma } from "@prisma/client";
 
 // Types
 // -----------------------------------------------
@@ -43,7 +42,7 @@ type ArticleContextProviderProps = PropsWithChildren<{
 }>;
 
 type ArticleContextType = {
-  article: Awaited<ReturnType<typeof getArticle>>;
+  article: FullArticleData;
   loggedInUserSession: LoggedInUserSession;
   articleCommentsOptimistic: {
     optimisticComments: FullArticleData["articleComments"];
