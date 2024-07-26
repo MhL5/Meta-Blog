@@ -69,7 +69,7 @@ type OptimisticCommentsReducerActions =
 const ArticleContext = createContext<null | ArticleContextType>(null);
 
 function optimisticCommentsReducer(
-  state: Awaited<ReturnType<typeof getArticle>>["articleComments"],
+  state: FullArticleData["articleComments"],
   action: OptimisticCommentsReducerActions,
 ) {
   switch (action.type) {
