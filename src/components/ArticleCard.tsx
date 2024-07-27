@@ -15,6 +15,7 @@ import { FollowerPointerCard } from "./ui/following-pointer";
 import UserAvatar from "./UserAvatar";
 import { truncateText } from "@/lib/utils";
 import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
+import { useMemo } from "react";
 
 type ArticleCardProps = {
   article: Prisma.ArticleGetPayload<{
@@ -28,24 +29,32 @@ type ArticleCardProps = {
 };
 
 export default function ArticleCard({ article }: ArticleCardProps) {
-  const articleStats = [
-    {
-      icon: <Heart />,
-      text: `${article.articleLikes.length}`,
-    },
-    {
-      icon: <MessageCircle />,
-      text: `${article.articleComments.length}`,
-    },
-    {
-      icon: <Bookmark />,
-      text: `${article.favoriteArticle.length}`,
-    },
-    {
-      icon: <Clock4 />,
-      text: `${article.readingTime} minutes`,
-    },
-  ];
+  const articleStats = useMemo(
+    () => [
+      {
+        icon: <Heart />,
+        text: `${article.articleLikes.length}`,
+      },
+      {
+        icon: <MessageCircle />,
+        text: `${article.articleComments.length}`,
+      },
+      {
+        icon: <Bookmark />,
+        text: `${article.favoriteArticle.length}`,
+      },
+      {
+        icon: <Clock4 />,
+        text: `${article.readingTime} minutes`,
+      },
+    ],
+    [
+      article.articleLikes,
+      article.articleComments,
+      article.favoriteArticle,
+      article.readingTime,
+    ],
+  );
 
   return (
     <FollowerPointerCard
@@ -78,7 +87,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
           <CardContent className="px-4">
             <div className="mb-6 mt-2 space-x-2">
-              {article.tags.map((tag, i) => (
+              {[...article.tags.slice(0, 3), "More..."].map((tag, i) => (
                 <Badge key={i} variant="secondary">
                   {tag}
                 </Badge>
