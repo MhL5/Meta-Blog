@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -9,41 +7,60 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Article } from "@prisma/client";
+import Autoplay from "embla-carousel-autoplay";
+import { Clock } from "lucide-react";
 import { CldImage } from "next-cloudinary";
+import Link from "next/link";
+import GradientUnderlineText from "./ui/GradientUnderlineText";
 
-export default function CarouselHomepage() {
+type CarouselHomepageProps = {
+  articles: Article[];
+};
+
+export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
   // TODO : SHOULD BE A LINK
   // fix stuff bottom
   return (
     <Carousel
       className="mx-auto w-full max-w-7xl"
-      opts={{ loop: true, startIndex: 1 }}
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
     >
       <CarouselContent className="gird h-[500px] items-center">
-        {Array.from({ length: 5 }).map((_, index) => {
+        {articles.map((article, index) => {
           return (
-            <CarouselItem key={index} className="basis-2/3">
-              <div className="px-3 py-4">
-                <Card className="hover:-translate-y-0">
-                  <CardContent className="relative m-0 flex aspect-video items-center justify-center p-0">
-                    <div className="stackContent || relative h-full w-full">
-                      <CldImage
-                        fill
-                        // todo:
-                        src="https://res.cloudinary.com/dkyoa6any/image/upload/v1720380054/git_zvgh9i.jpg"
-                        alt="test"
-                        className="h-full w-full rounded-lg object-cover"
-                      />
-                      <div className="m-10 text-xl font-bold text-white">
-                        <div>BADGE</div>
-                        <div>TITLE</div>
-                        <div>WRITER AVATAR | READING TIME </div>
-                      </div>
-                    </div>
-                    <div className="overlay"></div>
-                  </CardContent>
-                </Card>
-              </div>
+            <CarouselItem key={index} className="h-full w-full basis-1/3">
+              <Link
+                href={`/article/${article.slug}`}
+                className="stackContent || relative h-full rounded-lg border"
+              >
+                <div className="relative h-full w-full">
+                  <CldImage
+                    fill
+                    src={article.avatar}
+                    alt="article avatar"
+                    className="-z-50 h-full w-full rounded-lg object-cover"
+                  />
+                </div>
+
+                <div className="relative z-10 m-10 text-xl font-bold text-white">
+                  <GradientUnderlineText>{article.title}</GradientUnderlineText>
+                  <div className="mt-2 text-sm">
+                    <Clock className="mr-2 inline-block h-4 w-4" />
+                    <span>{article.readingTime} min read</span>
+                  </div>
+                </div>
+
+                <div className="overlay"></div>
+              </Link>
             </CarouselItem>
           );
         })}
