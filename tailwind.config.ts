@@ -21,28 +21,26 @@ const config = {
       },
     },
     extend: {
-      // for `` styles in markdown
       typography: {
         DEFAULT: {
           css: {
             "code::before": {
-              content: "&nbsp;&nbsp;",
+              content: "",
             },
             "code::after": {
-              content: "&nbsp;&nbsp;",
+              content: "",
             },
             code: {
               background: "#334155",
               color: "#cbd5e1 !important",
               wordWrap: "break-word",
               boxDecorationBreak: "clone",
-              padding: ".1rem .3rem .2rem",
+              padding: ".1rem .3rem .2rem .1rem",
               borderRadius: ".2rem",
             },
           },
         },
       },
-
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
