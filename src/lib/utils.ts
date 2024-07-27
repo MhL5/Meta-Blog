@@ -20,7 +20,12 @@ export function UUIDGenerator(): string {
  * Truncates the given text string to the specified limit, appending '...' if it exceeds the limit.
  */
 export function truncateText(str: string, limit = 100) {
-  return str.length > limit ? str.slice(0, limit) + "..." : str;
+  // if we don't remove code blocks from markdown it will overflow
+  const withoutTripleBackticks = str.replace(/```[\s\S]*?```/g, "");
+
+  return withoutTripleBackticks.length > limit
+    ? withoutTripleBackticks.slice(0, limit) + "..."
+    : withoutTripleBackticks + "...";
 }
 
 /**
@@ -31,7 +36,7 @@ export const urlSchema = z.string().url();
 /**
  * Slugify
  * generate a slug from a string and adds a random string to avoid duplicates using crypto.
- * 
+ *
  * @example
  * slugify('My New Post') returns 'my-new-post-07a85ca32ff56498'
  */
