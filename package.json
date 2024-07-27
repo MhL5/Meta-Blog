@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
@@ -25,6 +26,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dompurify": "^3.1.6",
+    "embla-carousel-autoplay": "^8.1.7",
     "embla-carousel-react": "^8.1.6",
     "framer-motion": "^11.2.12",
     "jsdom": "^24.1.0",
