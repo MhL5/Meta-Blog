@@ -36,8 +36,8 @@ export default async function Page() {
       <PopularTopics />
 
       <div className="m-auto mt-24 grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
-        {Array.from({ length: 9 }).map((_, i) => {
-          return <ArticleCard key={articles[0].id + i} article={articles[0]} />;
+        {articles.map((article) => {
+          return <ArticleCard key={article.id} article={article} />;
         })}
       </div>
 
