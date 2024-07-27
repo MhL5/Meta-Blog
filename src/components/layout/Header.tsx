@@ -1,3 +1,5 @@
+import Logo from "@/components/Logo";
+import Search from "@/components/Search";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -6,14 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Logo from "@/components/Logo";
-import Search from "@/components/Search";
 import UserDropDown from "@/components/UserDropDown";
-import Link from "next/link";
 import { cachedAuth } from "@/lib/auth";
-import ToggleTheme from "../ToggleTheme";
 import { EllipsisVertical } from "lucide-react";
-import { UUIDGenerator } from "@/lib/utils";
+import Link from "next/link";
+import ToggleTheme from "../ToggleTheme";
 import GradientUnderlineText from "../ui/GradientUnderlineText";
 
 function Header() {
@@ -26,17 +25,12 @@ function Header() {
 
 const navigationLinks = [
   {
-    id: UUIDGenerator(),
+    id: "a0b26ca6cafa1b93517d73df60cd409820b85c23093dccec4f8f",
     href: "/authors",
     label: "Authors",
   },
   {
-    id: UUIDGenerator(),
-    href: "/articles",
-    label: "Articles",
-  },
-  {
-    id: UUIDGenerator(),
+    id: "21564eb6f9dcb34a0c0382b0dd8e6eec6cd2b758abd4d61a2d31",
     href: "/topics",
     label: "Topics",
   },
