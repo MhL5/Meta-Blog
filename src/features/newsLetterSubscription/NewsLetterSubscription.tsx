@@ -30,28 +30,30 @@ export default function NewsLetterSubscription() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const validEmail = emailSchema.safeParse(email);
-    if (!validEmail.success)
+    if (!validEmail.success) {
       toast({
         variant: "destructive",
         description: `Invalid email, please try again with a valid email.`,
       });
-    execute(validEmail);
+      return;
+    }
+    execute(validEmail.data);
   }
 
   return (
-    <div className="h-[20rem] my-16 w-full rounded-md bg-muted/50 shadow-xl border-[0.1px] relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-2xl mx-auto p-4">
-        <h1 className="relative z-10 text-lg md:text-5xl md:mb-6  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+    <div className="relative my-16 flex h-[20rem] w-full flex-col items-center justify-center rounded-md border-[0.1px] bg-muted/50 antialiased shadow-xl">
+      <div className="mx-auto max-w-2xl p-4">
+        <h1 className="relative z-10 bg-gradient-to-b from-neutral-200 to-neutral-600 bg-clip-text text-center font-sans text-lg font-bold text-transparent md:mb-6 md:text-5xl">
           Meta Blog newsletter
         </h1>
-        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10 mt-6">
+        <p className="relative z-10 mx-auto my-2 mt-6 max-w-lg text-center text-sm text-neutral-500">
           Don&apos;t miss anything. Get all the latest posts delivered straight
           to your inbox. It&apos;s free!
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="relative flex gap-4 items-center justify-center mt-4"
+          className="relative mt-4 flex items-center justify-center gap-4"
         >
           <Input
             type="email"
@@ -60,12 +62,12 @@ export default function NewsLetterSubscription() {
             disabled={isExecuting}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="example@email.com"
-            className="transition-all duration-300 rounded-lg border border-neutral-800 focus:ring-2 focus:!ring-border  w-full relative z-10 bg-muted placeholder:text-neutral-700"
+            className="relative z-10 w-full rounded-lg border border-neutral-800 bg-muted transition-all duration-300 placeholder:text-neutral-700 focus:ring-2 focus:!ring-border"
           />
           <Button
             size="md"
             variant="outline"
-            className="absolute rounded-md dark:hover:bg-green-700 dark:hover:text-slate-100 right-[0.2%] border h-9 z-10 bg-green-400 focus:!ring-border dark:text-slate-300 dark:bg-green-950 duration-300 transition-all"
+            className="absolute right-[0.2%] z-10 h-9 rounded-md border bg-green-400 transition-all duration-300 focus:!ring-border dark:bg-green-950 dark:text-slate-300 dark:hover:bg-green-700 dark:hover:text-slate-100"
             disabled={isExecuting}
           >
             Subscribe
