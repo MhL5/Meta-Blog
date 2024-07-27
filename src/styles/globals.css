@@ -193,29 +193,3 @@
     @apply rounded-lg bg-green-100 p-2 text-green-700 dark:bg-green-800/50 dark:text-green-300;
   }
 }
-@layer components {
-  .spinner {
-    width: 60px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 8px solid var(--foreground);
-    border-right-color: var(--border);
-    animation: rotate 1s infinite linear;
-  }
-
-  .spinner-mini {
-    margin: 0;
-    width: 20px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    border-right-color: transparent;
-    animation: rotate 1s infinite linear;
-  }
-
-  @keyframes rotate {
-    to {
-      transform: rotate(1turn);
-    }
-  }
-}

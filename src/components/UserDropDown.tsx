@@ -12,7 +12,6 @@ import Link from "next/link";
 import { signOut } from "@/lib/auth";
 import { User } from "next-auth";
 import FormSubmitButton from "./FormSubmitButton";
-import Spinner from "./Spinner";
 import {
   CircleHelp,
   LogOut,
@@ -105,9 +104,6 @@ function LogoutForm() {
         className="w-full justify-start"
         pendingLabel={
           <div className="flex w-full items-center justify-start gap-3">
-            <span>
-              <Spinner size="sm" />
-            </span>
             <span>Login out...</span>
           </div>
         }
