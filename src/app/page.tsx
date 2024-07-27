@@ -33,8 +33,6 @@ export default async function Page() {
         <CarouselHomepage />
       </section>
 
-      <PopularTopics />
-
       <div className="m-auto mt-24 grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
         {articles.map((article) => {
           return <ArticleCard key={article.id} article={article} />;
