@@ -22,7 +22,7 @@ type PageProps = {
 // TODO: REMOVE CARD BG
 // TODO: move comment logic to its context not comment list component :|
 
-export const getArticle = cache(async (articleSlug: string) => {
+const getArticle = cache(async (articleSlug: string) => {
   const article = await prismaClient.article.findUnique({
     where: { slug: articleSlug },
     include: {
@@ -39,6 +39,41 @@ export const getArticle = cache(async (articleSlug: string) => {
   return article;
 });
 
+const getYouMightAlsoLikeArticles = cache(
+  async ({ tags, curArticleId }: { tags: string[]; curArticleId: string }) => {
+    // Query for the first 3 articles with similar tags
+    let similarArticles = [];
+
+    similarArticles = await prismaClient.article.findMany({
+      where: {
+        tags: {
+          hasSome: tags,
+        },
+        id: {
+          not: curArticleId,
+        },
+      },
+      take: 3,
+      include: { author: true },
+    });
+
+    // If no similar articles are found, query for the first 3 articles
+    if (similarArticles.length < 3) {
+      similarArticles = await prismaClient.article.findMany({
+        take: 3,
+        include: { author: true },
+        where: {
+          id: {
+            not: curArticleId,
+          },
+        },
+      });
+    }
+
+    return similarArticles;
+  },
+);
+
 export async function generateMetadata({
   params: { articleSlug },
 }: PageProps): Promise<Metadata> {
@@ -54,6 +89,10 @@ export async function generateMetadata({
 export default async function Page({ params: { articleSlug } }: PageProps) {
   const session = await cachedAuth();
   const article = await getArticle(articleSlug);
+  const youMightAlsoLikeArticles = await getYouMightAlsoLikeArticles({
+    curArticleId: article.id,
+    tags: article.tags,
+  });
 
   const curUser = session ? validateUser(session) : null;
 
@@ -86,7 +125,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
 
         <ArticleButtons />
 
-        <YouMightAlsoLike />
+        <YouMightAlsoLike articles={youMightAlsoLikeArticles} />
       </article>
 
       <NewsLetterSubscription />
