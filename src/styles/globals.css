@@ -148,15 +148,13 @@
   /* Dark overlay  */
   .overlay {
     position: absolute;
-    content: "sad";
+    content: "";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     border-radius: var(--radius);
-    /* i want a dark gradient overlay which starts is dark at the 30% bottom */
-
     background: linear-gradient(transparent 30%, hsla(0, 0%, 11%, 0.9));
   }
 
