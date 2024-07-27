@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,19 +7,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import UserAvatar from "./UserAvatar";
-import Link from "next/link";
 import { signOut } from "@/lib/auth";
-import { User } from "next-auth";
-import FormSubmitButton from "./FormSubmitButton";
 import {
-  CircleHelp,
   LogOut,
-  MailOpen,
   NotebookPen,
-  Settings,
+  Settings
 } from "lucide-react";
+import { User } from "next-auth";
+import Link from "next/link";
+import FormSubmitButton from "./FormSubmitButton";
+import UserAvatar from "./UserAvatar";
 
 type UserDropDownProps = {
   user: User;
@@ -35,8 +33,6 @@ const dropDownMenuLi = [
     icon: <NotebookPen className="h-5 w-5" />,
     name: "Write article",
   },
-  { to: "#", icon: <CircleHelp className="h-5 w-5" />, name: "FAQ" },
-  { to: "#", icon: <MailOpen className="h-5 w-5" />, name: "Send feedback" },
 ];
 
 export default async function UserDropDown({ user }: UserDropDownProps) {
