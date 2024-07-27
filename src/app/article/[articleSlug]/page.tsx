@@ -12,6 +12,7 @@ import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
 import { z } from "zod";
 import { Session } from "next-auth";
+import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 
 type PageProps = {
   params: { articleSlug: string };
@@ -114,7 +115,11 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
         <ArticleInfo {...articleInfoProps} />
 
         <section className="mb-14">
-          <h1 className="text-balance text-4xl font-bold"> {article.title} </h1>
+          <h1 className="text-balance text-4xl font-bold">
+            <GradientUnderlineText className="leading-normal">
+              {article.title}
+            </GradientUnderlineText>
+          </h1>
         </section>
 
         <section>
