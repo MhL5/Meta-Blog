@@ -1,18 +1,18 @@
+import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
 import { cachedAuth } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
+import { Session } from "next-auth";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { z } from "zod";
 import ArticleButtons from "./ArticleButtons";
 import ArticleContextProvider from "./ArticleContext";
 import ArticleInfo from "./ArticleInfo";
 import CommentsList from "./CommentsList";
 import YouMightAlsoLike from "./YouMightAlsoLike";
-import { z } from "zod";
-import { Session } from "next-auth";
-import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 
 type PageProps = {
   params: { articleSlug: string };
