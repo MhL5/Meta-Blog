@@ -4,19 +4,29 @@ type UserAvatarProps = {
   imageSrc: string;
   username: string;
   className?: string;
+  width?: number;
+  height?: number;
 };
 
 /**
  * a component that renders a user profile or avatar
  * sometimes google images does not show up which we can fix by adding `referrerPolicy="no-referrer"` to image
  */
-const UserAvatar = ({ className, imageSrc, username }: UserAvatarProps) => {
+const UserAvatar = ({
+  width,
+  height,
+  className,
+  imageSrc,
+  username,
+}: UserAvatarProps) => {
   const randomBg = randomBgColor(username);
 
   return (
     <Avatar className={`${className} text-slate-800 dark:text-slate-300`}>
       <AvatarImage
         src={imageSrc}
+        width={width}
+        height={height}
         loading="lazy"
         referrerPolicy="no-referrer"
         alt="logged in user profile picture"
