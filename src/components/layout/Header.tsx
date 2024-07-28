@@ -1,5 +1,5 @@
 import Logo from "@/components/Logo";
-import Search from "@/components/Search";
+import ArticleSearch from "@/components/ArticleSearch";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -113,7 +113,7 @@ async function NavigationMenu() {
 
         <li className="flex items-center justify-center gap-4">
           <span className="hidden sm:inline">
-            <Search />
+            <ArticleSearch />
           </span>
           <span className="hidden sm:inline">
             <ToggleTheme />
