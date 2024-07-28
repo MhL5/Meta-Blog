@@ -15,11 +15,11 @@ import { flattenValidationErrors } from "next-safe-action";
 
 export const signUpAction = captchaActionClient
   .schema(signUpSchema)
-  .action(async ({ parsedInput: { email, name, password } }) => {
+  .action(async ({ parsedInput: { bio, email, name, password } }) => {
     const hashSaltPassword = await bcrypt.hash(password, 12);
 
     const user = await prismaClient.user.create({
-      data: { name, email, password: hashSaltPassword },
+      data: { bio, name, email, password: hashSaltPassword },
     });
 
     return {

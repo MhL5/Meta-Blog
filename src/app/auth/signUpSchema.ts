@@ -22,7 +22,7 @@ const signUpSchema = z
       })
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/,
-        "8 to 24 characters. Must include uppercase and lowercase letters, a number and a special character. Allowed special characters:! @ # $ %"
+        "8 to 24 characters. Must include uppercase and lowercase letters, a number and a special character. Allowed special characters:! @ # $ %",
       ),
     passwordConfirm: z
       .string({
@@ -37,6 +37,13 @@ const signUpSchema = z
           "Google captcha validation failed, please try again",
       })
       .min(1, "Google captcha validation failed, please try again"),
+    bio: z
+      .string({
+        required_error:
+          "Bio is required,please tell us something about yourself",
+        invalid_type_error: "please tell us about yourself",
+      })
+      .min(20, "Bio must be at least 20 characters long"),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "Passwords must match",

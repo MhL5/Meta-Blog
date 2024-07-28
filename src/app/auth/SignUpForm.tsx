@@ -1,12 +1,7 @@
 "use client";
 
+import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { signUpAction } from "./action";
-import { useAction } from "next-safe-action/hooks";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import signUpSchema, { SignUpSchemaType } from "./signUpSchema";
 import {
   Form,
   FormControl,
@@ -14,11 +9,18 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
-import GoogleLoginButton from "./GoogleLoginButton";
-import GithubLoginButton from "./GithubLoginButton";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { signUpAction } from "./action";
+import GithubLoginButton from "./GithubLoginButton";
+import GoogleLoginButton from "./GoogleLoginButton";
+import signUpSchema, { SignUpSchemaType } from "./signUpSchema";
 
 // raw data object for rendering inputs
 const signUpFormFields = [
@@ -46,11 +48,13 @@ const signUpFormFields = [
 
 export default function SignUpForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const { execute, isExecuting } = useAction(signUpAction, {
     onSuccess({ data }) {
       toast({
         description: `Welcome to our community ${data?.data.user.name} 🎉.`,
       });
+      router.replace("/auth?tab=login");
     },
     onError() {
       toast({
@@ -72,7 +76,7 @@ export default function SignUpForm() {
     },
   });
 
-  async function onSubmit(values: SignUpSchemaType) {
+  function onSubmit(values: SignUpSchemaType) {
     execute(values);
   }
 
@@ -81,8 +85,8 @@ export default function SignUpForm() {
   }
 
   return (
-    <div className="py-8 px-12 w-full">
-      <h2 className="text-center font-semibold text-2xl mb-5">
+    <div className="w-full px-12 py-8">
+      <h2 className="mb-5 text-center text-2xl font-semibold">
         Create a free account
       </h2>
 
@@ -91,21 +95,21 @@ export default function SignUpForm() {
         <GithubLoginButton className="basis-1/2" disabled={isExecuting} />
       </div>
 
-      <div className="flex w-full items-center my-5">
-        <span className="bg-secondary h-[0.7px] w-full"></span>
-        <span className="mx-1 font-semibold text-sm">OR</span>
-        <span className="bg-secondary h-[0.7px] w-full"></span>
+      <div className="my-5 flex w-full items-center">
+        <span className="h-[0.7px] w-full bg-secondary"></span>
+        <span className="mx-1 text-sm font-semibold">OR</span>
+        <span className="h-[0.7px] w-full bg-secondary"></span>
       </div>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 flex flex-col items-center"
+          className="flex flex-col items-center space-y-4"
         >
           {signUpFormFields.map(({ name, placeHolder, type }) => {
             let valid = "";
 
-            if (form.getValues(name).length > 0) {
+            if (form.getValues(name)?.length > 0) {
               !!form.formState.dirtyFields[name] && !form.formState.errors[name]
                 ? (valid = "border-b-[3px] border-b-green-500")
                 : (valid = "border-b-[3px] border-b-red-500");
@@ -134,6 +138,25 @@ export default function SignUpForm() {
             );
           })}
 
+          <FormField
+            control={form.control}
+            name="bio"
+            disabled={isExecuting}
+            render={({ field }) => (
+              <FormItem className="w-80 px-1 font-semibold">
+                <FormControl>
+                  <Textarea
+                    placeholder="Bio: Tell us a little bit about yourself"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <GoogleReCAPTCHA onChange={handleCaptcha} />
           <FormField
             key="GoogleCaptcha"
@@ -141,7 +164,7 @@ export default function SignUpForm() {
             name="captcha"
             disabled={isExecuting}
             render={({ field }) => (
-              <FormItem className="p-0 m-0 space-y-0">
+              <FormItem className="m-0 space-y-0 p-0">
                 <FormControl>
                   <Input type="text" className="hidden" {...field} />
                 </FormControl>
