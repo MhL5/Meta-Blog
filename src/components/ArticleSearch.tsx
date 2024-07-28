@@ -11,6 +11,7 @@ import { z } from "zod";
 import CloudinaryImage from "./CloudinaryImage";
 import Link from "next/link";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { Skeleton } from "./ui/skeletion";
 
 const SearchResultSchema = z.object({
   status: z.literal("success"),
@@ -107,30 +108,41 @@ export default function ArticleSearch() {
             </CommandEmpty>
           )}
 
-          {isLoading && <CommandEmpty>Hang on…</CommandEmpty>}
+          {isLoading && (
+            <ul className="space-y-4 rounded-lg border border-transparent p-2">
+              <li className="flex gap-4">
+                <Skeleton className="h-12 w-12" />
+                <div className="flex w-full flex-col gap-3">
+                  <Skeleton className="h-6 w-full basis-1/2" />
+                  <Skeleton className="h-6 w-full basis-1/2" />
+                </div>
+              </li>
+            </ul>
+          )}
 
           {!isLoading && (
-            <div className="space-y-4 p-3">
+            <ul className="space-y-4 p-3">
               {results?.data.searchResult.map((res) => {
                 return (
-                  <Link
-                    href={`/article/${res.slug}`}
-                    key={res.id}
-                    className="custom-hover || flex gap-4 rounded-lg border border-transparent p-2"
-                    onClick={() => setOpen((s) => !s)}
-                  >
-                    <CloudinaryImage
-                      src={res.avatar}
-                      width={40}
-                      height={40}
-                      alt="search result avatar"
-                      className="rounded-xl object-cover outline outline-[0.1px] outline-slate-300"
-                    />
-                    <span className="text-sm"> {res.title} </span>
-                  </Link>
+                  <li key={res.id}>
+                    <Link
+                      href={`/article/${res.slug}`}
+                      className="custom-hover || flex gap-4 rounded-lg border border-transparent p-2"
+                      onClick={() => setOpen((s) => !s)}
+                    >
+                      <CloudinaryImage
+                        src={res.avatar}
+                        width={40}
+                        height={40}
+                        alt="search result avatar"
+                        className="rounded-xl object-cover outline outline-[0.1px] outline-slate-300"
+                      />
+                      <span className="text-sm"> {res.title} </span>
+                    </Link>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           )}
         </CommandList>
       </CommandDialog>
