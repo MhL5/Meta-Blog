@@ -1,12 +1,12 @@
-import { ArticleCardWithoutPointer } from "@/components/ArticleCard";
+import ArticleCard from "@/components/ArticleCard";
 import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import UserAvatar from "@/components/UserAvatar";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
 import prismaClient from "@/lib/prismaClient";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import AuthorStats from "./AuthorStats";
-import { Metadata } from "next";
 
 type GetAuthorParams = { authorId: string };
 type PageProps = {
@@ -93,9 +93,7 @@ export default async function Page({ params: { authorId } }: PageProps) {
         </div>
         <div className="grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
           {author.author.Articles.map((article) => {
-            return (
-              <ArticleCardWithoutPointer key={article.id} article={article} />
-            );
+            return <ArticleCard key={article.id} article={article} />;
           })}
         </div>
       </section>

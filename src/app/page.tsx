@@ -10,7 +10,6 @@ import { cache } from "react";
 const getArticles = cache(async () => {
   const product = await prismaClient.article.findMany({
     include: {
-      author: true,
       articleLikes: true,
       articleComments: true,
       favoriteArticle: true,
