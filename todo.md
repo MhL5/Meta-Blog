@@ -26,3 +26,5 @@
 1. changing editor and rendered
 
 1. adding more articles for development and testing
+
+1. removing un used packages: i deleted a lot of code after switching to a new editor and new to check every library installed
