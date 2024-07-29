@@ -12,6 +12,8 @@
 
 - replace editor and rendered
 
+- fixing cloudinary console error for sizes and maybe manage to replace next image avatars with cloudinary
+
 # author page:
 
 - add a feature so users can follow authors and a your feed page so users can see their subscriptions articles
