@@ -113,7 +113,7 @@ export default function ArticleSearch() {
               <li className="flex gap-4">
                 <Skeleton className="h-12 w-12" />
                 <div className="flex w-full flex-col gap-3">
-                  <Skeleton className="h-6 w-full basis-1/2" />
+                  <Skeleton className="h-6 w-[60%] basis-1/2" />
                   <Skeleton className="h-6 w-full basis-1/2" />
                 </div>
               </li>
