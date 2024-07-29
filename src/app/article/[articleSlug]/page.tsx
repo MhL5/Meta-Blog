@@ -140,13 +140,14 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
 
 function validateUser(session: Session) {
   const user = {
-    image: session?.user?.image,
+    // todo: hacky way to solve this issue temp need to be fixed
+    image: `${!!session?.user?.image ? session.user.image : ""}`,
     name: session?.user?.name,
     id: session?.user?.id,
   };
-
+  // todo: temp need to be fixed: i have 2 duplicate user schemas
   const userSchema = z.object({
-    image: z.string().min(1),
+    image: z.string(),
     name: z.string(),
     id: z.string().min(1),
   });
