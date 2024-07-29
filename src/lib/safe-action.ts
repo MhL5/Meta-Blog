@@ -37,10 +37,10 @@ export const actionClient = createSafeActionClient({
  */
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth();
+  // todo: temp need to be fixed
   const userSchema = z.object({
     id: z.string().min(1),
     email: z.string().min(1),
-    image: z.string().min(1),
     name: z.string().min(1),
   });
   const validSession = userSchema.parse(session?.user);
