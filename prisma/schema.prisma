@@ -81,7 +81,7 @@ model User {
   name             String?
   email            String?           @unique
   emailVerified    DateTime?
-  image            String?
+  image            String            @default("")
   password         String?
   bio              String?
   accounts         Account[]
