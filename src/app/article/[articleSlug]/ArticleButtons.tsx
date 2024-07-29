@@ -26,6 +26,7 @@ import {
 } from "react-share";
 import { toggleFavorite, toggleLike } from "./actions";
 import { useArticleContext } from "./ArticleContext";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ArticleButtons() {
   return (
@@ -46,6 +47,7 @@ function ToggleLikeButton() {
     article: { articleLikes, id: articleId, slug: articleSlug },
     loggedInUserSession,
   } = useArticleContext();
+  const { toast } = useToast();
 
   const isLiked = Boolean(
     articleLikes.find((like) => like.userId === loggedInUserSession?.id),
@@ -67,7 +69,16 @@ function ToggleLikeButton() {
       size="lg"
       className="rounded-none rounded-bl-lg rounded-tl-lg transition-all duration-300 hover:px-12 disabled:opacity-100"
       onClick={() => {
-        execute({ articleId, articleSlug });
+        if (!loggedInUserSession?.id)
+          toast({
+            title: "Please login to like this article",
+            description: (
+              <Button asChild variant="outline" size="xs">
+                <Link href="/auth?tab=login">Login</Link>
+              </Button>
+            ),
+          });
+        else execute({ articleId, articleSlug });
       }}
       disabled={isExecuting}
       title="like button"
@@ -104,6 +115,7 @@ function AddToFavoritesButton() {
     article: { favoriteArticle, slug: articleSlug, id: articleId },
     loggedInUserSession,
   } = useArticleContext();
+  const { toast } = useToast();
 
   const isFavorite = Boolean(
     favoriteArticle.find((like) => like.userId === loggedInUserSession?.id),
@@ -126,7 +138,16 @@ function AddToFavoritesButton() {
       className="rounded-none transition-all duration-300 hover:px-12 disabled:opacity-100"
       title="Add this article to your favorites"
       onClick={() => {
-        execute({ articleId, articleSlug });
+        if (!loggedInUserSession?.id)
+          toast({
+            title: "Please login first to add this article to your favorites",
+            description: (
+              <Button asChild variant="outline" size="xs">
+                <Link href="/auth?tab=login">Login</Link>
+              </Button>
+            ),
+          });
+        else execute({ articleId, articleSlug });
       }}
       disabled={isExecuting}
     >
