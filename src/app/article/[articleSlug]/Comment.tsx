@@ -10,11 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import UserAvatar from "@/components/UserAvatar";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Prisma } from "@prisma/client";
 import { intlFormatDistance } from "date-fns";
 import { SquarePen, Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -75,9 +75,9 @@ export default function Comment({ comment, className }: CommentProps) {
     <Card className={`${className} `}>
       <div className="flex gap-2 p-2">
         <div>
-          <Image
-            src={comment.user.image || "unknown!"}
-            alt={comment.user.name || "unknown!"}
+          <UserAvatar
+            imageSrc={comment.user.image ?? ""}
+            username={comment.user.name ?? ""}
             width={40}
             height={40}
             className="rounded-full"
