@@ -8,11 +8,14 @@
 
 - add more articles for development and testing
 
-- finish other pages : topics , dashboard
-
-- add a feature so users can follow authors and a your feed page so users can see their subscriptions articles
+- finish other pages: topics , dashboard
 
 - replace editor and rendered
+
+# author page:
+
+- add a feature so users can follow authors and a your feed page so users can see their subscriptions articles
+- add a feature for seeing author latest articles,or most popular articles or most liked articles
 
 # Currently working on:
 
