@@ -12,7 +12,6 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
     "@hookform/resolvers": "^3.6.0",
-    "@mdxeditor/editor": "^3.8.0",
     "@prisma/client": "^5.16.0",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -21,6 +20,7 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@uiw/react-markdown-preview": "^5.1.2",
     "@uiw/react-md-editor": "^4.0.4",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
