@@ -76,8 +76,14 @@ model NewsletterSubscriber {
 
 // ⚠️⚠️ Next-auth models - BECAREFUL WHILE MODIFING ⚠️⚠️
 // --------------------------------------------------------------------------
+enum Role {
+  user
+  author
+}
+
 model User {
   id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  role             Role              @default(user)
   name             String?
   email            String?           @unique
   emailVerified    DateTime?
