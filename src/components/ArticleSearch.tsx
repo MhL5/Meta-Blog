@@ -77,7 +77,7 @@ export default function ArticleSearch() {
 
     return () => abortController.abort();
   }, [query]);
-
+  console.log(results?.data);
   return (
     <div className="relative ml-auto flex-1 md:grow-0">
       <div
@@ -107,6 +107,12 @@ export default function ArticleSearch() {
               )}
             </CommandEmpty>
           )}
+
+          {!isLoading &&
+            results?.data &&
+            results?.data?.searchResult.length < 1 && (
+              <CommandEmpty>No results found.</CommandEmpty>
+            )}
 
           {isLoading && (
             <ul className="space-y-4 rounded-lg border border-transparent p-2">
