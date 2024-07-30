@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
+import RenderMarkdown from "@/features/react-md-editor/RenderMarkdown";
 import { truncateText } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { Bookmark, Clock4, Heart, MessageCircle } from "lucide-react";
@@ -80,9 +80,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             <GradientUnderlineText>{article.title}</GradientUnderlineText>
           </CardTitle>
           <summary className="my-4 text-sm leading-relaxed">
-            <RenderMarkdownWithSanitization
-              markdown={truncateText(article.content, 150)}
-            />
+            <RenderMarkdown markdown={truncateText(article.content, 150)} />
           </summary>
         </CardContent>
 

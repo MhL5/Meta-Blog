@@ -16,7 +16,14 @@ function ToggleTheme({
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+
+    // this is used to change react-md-editor theme
+    resolvedTheme === "dark"
+      ? document.documentElement.setAttribute("data-color-mode", "dark")
+      : document.documentElement.setAttribute("data-color-mode", "light");
+  }, [resolvedTheme]);
 
   if (!mounted) return <Skeleton className="h-6 w-6" />;
 

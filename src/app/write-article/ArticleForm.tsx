@@ -1,7 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,23 +12,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import MarkdownEditor from "@/features/react-md-editor/MarkdownEditor";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CloudUpload, ImageUp } from "lucide-react";
 import {
   CldUploadButton,
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
-import { CloudUpload, ImageUp } from "lucide-react";
-import { ChangeEvent, useMemo, useRef, useState } from "react";
-import GoogleReCAPTCHA from "@/components/GoogleReCAPTCHA";
-import { useToast } from "@/components/ui/use-toast";
-import { MDXEditorMethods } from "@mdxeditor/editor";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import writeArticleSchema, {
   WriteArticleSchemaType,
 } from "./writeArticleSchema";
-import { useRouter } from "next/navigation";
-import TextEditorSection from "./TextEditorSection";
 
 export default function ArticleForm() {
-  const markdownRef = useRef<MDXEditorMethods>(null);
+  const [editorValue, setEditorValue] = useState<string | undefined>("");
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -126,8 +125,7 @@ export default function ArticleForm() {
       <form
         onSubmit={(e) => {
           // filling editor markdown data before passing data to react hookform
-          if (markdownRef.current)
-            form.setValue("content", markdownRef.current?.getMarkdown());
+          if (editorValue) form.setValue("content", editorValue);
 
           form.handleSubmit(onSubmit)(e);
         }}
@@ -214,13 +212,22 @@ export default function ArticleForm() {
           disabled={loading}
           render={({ field }) => (
             <FormItem className="m-0 w-full space-y-1 p-0">
-              <FormLabel>This is your blog content:</FormLabel>
+              <FormLabel>
+                This is your blog content :
+                <span className="text-sm">
+                  {" "}
+                  for now we only support markdown
+                </span>
+              </FormLabel>
               <FormControl>
                 <Input type="text" className="hidden" {...field} />
               </FormControl>
               <FormMessage />
 
-              <TextEditorSection ref={markdownRef} />
+              <MarkdownEditor
+                editorValue={editorValue}
+                setEditorValue={setEditorValue}
+              />
             </FormItem>
           )}
         />

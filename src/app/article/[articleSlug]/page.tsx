@@ -1,6 +1,6 @@
 import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
-import RenderMarkdownWithSanitization from "@/features/markdown/RenderMarkdownWithSanitization";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
+import RenderMarkdown from "@/features/react-md-editor/RenderMarkdown";
 import { cachedAuth } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
@@ -123,7 +123,7 @@ export default async function Page({ params: { articleSlug } }: PageProps) {
         </section>
 
         <section>
-          <RenderMarkdownWithSanitization markdown={article.content} />
+          <RenderMarkdown markdown={article.content} />
         </section>
 
         <CommentsList />
