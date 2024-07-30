@@ -14,6 +14,8 @@
 
 - google github and ... does not work on deployed site because i didn't update the url in the console
 
+- use () route for auth
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
