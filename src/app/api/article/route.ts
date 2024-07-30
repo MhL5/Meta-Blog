@@ -3,8 +3,6 @@ import { auth, isValidGoogleCaptcha } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
 import { slugify } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 
 /**
  * This function is used to create a new article in the database.
@@ -13,11 +11,10 @@ import { JSDOM } from "jsdom";
  * 2. validates input using zod and extracts captcha string from blogData
  * 3. google captcha validation
  * 4. checks if user is logged in
- * 5. sanitizes markdown content
- * 6. creates a new slug for the article
- * 7. creates a new record and overwrites the content with the sanitized version
- * 8. clear cache
- * 9. send the response to client
+ * 5. creates a new slug for the article
+ * 6. creates a new record and overwrites the content with the sanitized version
+ * 7. clear cache
+ * 8. send the response to client
  */
 export async function POST(req: Request, res: Response) {
   try {
@@ -35,29 +32,22 @@ export async function POST(req: Request, res: Response) {
     if (!session?.user?.id)
       throw new Error("Something went wrong! please login and try again.");
 
-    // 5. sanitizes markdown content
-    const window = new JSDOM("").window;
-    const DOMPurify = createDOMPurify(window);
-    const sanitizeMarkdown = DOMPurify.sanitize(validBlogData.content);
-
-    // 6. creates a new slug for the article
+    // 5. creates a new slug for the article
     const articleSlug = `${slugify(validBlogData.title)}`;
 
-    // 7. creates a new record and overwrites the content with the sanitized version
+    // 6. creates a new record and overwrites the content with the sanitized version
     await prismaClient.article.create({
       data: {
         ...validBlogData,
-        // overwrite the content object with the sanitized version
-        content: sanitizeMarkdown,
         authorId: session.user.id,
         slug: articleSlug,
       },
     });
 
-    // 8. clear cache
+    // 7. clear cache
     revalidatePath("/");
 
-    // 9. send the response to client
+    // 8. send the response to client
     return Response.json({ status: "success", articleSlug }, { status: 201 });
   } catch (error) {
     return Response.json(
