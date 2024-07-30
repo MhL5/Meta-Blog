@@ -29,7 +29,7 @@ export async function generateMetadata() {
 const getAuthors = cache(async () => {
   const authors = await prismaClient.user.findMany({
     where: {
-      Articles: { some: {} },
+      role: "author",
     },
     select: {
       id: true,
