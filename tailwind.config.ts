@@ -21,26 +21,6 @@ const config = {
       },
     },
     extend: {
-      typography: {
-        DEFAULT: {
-          css: {
-            "code::before": {
-              content: "",
-            },
-            "code::after": {
-              content: "",
-            },
-            code: {
-              background: "#334155",
-              color: "#cbd5e1 !important",
-              wordWrap: "break-word",
-              boxDecorationBreak: "clone",
-              padding: ".1rem .3rem .2rem .1rem",
-              borderRadius: ".2rem",
-            },
-          },
-        },
-      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },

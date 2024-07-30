@@ -4,6 +4,8 @@ import "@uiw/react-md-editor/markdown-editor.css";
 import dynamic from "next/dynamic";
 import { Dispatch, SetStateAction } from "react";
 import rehypeSanitize from "rehype-sanitize";
+import "./editor.css";
+import RenderMarkdown from "./RenderMarkdown";
 
 type MarkdownEditorProps = {
   editorValue: string | undefined;
@@ -24,16 +26,19 @@ export default function MarkdownEditor({
   setEditorValue,
 }: MarkdownEditorProps) {
   return (
-    <MDEditor
-      value={editorValue}
-      onChange={(e) => setEditorValue(e)}
-      previewOptions={{
-        rehypePlugins: [[rehypeSanitize]],
-      }}
-      textareaProps={{
-        placeholder: "Don't you love GITHUB markdown😁? ",
-      }}
-      className="h-full min-h-96"
-    />
+    <div className="overwrite-tailwind">
+      <MDEditor
+        value={editorValue}
+        onChange={(e) => setEditorValue(e)}
+        previewOptions={{
+          rehypePlugins: [[rehypeSanitize]],
+        }}
+        textareaProps={{
+          placeholder: "Don't you love GITHUB markdown😁? ",
+        }}
+        className="h-full min-h-96"
+      />
+      <RenderMarkdown markdown={editorValue || ""} />
+    </div>
   );
 }
