@@ -12,6 +12,8 @@
 
 - fixing cloudinary console error for sizes and maybe manage to replace next image avatars with cloudinary
 
+- google github and ... does not work on deployed site because i didn't update the url in the console
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
