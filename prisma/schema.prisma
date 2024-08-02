@@ -52,7 +52,7 @@ enum Categories {
   devOps
   machine_learning
   data_science
-  cybersecurity
+  cyber_security
   ui_ux_design
   backend_development
   frontend_development
