@@ -53,7 +53,7 @@ enum Categories {
   machine_learning
   data_science
   cyber_security
-  ui_ux_design
+  ui_ux
   backend_development
   frontend_development
   mobile_development
