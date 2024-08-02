@@ -54,11 +54,9 @@ enum Categories {
   data_science
   cyber_security
   ui_ux
-  backend_development
-  frontend_development
   mobile_development
   game_development
-  artificial_intelligence_and_machine_learning
+  artificial_intelligence
   database_management
   version_control
   testing_and_qa
