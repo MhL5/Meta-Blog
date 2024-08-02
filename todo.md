@@ -16,6 +16,12 @@
 
 - use () route for auth
 
+- faker js
+
+- add tag search buttons
+
+- add subscribe feed page
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
@@ -23,3 +29,5 @@
 # Currently working on:
 
 - finish other pages: topics , dashboard
+
+- fix categories: for cards,articles,badge,article page ...
