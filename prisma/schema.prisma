@@ -47,13 +47,33 @@ model FavoriteArticle {
   @@map("favoriteArticles")
 }
 
+enum Categories {
+  web_development
+  devOps
+  machine_learning
+  data_science
+  cybersecurity
+  ui_ux_design
+  backend_development
+  frontend_development
+  mobile_development
+  game_development
+  artificial_intelligence_and_machine_learning
+  database_management
+  version_control
+  testing_and_qa
+  performance_optimization
+  algorithms
+}
+
 model Article {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String            @unique
   avatar          String
   content         String
   title           String
   readingTime     Int
-  slug            String            @unique
+  category        Categories
   tags            String[]
   articleComments ArticleComment[]
   articleLikes    ArticleLike[]
