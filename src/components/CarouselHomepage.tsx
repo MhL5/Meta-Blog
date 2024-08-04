@@ -13,14 +13,13 @@ import { Clock } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import GradientUnderlineText from "./ui/GradientUnderlineText";
+import Category from "./ui/category";
 
 type CarouselHomepageProps = {
   articles: Article[];
 };
 
 export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
-  // TODO : SHOULD BE A LINK
-  // fix stuff bottom
   return (
     <Carousel
       className="mx-auto w-full max-w-7xl"
@@ -51,7 +50,12 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
                   />
                 </div>
 
-                <div className="relative z-10 m-10 text-xl font-bold text-white">
+                <div className="relative z-10 m-10 text-lg font-bold text-white">
+                  <div>
+                    <Category variant={article.category}>
+                      {article.category}
+                    </Category>
+                  </div>
                   <GradientUnderlineText>{article.title}</GradientUnderlineText>
                   <div className="mt-2 text-sm">
                     <Clock className="mr-2 inline-block h-4 w-4" />
