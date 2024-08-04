@@ -22,6 +22,8 @@
 
 - add subscribe feed page
 
+- resetting captcha after each request, so if request fails user should be able to try captcha again, rn it only works with a hard reload
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
