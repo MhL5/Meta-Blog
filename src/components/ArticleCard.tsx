@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { Badge } from "./ui/badge";
 import GradientUnderlineText from "./ui/GradientUnderlineText";
+import Category from "./ui/category";
 
 type ArticleCardProps = {
   article: Prisma.ArticleGetPayload<{
@@ -54,12 +55,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   );
 
   return (
-    <Card className="m-auto flex h-full w-full max-w-[400px]">
+    <Card className="grid">
       <Link
         href={`/article/${article.slug}`}
         className="flex h-full w-full flex-col"
       >
-        <CardHeader className="relative m-4 mb-0 aspect-square max-h-80">
+        <CardHeader className="relative m-4 mb-0 aspect-square h-80">
           <Image
             src={article.avatar}
             fill
@@ -70,7 +71,8 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
         <CardContent className="px-4">
           <div className="mb-6 mt-2 space-x-2">
-            {[...article.tags.slice(0, 3), "More..."].map((tag, i) => (
+            <Category variant={article.category}>{article.category}</Category>
+            {[...article.tags.slice(0, 2), "More..."].map((tag, i) => (
               <Badge key={i} variant="secondary">
                 {tag}
               </Badge>
@@ -79,7 +81,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           <CardTitle className="text-xl font-bold leading-relaxed">
             <GradientUnderlineText>{article.title}</GradientUnderlineText>
           </CardTitle>
-          <summary className="my-4 text-sm leading-relaxed">
+          <summary className="my-4 leading-relaxed">
             <RenderMarkdown markdown={truncateText(article.content, 150)} />
           </summary>
         </CardContent>

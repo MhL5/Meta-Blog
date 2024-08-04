@@ -1,3 +1,4 @@
+import { Categories } from "@prisma/client";
 import { z } from "zod";
 
 const writeArticleSchema = z.object({
@@ -8,6 +9,7 @@ const writeArticleSchema = z.object({
     .string({ message: "Title must be between 2 and 50 characters." })
     .min(2, "Title must be at least 2 characters long.")
     .max(60, "Title cannot exceed 50 characters."),
+  category: z.nativeEnum(Categories),
   readingTime: z.number().nonnegative(),
   tags: z
     .string()

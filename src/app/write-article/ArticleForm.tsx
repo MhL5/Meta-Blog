@@ -12,9 +12,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import MarkdownEditor from "@/features/react-md-editor/MarkdownEditor";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Categories } from "@prisma/client";
 import { CloudUpload, ImageUp } from "lucide-react";
 import {
   CldUploadButton,
@@ -174,6 +182,39 @@ export default function ArticleForm() {
             );
           },
         )}
+
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Select a category : </FormLabel>
+
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Please select a category for your article." />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.keys(Categories).map((category) => {
+                    return (
+                      <SelectItem
+                        key={category}
+                        value={category}
+                        className="capitalize"
+                      >
+                        {category.replaceAll("_", " ")}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}

@@ -1,6 +1,8 @@
 import CloudinaryImage from "@/components/CloudinaryImage";
 import { Badge } from "@/components/ui/badge";
+import Category from "@/components/ui/category";
 import UserAvatar from "@/components/UserAvatar";
+import { Categories } from "@prisma/client";
 import { format } from "date-fns";
 import {
   Bookmark,
@@ -20,6 +22,7 @@ type ArticleInfoProps = {
   tags: string[];
   authorName: string;
   authorImgUrl: string;
+  category: keyof typeof Categories;
 };
 
 export default function ArticleInfo({
@@ -32,6 +35,7 @@ export default function ArticleInfo({
   favoriteArticleLength,
   readingTime,
   tags,
+  category,
 }: ArticleInfoProps) {
   return (
     <>
@@ -80,6 +84,11 @@ export default function ArticleInfo({
       </section>
 
       <section className="mb-14">
+        <div className="my-4">
+          <Category variant={category} className="text-sm px-3 py-1.5">
+           {category}
+          </Category>
+        </div>
         {tags?.map((tag) => {
           return (
             <Badge className="mr-2 px-6 py-1" key="tag" variant="secondary">

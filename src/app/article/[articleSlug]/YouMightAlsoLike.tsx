@@ -23,12 +23,13 @@ export default function YouMightAlsoLike({ articles }: YouMightAlsoLikeProps) {
                   title: article.title,
                   readingTime: String(article.readingTime),
                   avatar: article.avatar || "",
+                  category: article.category,
                 }}
               />
             </Link>
           );
         })}
-      </div>
+      </div>  
     </section>
   );
 }
