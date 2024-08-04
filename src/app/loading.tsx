@@ -2,7 +2,7 @@ import "@/styles/loader.css";
 
 export default function loading() {
   return (
-    <div className="grid min-h-[70dvh] place-items-center">
+    <div className="grid min-h-[80dvh] place-items-center">
       <div className="loader">
         <div>
           <ul>
