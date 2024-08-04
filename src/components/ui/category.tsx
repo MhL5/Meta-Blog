@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ComponentPropsWithoutRef } from "react";
 
 type CategoryProps = ComponentPropsWithoutRef<"span"> &
-  VariantProps<typeof category>;
+  VariantProps<typeof category> & { removeUnderline?: boolean };
 
 const category = cva(
   "text-nowrap rounded-full border-[0.1px] px-2.5 py-0.5 text-xs capitalize",
@@ -47,11 +47,17 @@ export default function Category({
   className,
   children,
   variant,
+  removeUnderline = true,
   ...props
 }: CategoryProps) {
+  const label =
+    removeUnderline && typeof children === "string"
+      ? children?.replaceAll("_", " ")
+      : children;
+
   return (
     <span className={cn(category({ variant }), className)} {...props}>
-      {children}
+      {label}
     </span>
   );
 }
