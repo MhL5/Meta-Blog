@@ -1,8 +1,10 @@
+import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/loader.css";
 
 export default function loading() {
   return (
-    <div className="grid min-h-[80dvh] place-items-center">
+    <div className="grid min-h-[85dvh] place-items-center">
+      <ScrollToTop />
       <div className="loader">
         <div>
           <ul>
