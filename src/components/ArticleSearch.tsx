@@ -143,14 +143,14 @@ export default function ArticleSearch() {
             </ul>
           )}
 
-          {!isLoading && (
-            <ul className="space-y-4 p-3">
-              {results?.data.searchResult.map((res) => {
+          {!isLoading && !!results?.data && (
+            <ul className="mt-1 font-semibold">
+              {results.data.searchResult.map((res) => {
                 return (
                   <li key={res.id}>
                     <Link
                       href={`/article/${res.slug}`}
-                      className="custom-hover || flex gap-4 rounded-lg border border-transparent p-2"
+                      className="custom-hover || flex gap-4 border p-2 !shadow-none"
                       onClick={() => setOpen((s) => !s)}
                     >
                       <CloudinaryImage
