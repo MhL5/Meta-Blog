@@ -1,7 +1,5 @@
 # Todos:
 
-- loading is not centered correctly due to scroll while navigating using next link
-
 - load more articles on homepage - start from 9 article
 
 - make pages static by fetching the user client side instead of server side
@@ -18,8 +16,6 @@
 
 - faker js
 
-- add tag search buttons
-
 - add subscribe feed page
 
 - resetting captcha after each request, so if request fails user should be able to try captcha again, rn it only works with a hard reload
@@ -31,5 +27,3 @@
 # Currently working on:
 
 - finish other pages: topics , dashboard
-
-- fix categories: for cards,articles,badge,article page ...
