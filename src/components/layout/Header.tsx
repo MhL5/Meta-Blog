@@ -40,11 +40,6 @@ async function NavigationMenuWrapper() {
       href: "/authors",
       label: "Authors",
     },
-    {
-      id: "21564eb6f9dcb34a0c0382b0dd8e6eec6cd2b758abd4d61a2d31",
-      href: "/feed",
-      label: "Feed",
-    },
   ];
 
   return (
