@@ -1,61 +1,103 @@
 import prismaClient from "@/lib/prismaClient";
 import { slugify } from "@/lib/utils";
+import { Categories, Prisma } from "@prisma/client";
 
 /**
- * search query can contains tags so we need to extract them
- * @example `git essentials  #git  #gitignore  #github`
- * returns {queryString: `git essentials`, queryTags: [`#git`, `#gitignore`, `#github`]}
+ * search query can contain string tag category so we need to extract them
+ * @example `git essentials #version_control  #git  #gitignore  #github`
+ * returns {queryString: `git essentials`, queryTags: [`git`, `gitignore`, `github`], queryCategory: `version_control`}
  */
-function extractTagsAndQuery(input: string): {
+function extractTagsQueryCategory(input: string): {
   queryString: string;
   queryTags: string[];
+  queryCategory: keyof typeof Categories | null;
 } {
   const queryTags: string[] = [];
   const queryString: string[] = [];
+
+  let queryCategory: keyof typeof Categories | null = null;
+  const categories = Object.keys(Categories) as (keyof typeof Categories)[];
 
   input
     .trim()
     .split(" ")
     .forEach((subStr) => {
-      if (subStr.startsWith("#")) queryTags.push(subStr);
-      else queryString.push(subStr);
+      if (subStr.startsWith("#")) {
+        const decodedSubStr = subStr.replace(`#`, "").toLowerCase();
+
+        let isCategory = false;
+        categories.forEach((category) => {
+          if (category === decodedSubStr) {
+            isCategory = true;
+            queryCategory = category;
+          }
+        });
+
+        !isCategory && queryTags.push(decodedSubStr);
+      } else queryString.push(subStr);
     });
 
-  return { queryString: queryString.join(` `), queryTags };
+  return { queryString: queryString.join(` `), queryTags, queryCategory };
 }
 
-export async function GET(req: Request, res: Response) {
+/**
+ * handles Search
+ *
+ * @Steps
+ * 1. Parsing Request Body and validation
+ * 2. Extracting tags queryString category from query, we need them for building the query
+ * 3. Building the OR query
+ * 4. Searching for articles based on query
+ * 5. Returning the articles
+ */
+export async function POST(req: Request, res: Response) {
   try {
-    const { searchParams } = new URL(req.url);
+    // 1. Parsing Request Body and and validation
+    // --------------------------------------------------------------------
+    const { query } = await req.json();
+    if (!query) throw new Error("No search query provided");
 
-    const searchQuery = searchParams.get("query");
-    if (!searchQuery) throw new Error("No search query provided");
+    // 2. Extracting tags queryString category from query, we need them for building the query
+    // --------------------------------------------------------------------
+    const { queryString, queryTags, queryCategory } =
+      extractTagsQueryCategory(query);
+
+    // 3. Building the OR query
+    // --------------------------------------------------------------------
 
     /**
-     * search query can contains tags so we need to extract them
-     * @example `git essentials  #git  #gitignore  #github`
-     * returns {queryString: `git essentials`, queryTags: [`#git`, `#gitignore`, `#github`]}
+     * Building the query
+     * query works based on article slug,content,tags and category(if it exist)
      */
-    const { queryString, queryTags } = extractTagsAndQuery(searchQuery);
+    let orQuery: Prisma.ArticleWhereInput[] = [];
 
-    /**
-     * To optimize performance,
-     * instead of searching by title, we are using slugify and searching the database based on slug
-     * slugs are unique and they are **indexed** in the database and they also contain the title,
-     * Querying the database based on these slugs is more efficient than querying by titles.
-     */
-    const slugifySearchQuery = slugify(queryString, true);
+    if (!!queryString) {
+      /**
+       * To optimize performance,
+       * instead of searching by title, we are using slugify and searching the database based on slug
+       * slugs are unique and they are **indexed** in the database and they also contain the title,
+       * Querying the database based on these slugs is more efficient than querying by titles.
+       */
+      const slugifySearchQuery = slugify(queryString, true);
+      orQuery = [
+        ...orQuery,
+        {
+          slug: { contains: slugifySearchQuery, mode: "insensitive" },
+        },
+        { content: { contains: queryString, mode: "insensitive" } },
+      ];
+    }
+    if (queryTags.length > 0) {
+      orQuery.push({ tags: { hasSome: queryTags } });
+    }
+    if (!!queryCategory) orQuery.push({ category: { equals: queryCategory } });
 
-    //   const extractTags = searchQuery.
+    // 4. Searching for articles based on query
+    // --------------------------------------------------------------------
 
-    // slug content
     const searchResult = await prismaClient.article.findMany({
       where: {
-        OR: [
-          { slug: { contains: slugifySearchQuery, mode: "insensitive" } },
-          { content: { contains: searchQuery, mode: "insensitive" } },
-          { tags: { hasSome: queryTags } },
-        ],
+        OR: orQuery,
       },
       select: {
         id: true,
@@ -65,6 +107,9 @@ export async function GET(req: Request, res: Response) {
       },
       orderBy: { id: "desc" },
     });
+
+    // 5. Returning the articles
+    // --------------------------------------------------------------------
 
     return Response.json(
       { status: "success", data: { searchResult } },
@@ -76,7 +121,7 @@ export async function GET(req: Request, res: Response) {
         status: "fail",
         error: `Error:⚠️ ${error instanceof Error ? error.message : error}`,
       },
-      { status: 200 },
+      { status: 500 },
     );
   }
 }

@@ -6,11 +6,14 @@ import {
   CommandInput,
   CommandList,
 } from "@/components/ui/command";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { Categories } from "@prisma/client";
+import { CircleChevronDown } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import CloudinaryImage from "./CloudinaryImage";
-import Link from "next/link";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import Category from "./ui/category";
 import { Skeleton } from "./ui/skeletion";
 
 const SearchResultSchema = z.object({
@@ -55,8 +58,16 @@ export default function ArticleSearch() {
       try {
         setIsLoading(true);
         setError("");
+        setResults(null);
 
-        const res = await fetch(`/api/search?query=${query}`);
+        const res = await fetch(`/api/search`, {
+          method: "POST",
+          signal: abortController.signal,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query }),
+        });
         if (!res.ok) throw new Error(res.statusText);
 
         const data = await res.json();
@@ -77,7 +88,7 @@ export default function ArticleSearch() {
 
     return () => abortController.abort();
   }, [query]);
-  console.log(results?.data);
+
   return (
     <div className="relative ml-auto flex-1 md:grow-0">
       <div
@@ -92,9 +103,15 @@ export default function ArticleSearch() {
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="search..."
+          placeholder="example: gitignore #gitignore #version_control"
           value={inputValue}
           onValueChange={setInputValue}
+        />
+
+        <CategoriesList
+          onCategoryClick={(category) => {
+            setInputValue((curInput) => `${curInput} ${category}`);
+          }}
         />
 
         <CommandList>
@@ -141,7 +158,7 @@ export default function ArticleSearch() {
                         width={40}
                         height={40}
                         alt="search result avatar"
-                        className="rounded-xl object-cover outline outline-[0.1px] outline-slate-300"
+                        className="h-8 w-8 rounded-xl object-cover outline outline-[0.1px] outline-slate-300"
                       />
                       <span className="text-sm"> {res.title} </span>
                     </Link>
@@ -152,6 +169,44 @@ export default function ArticleSearch() {
           )}
         </CommandList>
       </CommandDialog>
+    </div>
+  );
+}
+
+function CategoriesList({
+  onCategoryClick,
+}: {
+  onCategoryClick: (category: string) => void;
+}) {
+  const CategoriesArr = Object.keys(Categories) as (keyof typeof Categories)[];
+  const [extend, setExtend] = useState(false);
+  const categoriesOptions = extend ? CategoriesArr : CategoriesArr.slice(0, 3);
+
+  return (
+    <div className="flex w-full items-center px-2 py-3">
+      <ul className="flex flex-wrap items-center gap-x-1 gap-y-3 pr-1 text-xs">
+        {categoriesOptions.map((category) => (
+          <li key={category} className="cursor-pointer">
+            <Category
+              onClick={() => onCategoryClick(`#${category}`)}
+              variant={category}
+              className="custom-hover || inline-block"
+            >
+              #{category}
+            </Category>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        title="show all categories options"
+        className="ml-auto cursor-pointer self-start"
+        onClick={() => {
+          setExtend((e) => !e);
+        }}
+      >
+        <CircleChevronDown className="h-6 w-6 duration-300 hover:text-purple-500" />
+      </button>
     </div>
   );
 }
