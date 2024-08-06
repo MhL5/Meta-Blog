@@ -20,6 +20,8 @@
 
 - resetting captcha after each request, so if request fails user should be able to try captcha again, rn it only works with a hard reload
 
+- remove fetching data from page component, and wrap the new server components in suspense like in home page
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
