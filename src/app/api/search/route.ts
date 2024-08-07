@@ -22,18 +22,16 @@ function extractTagsQueryCategory(input: string): {
     .trim()
     .split(" ")
     .forEach((subStr) => {
-      if (subStr.startsWith("#")) {
-        const decodedSubStr = subStr.replace(`#`, "").toLowerCase();
-
-        let isCategory = false;
+      if (subStr.startsWith("@")) {
         categories.forEach((category) => {
-          if (category === decodedSubStr) {
-            isCategory = true;
-            queryCategory = category;
-          }
-        });
+          const decodedCat = subStr.replace(`@`, "").toLowerCase();
 
-        !isCategory && queryTags.push(decodedSubStr);
+          if (category === decodedCat) queryCategory = category;
+        });
+      }
+      if (subStr.startsWith("#")) {
+        const decodedTag = subStr.replace(`#`, "").toLowerCase();
+        queryTags.push(decodedTag);
       } else queryString.push(subStr);
     });
 

@@ -103,7 +103,7 @@ export default function ArticleSearch() {
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="example: gitignore #gitignore #version_control"
+          placeholder="example: gitignore #gitignore @version_control"
           value={inputValue}
           onValueChange={setInputValue}
         />
@@ -192,7 +192,7 @@ function CategoriesList({
               variant={category}
               className="custom-hover || inline-block"
             >
-              #{category}
+              @{category}
             </Category>
           </li>
         ))}
