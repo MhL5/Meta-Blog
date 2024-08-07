@@ -188,7 +188,7 @@ function CategoriesList({
         {categoriesOptions.map((category) => (
           <li key={category} className="cursor-pointer">
             <Category
-              onClick={() => onCategoryClick(`#${category}`)}
+              onClick={() => onCategoryClick(`@${category}`)}
               variant={category}
               className="custom-hover || inline-block"
             >
