@@ -51,6 +51,7 @@
     "zod-validation-error": "^3.3.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@tailwindcss/typography": "^0.5.13",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",

@@ -24,6 +24,8 @@
 
 - @ for search category not #
 
+- after the first article user role should become author !BIG BUG
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
