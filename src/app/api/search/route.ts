@@ -25,14 +25,18 @@ function extractTagsQueryCategory(input: string): {
       if (subStr.startsWith("@")) {
         categories.forEach((category) => {
           const decodedCat = subStr.replace(`@`, "").toLowerCase();
-
           if (category === decodedCat) queryCategory = category;
         });
+        return;
       }
+
       if (subStr.startsWith("#")) {
         const decodedTag = subStr.replace(`#`, "").toLowerCase();
         queryTags.push(decodedTag);
-      } else queryString.push(subStr);
+        return;
+      }
+
+      queryString.push(subStr);
     });
 
   return { queryString: queryString.join(` `), queryTags, queryCategory };
