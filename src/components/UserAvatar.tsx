@@ -32,7 +32,7 @@ const UserAvatar = ({
         alt="logged in user profile picture"
       />
       <AvatarFallback className={`${randomBg}`} delayMs={600}>
-        {username.slice(0, 2).toUpperCase()}
+        {username[0].toUpperCase()}
       </AvatarFallback>
     </Avatar>
   );
