@@ -26,6 +26,8 @@
 
 - after the first article user role should become author !BIG BUG
 
+- database queries separate file not on page and import only server
+
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
