@@ -202,7 +202,7 @@ function SubMenu() {
         <NavigationMenuItem>
           <GradientUnderlineText>
             <NavigationMenuTrigger className="bg-transparent">
-              Categories
+              <Link href="/categories">Categories</Link>
             </NavigationMenuTrigger>
           </GradientUnderlineText>
           <NavigationMenuContent>
