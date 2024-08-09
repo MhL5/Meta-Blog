@@ -1,16 +1,21 @@
 import ArticleCard from "@/components/ArticleCard";
-import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
-import UserAvatar from "@/components/UserAvatar";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
-import prismaClient from "@/lib/prismaClient";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { cache } from "react";
-import AuthorStats from "./AuthorStats";
+import { Suspense } from "react";
+import ArticleCards from "./ArticleCards";
+import AuthorSection from "./AuthorSection";
+import LoadMoreButton from "./LoadMoreButton";
+import { getAuthor } from "./services";
+import SortButtons from "./SortButtons";
 
-type GetAuthorParams = { authorId: string };
-type PageProps = {
+type SortOptions = "latest" | "oldest" | "most-liked" | "most-favorite";
+export type SearchParams = {
+  sort?: SortOptions;
+  page?: string;
+};
+export type PageProps = {
   params: { authorId: string };
+  searchParams?: SearchParams;
 };
 
 export async function generateMetadata({
@@ -28,73 +33,31 @@ export async function generateMetadata({
   };
 }
 
-const getAuthor = cache(async ({ authorId }: GetAuthorParams) => {
-  const author = await prismaClient.user.findUnique({
-    where: { id: authorId },
-    include: {
-      Articles: {
-        include: {
-          articleComments: true,
-          articleLikes: true,
-          favoriteArticle: true,
-        },
-      },
-    },
-  });
-
-  if (!author) return notFound();
-
-  const authorStats = author.Articles.reduce(
-    (acc, curArticle) => ({
-      articleLikesCount: acc.articleLikesCount + curArticle.articleLikes.length,
-      favoritesArticlesCount:
-        acc.favoritesArticlesCount + curArticle.favoriteArticle.length,
-    }),
-    {
-      articleLikesCount: 0,
-      favoritesArticlesCount: 0,
-    },
-  );
-
-  return { author, authorStats };
-});
-
-export default async function Page({ params: { authorId } }: PageProps) {
-  const author = await getAuthor({ authorId });
-
+export default async function Page({
+  searchParams,
+  params: { authorId },
+}: PageProps) {
   return (
     <main className="mx-auto my-14 w-full max-w-7xl">
-      <section className="flex flex-col items-center justify-center">
-        <UserAvatar
-          className="aspect-square h-36 w-36"
-          height={144}
-          width={144}
-          imageSrc={author.author.image || ""}
-          username={author.author?.name || "unknown"}
-        />
-
-        <h2 className="mt-12 text-2xl font-bold">
-          <GradientUnderlineText>{author.author.name}</GradientUnderlineText>
-        </h2>
-
-        <AuthorStats
-          ArticlesCount={author.authorStats.favoritesArticlesCount}
-          articleLikesCount={author.authorStats.articleLikesCount}
-          favoritesArticlesCount={author.author.Articles.length}
-        />
-      </section>
+      <div className="mb-16">
+        <Suspense fallback={<div>Loading...</div>}>
+          <AuthorSection authorId={authorId} />
+        </Suspense>
+      </div>
 
       <section>
-        <div className="text-red-500">
-          todo: MhL Articles:{" "}
-          <button>
-            Latest ordering :D follow and add a your subscription page
-          </button>
-        </div>
+        <SortButtons />
+
         <div className="grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
-          {author.author.Articles.map((article) => {
-            return <ArticleCard key={article.id} article={article} />;
-          })}
+          <Suspense
+            fallback={<ArticleCard.Skeleton numSkeletons={9} />}
+            key={`${searchParams?.sort}`}
+          >
+            <ArticleCards authorId={authorId} searchParams={searchParams} />
+          </Suspense>
+        </div>
+        <div className="mt-8 flex w-full">
+          <LoadMoreButton className="mx-auto inline-block" size="lg" />
         </div>
       </section>
 

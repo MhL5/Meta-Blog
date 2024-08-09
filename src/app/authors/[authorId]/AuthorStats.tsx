@@ -36,7 +36,7 @@ export default function AuthorStats({
   ];
 
   return (
-    <ul className="mb-16 mt-4 flex items-center justify-center space-x-4 divide-x-2">
+    <ul className="mt-4 flex items-center justify-center space-x-4 divide-x-2">
       {AuthorStats.map(({ id, label, Icon, iconClassNames }) => {
         return (
           <li
