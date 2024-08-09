@@ -34,8 +34,6 @@ const category = cva(
           "border-cyan-600 bg-cyan-200 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
         testing_and_qa:
           "border-lime-600 bg-lime-200 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-        performance_optimization:
-          "border-amber-600 bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
         algorithms:
           "border-stone-600 bg-stone-200 text-stone-800 dark:bg-stone-900 dark:text-stone-200",
       },

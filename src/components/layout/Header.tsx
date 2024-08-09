@@ -187,10 +187,6 @@ function SubMenu() {
       category: `testing_and_qa`,
     },
     {
-      id: "38e0946e02b684da33297676d723e9781f99bd8bb6c37f339be5",
-      category: `performance_optimization`,
-    },
-    {
       id: "3404248ae4b5b618de621db1670422b867cdf3afa01776c0d831",
       category: `algorithms`,
     },
