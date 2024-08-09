@@ -43,7 +43,7 @@ export const getAuthor = cache(
         },
       };
 
-    const authorStatsCount = await prismaClient.user.findUnique({
+    const authorStatsCountPromise = prismaClient.user.findUnique({
       where: { id: authorId },
       select: {
         Articles: {
@@ -53,7 +53,7 @@ export const getAuthor = cache(
         },
       },
     });
-    const author = await prismaClient.user.findUnique({
+    const authorPromise = prismaClient.user.findUnique({
       where: { id: authorId },
       include: {
         Articles: {
@@ -67,6 +67,11 @@ export const getAuthor = cache(
         },
       },
     });
+
+    const [author, authorStatsCount] = await Promise.all([
+      authorPromise,
+      authorStatsCountPromise,
+    ]);
 
     if (!author) return notFound();
 
