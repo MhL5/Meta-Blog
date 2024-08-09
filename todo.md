@@ -16,16 +16,24 @@
 
 - faker js
 
-- add subscribe feed page
-
 - resetting captcha after each request, so if request fails user should be able to try captcha again, rn it only works with a hard reload
 
 - remove fetching data from page component, and wrap the new server components in suspense like in home page
+
+- homepage open graph does not work
+
+- @ for search category not #
+
+- after the first article user role should become author !BIG BUG
+
+- database queries separate file not on page and import only server
 
 # author page:
 
 - add a feature for seeing author latest articles,or most popular articles or most liked articles
 
 # Currently working on:
+
+- add a feature for seeing author latest articles,or most popular articles or most liked articles
 
 - finish other pages: topics , dashboard

@@ -15,6 +15,7 @@ import { useMemo } from "react";
 import { Badge } from "./ui/badge";
 import GradientUnderlineText from "./ui/GradientUnderlineText";
 import Category from "./ui/category";
+import { Skeleton } from "./ui/skeletion";
 
 type ArticleCardProps = {
   article: Prisma.ArticleGetPayload<{
@@ -26,7 +27,7 @@ type ArticleCardProps = {
   }>;
 };
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+function ArticleCard({ article }: ArticleCardProps) {
   const articleStats = useMemo(
     () => [
       {
@@ -104,3 +105,46 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     </Card>
   );
 }
+
+function ArticleCardSkeleton({ numSkeletons }: { numSkeletons: number }) {
+  return (
+    <>
+      {Array.from({ length: numSkeletons }).map((_, i) => (
+        <Card className="grid" key={`ArticleCardSkeleton-${i + i * i}`}>
+          <div className="flex h-full w-full flex-col">
+            <Skeleton className="m-4 h-80" />
+
+            <div className="flex gap-2 px-4">
+              <Skeleton className="px-8 py-2" />
+              <Skeleton className="px-8 py-2" />
+              <Skeleton className="px-8 py-2" />
+              <Skeleton className="px-8 py-2" />
+            </div>
+
+            <div className="mx-4 pb-4 pt-8">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="mt-5 h-4 w-[40%]" />
+            </div>
+
+            <div className="mx-4 flex flex-col gap-2 pb-3 pt-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+            </div>
+
+            <div className="mt-auto flex h-14 items-center gap-4 border-t px-4">
+              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+          </div>
+        </Card>
+      ))}
+    </>
+  );
+}
+
+ArticleCard.Skeleton = ArticleCardSkeleton;
+export default ArticleCard;
