@@ -35,8 +35,10 @@ const icons = {
  * Works based on prisma types
  * run `npx prisma generate` to update prisma types and this function
  */
-export const MetaBlogCategories = (
+const MetaBlogCategories = (
   Object.keys(Categories) as (keyof typeof Categories)[]
 ).map((category) => {
   return { category, id: Math.random(), CategoryIcon: icons[category] };
 });
+
+export default MetaBlogCategories;
