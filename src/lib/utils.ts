@@ -56,5 +56,8 @@ export function slugify(str: string, withoutId: boolean = false): string {
  * run `npx prisma generate` to update prisma types and this function
  */
 export const MetaBlogCategories = Object.keys(Categories).map((category) => {
-  return { category, id: Math.random() };
+  return { category, id: Math.random() } as {
+    category: keyof typeof Categories;
+    id: number;
+  };
 });
