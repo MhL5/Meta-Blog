@@ -15,7 +15,10 @@ import {
 } from "lucide-react";
 import { Categories } from "@prisma/client";
 
-const icons = {
+export type MetaBlogCategoriesIcon =
+  (typeof metaBlogCategoriesIcons)[keyof typeof metaBlogCategoriesIcons];
+
+const metaBlogCategoriesIcons = {
   web_development: WebhookIcon,
   machine_learning: BrainIcon,
   devOps: Container,
@@ -38,7 +41,11 @@ const icons = {
 const MetaBlogCategories = (
   Object.keys(Categories) as (keyof typeof Categories)[]
 ).map((category) => {
-  return { category, id: Math.random(), CategoryIcon: icons[category] };
+  return {
+    category,
+    id: Math.random(),
+    CategoryIcon: metaBlogCategoriesIcons[category],
+  };
 });
 
 export default MetaBlogCategories;
