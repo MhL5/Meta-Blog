@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { Badge } from "./ui/badge";
 import GradientUnderlineText from "./ui/GradientUnderlineText";
-import Category from "./ui/category";
+import CategoryBadge from "./ui/categoryBadge";
 import { Skeleton } from "./ui/skeletion";
 
 type ArticleCardProps = {
@@ -72,7 +72,7 @@ function ArticleCard({ article }: ArticleCardProps) {
 
         <CardContent className="px-4">
           <div className="mb-6 mt-2 space-x-2">
-            <Category variant={article.category}>{article.category}</Category>
+            <CategoryBadge variant={article.category}>{article.category}</CategoryBadge>
             {[...article.tags.slice(0, 2), "More..."].map((tag, i) => (
               <Badge key={i} variant="secondary">
                 {tag}

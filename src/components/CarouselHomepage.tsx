@@ -13,7 +13,7 @@ import { Clock } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import GradientUnderlineText from "./ui/GradientUnderlineText";
-import Category from "./ui/category";
+import CategoryBadge from "./ui/categoryBadge";
 
 type CarouselHomepageProps = {
   articles: Article[];
@@ -52,9 +52,9 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
 
                 <div className="relative z-10 m-10 text-lg font-bold text-white">
                   <div>
-                    <Category variant={article.category}>
+                    <CategoryBadge variant={article.category}>
                       {article.category}
-                    </Category>
+                    </CategoryBadge>
                   </div>
                   <GradientUnderlineText>{article.title}</GradientUnderlineText>
                   <div className="mt-2 text-sm">

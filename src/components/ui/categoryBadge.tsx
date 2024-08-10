@@ -41,7 +41,7 @@ const category = cva(
   },
 );
 
-export default function Category({
+export default function CategoryBadge({
   className,
   children,
   variant,
@@ -55,7 +55,7 @@ export default function Category({
 
   return (
     <span className={cn(category({ variant }), className)} {...props}>
-      {label}
+      @{label}
     </span>
   );
 }

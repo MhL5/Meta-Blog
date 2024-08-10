@@ -1,6 +1,6 @@
 import CloudinaryImage from "@/components/CloudinaryImage";
 import { Badge } from "@/components/ui/badge";
-import Category from "@/components/ui/category";
+import CategoryBadge from "@/components/ui/categoryBadge";
 import UserAvatar from "@/components/UserAvatar";
 import { Categories } from "@prisma/client";
 import { format } from "date-fns";
@@ -85,9 +85,9 @@ export default function ArticleInfo({
 
       <section className="mb-14">
         <div className="my-4">
-          <Category variant={category} className="text-sm px-3 py-1.5">
+          <CategoryBadge variant={category} className="text-sm px-3 py-1.5">
            {category}
-          </Category>
+          </CategoryBadge>
         </div>
         {tags?.map((tag) => {
           return (

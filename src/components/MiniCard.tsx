@@ -1,6 +1,6 @@
 import { Categories } from "@prisma/client";
 import CloudinaryImage from "./CloudinaryImage";
-import Category from "./ui/category";
+import CategoryBadge from "./ui/categoryBadge";
 import GradientBorder from "./ui/GradientBorder";
 
 type MiniCardProps = {
@@ -27,9 +27,7 @@ export default function MiniCard({ article }: MiniCardProps) {
         </div>
 
         <div className="mt-2">
-          <Category variant={article.category}>
-            {article.category}
-          </Category>
+          <CategoryBadge variant={article.category}>{article.category}</CategoryBadge>
         </div>
         <div className="pb-4 font-bold">{article.title}</div>
         <div className="text-xs"> {article.readingTime} min read </div>
