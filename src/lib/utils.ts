@@ -1,4 +1,3 @@
-import { Categories } from "@prisma/client";
 import { type ClassValue, clsx } from "clsx";
 import crypto from "crypto";
 import { twMerge } from "tailwind-merge";
@@ -50,14 +49,3 @@ export function slugify(str: string, withoutId: boolean = false): string {
 
   return `${slugifyStr}-${crypto.randomBytes(8).toString("hex")}`;
 }
-
-/**
- * Works based on prisma types
- * run `npx prisma generate` to update prisma types and this function
- */
-export const MetaBlogCategories = Object.keys(Categories).map((category) => {
-  return { category, id: Math.random() } as {
-    category: keyof typeof Categories;
-    id: number;
-  };
-});
