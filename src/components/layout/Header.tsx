@@ -20,8 +20,9 @@ import { cachedAuth } from "@/lib/auth";
 import { EllipsisVertical } from "lucide-react";
 import Link from "next/link";
 import ToggleTheme from "../ToggleTheme";
+import CategoryIconWrapper from "../ui/categoryIcon";
 import GradientUnderlineText from "../ui/GradientUnderlineText";
-import { MetaBlogCategories } from "@/lib/utils";
+import MetaBlogCategories from "@/constants/MetaBlogCategories";
 
 export default function Header() {
   return (
@@ -149,7 +150,7 @@ function SubMenu() {
           </GradientUnderlineText>
           <NavigationMenuContent>
             <ul className="h-96 divide-y-2 overflow-y-scroll">
-              {MetaBlogCategories.map(({ category, id }) => {
+              {MetaBlogCategories.map(({ category, id, CategoryIcon }) => {
                 return (
                   <li key={id} className="w-full">
                     <Button
@@ -159,9 +160,16 @@ function SubMenu() {
                       asChild
                     >
                       <Link
-                        href={`/categories?category=${category}`}
+                        href={`/categories/${category}`}
                         className="text-start capitalize"
                       >
+                        <CategoryIconWrapper
+                          variant={category}
+                          className="mr-3 p-1"
+                        >
+                          <CategoryIcon className="h-4 w-4" />
+                        </CategoryIconWrapper>
+
                         <GradientUnderlineText>
                           {category.replaceAll("_", " ")}
                         </GradientUnderlineText>
