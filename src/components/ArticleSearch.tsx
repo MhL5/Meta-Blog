@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import CloudinaryImage from "./CloudinaryImage";
-import Category from "./ui/category";
+import CategoryBadge from "./ui/categoryBadge";
 import { Skeleton } from "./ui/skeletion";
 
 const SearchResultSchema = z.object({
@@ -187,13 +187,13 @@ function CategoriesList({
       <ul className="flex flex-wrap items-center gap-x-1 gap-y-3 pr-1 text-xs">
         {categoriesOptions.map((category) => (
           <li key={category} className="cursor-pointer">
-            <Category
+            <CategoryBadge
               onClick={() => onCategoryClick(`@${category}`)}
               variant={category}
               className="custom-hover || inline-block"
             >
               @{category}
-            </Category>
+            </CategoryBadge>
           </li>
         ))}
       </ul>

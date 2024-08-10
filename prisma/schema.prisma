@@ -60,7 +60,6 @@ enum Categories {
   database_management
   version_control
   testing_and_qa
-  performance_optimization
   algorithms
 }
 
