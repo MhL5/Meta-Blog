@@ -192,7 +192,7 @@ function CategoriesList({
               variant={category}
               className="custom-hover || inline-block"
             >
-              @{category}
+              {category}
             </CategoryBadge>
           </li>
         ))}
