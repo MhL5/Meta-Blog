@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 type CardListUlItemsProps<T> =
   | {
       mode: "async";
-      data: Promise<T[]>;
+      data: () => Promise<T[]>;
       render: (data: T) => ReactNode;
     }
   | { mode: "sync"; data: T[]; render: (data: T) => ReactNode };
@@ -16,7 +16,7 @@ type CardListUlItemsProps<T> =
 const ListItem = async function <T extends Record<string, any>>(
   props: CardListUlItemsProps<T>,
 ) {
-  const data = props.mode === "async" ? await props.data : props.data;
+  const data = props.mode === "async" ? await props.data() : props.data;
 
   return <>{data.map(props.render)}</>;
 };
