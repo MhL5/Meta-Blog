@@ -1,12 +1,10 @@
 import ArticleCard from "@/components/ArticleCard";
+import ArticleGridWrapper from "@/components/ArticleGridWrapper";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import ArticleCards from "./ArticleCards";
 import AuthorSection from "./AuthorSection";
-import LoadMoreButton from "./LoadMoreButton";
 import { getAuthor } from "./services";
-import SortButtons from "./SortButtons";
 
 type SortOptions = "latest" | "oldest" | "most-liked" | "most-favorite";
 export type SearchParams = {
@@ -45,21 +43,21 @@ export default async function Page({
         </Suspense>
       </div>
 
-      <section>
-        <SortButtons />
+      <ArticleGridWrapper
+        mode="async"
+        suspenseKey={searchParams?.sort || ""}
+        data={async () => {
+          const { author } = await getAuthor({
+            authorId,
+            searchParams,
+          });
 
-        <div className="grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
-          <Suspense
-            fallback={<ArticleCard.Skeleton numSkeletons={9} />}
-            key={`${searchParams?.sort}`}
-          >
-            <ArticleCards authorId={authorId} searchParams={searchParams} />
-          </Suspense>
-        </div>
-        <div className="mt-8 flex w-full">
-          <LoadMoreButton className="mx-auto inline-block" size="lg" />
-        </div>
-      </section>
+          return author.Articles;
+        }}
+        render={(articles) => {
+          return <ArticleCard key={articles.id} article={articles} />;
+        }}
+      />
 
       <div className="mb-14 mt-44">
         <NewsLetterSubscription />
