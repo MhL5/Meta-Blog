@@ -1,8 +1,5 @@
-import CategoryIconWrapper from "@/components/ui/categoryIcon";
-import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import MetaBlogCategories from "@/constants/MetaBlogCategories";
-
-import Link from "next/link";
+import CategoriesListBox from "./CategoriesListBox";
 
 type CategoriesListProps = {
   categories: typeof MetaBlogCategories;
@@ -26,28 +23,20 @@ const categoryColor = {
 
 export default function CategoriesList({ categories }: CategoriesListProps) {
   return (
-    <>
+    <ul className="grid grid-cols-2 items-stretch gap-6 pt-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {categories.map(({ category, id, CategoryIcon }) => {
         return (
-          <div
+          <li
             key={id}
             className={`${categoryColor?.[category]} cursor-pointer list-none rounded-lg py-4 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-[6px]`}
           >
-            <Link href={`/categories/${category}`}>
-              <div className="flex w-full items-center justify-center">
-                <CategoryIconWrapper variant={category} className="p-3">
-                  <CategoryIcon />
-                </CategoryIconWrapper>
-              </div>
-              <div className={`mb-1 mt-4 font-semibold capitalize`}>
-                <GradientUnderlineText>
-                  {category.replaceAll("_", " ")}
-                </GradientUnderlineText>
-              </div>
-            </Link>
-          </div>
+            <CategoriesListBox
+              category={category}
+              CategoryIcon={CategoryIcon}
+            />
+          </li>
         );
       })}
-    </>
+    </ul>
   );
 }

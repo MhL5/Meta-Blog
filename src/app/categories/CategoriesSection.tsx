@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import MetaBlogCategories from "@/constants/MetaBlogCategories";
 import { SearchIcon } from "lucide-react";
 import { useState } from "react";
-import CategoriesList from "./CategoriesList";
+import CategoriesList from "./CategoriesLists";
 
 export default function CategoriesSection() {
   const [searchInput, setSearchInput] = useState("");
@@ -32,9 +32,7 @@ export default function CategoriesSection() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 items-stretch gap-6 pt-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        <CategoriesList categories={categories} />
-      </div>
+      <CategoriesList categories={categories} />
     </>
   );
 }
