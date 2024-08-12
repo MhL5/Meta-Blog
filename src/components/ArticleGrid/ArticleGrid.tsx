@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 import ListContainer from "./ListContainer";
 import ListItem from "./ListItem";

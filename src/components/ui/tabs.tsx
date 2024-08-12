@@ -1,10 +1,9 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
 type Tab = {
   title: string;

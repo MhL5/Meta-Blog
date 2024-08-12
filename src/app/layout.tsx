@@ -2,7 +2,7 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import SvgBackground from "@/components/SvgBackground";
 import { Toaster } from "@/components/ui/toaster";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import Providers from "@/Providers/Providers";
 import "@/styles/globals.css";
 import type { Metadata } from "next";

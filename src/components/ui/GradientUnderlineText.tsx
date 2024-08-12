@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 type GradientUnderlineTextProps = PropsWithChildren &

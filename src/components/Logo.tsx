@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import MetaBlogLogoIcon from "@/app/icon.svg";
 import Link from "next/link";
 import Image from "next/image";
