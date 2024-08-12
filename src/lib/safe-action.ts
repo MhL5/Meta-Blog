@@ -1,5 +1,6 @@
+import { auth, isValidGoogleCaptcha } from "@/lib/auth";
+import { userSchema } from "@/utils/zodSchemas";
 import { createSafeActionClient } from "next-safe-action";
-import { auth, isValidGoogleCaptcha } from "./auth";
 import { z } from "zod";
 
 // ZOD schema:
@@ -37,12 +38,8 @@ export const actionClient = createSafeActionClient({
  */
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth();
-  // todo: temp need to be fixed
-  const userSchema = z.object({
-    id: z.string().min(1),
-    email: z.string().min(1),
-    name: z.string().min(1),
-  });
+
+  // this will throw errors and we wont reach the next action
   const validSession = userSchema.parse(session?.user);
 
   return next({ ctx: { curUser: validSession } });

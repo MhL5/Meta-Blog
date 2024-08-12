@@ -1,6 +1,15 @@
 import { z } from "zod";
 
 /**
- * zod schema for validating urls
+ * validating urls
  */
 export const urlSchema = z.string().url();
+
+/**
+ * validating user
+ */
+export const userSchema = z.object({
+  image: z.string(),
+  name: z.string(),
+  id: z.string().min(1),
+});
