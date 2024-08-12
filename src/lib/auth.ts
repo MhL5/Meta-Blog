@@ -1,15 +1,15 @@
-import NextAuth, { CredentialsSignin, NextAuthConfig } from "next-auth";
-import Google from "next-auth/providers/google";
+import loginSchema from "@/app/auth/loginSchema";
+import { env } from "@/utils/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import prismaClient from "./prismaClient";
+import bcrypt from "bcrypt";
+import NextAuth, { CredentialsSignin, NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
-import { ZodError } from "zod";
-import bcrypt from "bcrypt";
-import { fromZodError } from "zod-validation-error";
+import Google from "next-auth/providers/google";
 import { cache } from "react";
-import { env } from "process";
-import loginSchema from "@/app/auth/loginSchema";
+import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
+import prismaClient from "./prismaClient";
 
 const AuthOptions = {
   // This is a bug in next-auth V5 beta
