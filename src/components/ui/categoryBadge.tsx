@@ -1,5 +1,6 @@
 import { cn } from "@/utils/cn";
 import { cva, VariantProps } from "class-variance-authority";
+import Link from "next/link";
 import { ComponentPropsWithoutRef } from "react";
 
 type CategoryProps = ComponentPropsWithoutRef<"span"> &
@@ -54,8 +55,12 @@ export default function CategoryBadge({
       : children;
 
   return (
-    <span className={cn(category({ variant }), className)} {...props}>
+    <Link
+      href={`/categories/${variant}`}
+      className={cn(category({ variant }), className)}
+      {...props}
+    >
       @{label}
-    </span>
+    </Link>
   );
 }
