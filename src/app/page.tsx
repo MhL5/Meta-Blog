@@ -1,59 +1,39 @@
+import HeroHeader from "@/app/_homepage/HeroHeader";
+import { getArticles } from "@/app/_homepage/services";
+import TopFourArticlesCarousel from "@/app/_homepage/TopFourArticlesCarousel";
 import ArticleCard from "@/components/ArticleCard";
-import CarouselHomepage from "@/components/CarouselHomepage";
-import HeroHeader from "@/components/layout/HeroHeader";
+import { SortSearchParam } from "@/components/ArticleGrid/SortButton";
+import ArticleGridWrapper from "@/components/ArticleGridWrapper";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
-import prismaClient from "@/lib/prismaClient";
-import { notFound } from "next/navigation";
-import { cache } from "react";
+import CategoriesHomepage from "./_homepage/CategoriesHomepage";
 
-// automatic caching only happens for fetch so here we have cache it manually
-const getArticles = cache(async () => {
-  const product = await prismaClient.article.findMany({
-    include: {
-      articleLikes: true,
-      articleComments: true,
-      favoriteArticle: true,
-    },
-  });
+type PageProps = {
+  searchParams: { page?: string; sort?: SortSearchParam };
+};
 
-  if (!product) notFound();
-  return product;
-});
-
-const getTopFourArticles = cache(async () => {
-  const topArticles = await prismaClient.article.findMany({
-    orderBy: {
-      articleLikes: { _count: "desc" },
-    },
-    take: 4,
-  });
-
-  return topArticles;
-});
-
-export default async function Page() {
-  const articles = await getArticles();
-  const topFourArticles = await getTopFourArticles();
-
+export default async function Page({ searchParams }: PageProps) {
   return (
-    <div className="my-8 px-2">
+    <div className="sm:my-8">
       <HeroHeader />
 
       <section className="my-20 w-full max-w-7xl">
-        <h2 className="mb-8 text-center text-2xl font-bold">
-          Most Popular Blogs
-        </h2>
-        <CarouselHomepage articles={topFourArticles} />
+        <TopFourArticlesCarousel />
       </section>
 
-      <section className="m-auto mt-40">
-        <h2 className="mb-8 text-center text-2xl font-bold">Latest Blogs</h2>
-        <div className="grid max-w-7xl items-stretch gap-4 p-2 sm:grid-cols-2 md:grid-cols-3">
-          {articles.map((article) => {
-            return <ArticleCard key={article.id} article={article} />;
-          })}
-        </div>
+      <section className="mb-24">
+        <h2 className="mb-8 text-center text-3xl font-bold">
+          Popular Categories
+        </h2>
+        <CategoriesHomepage />
       </section>
+
+      <h2 className="mb-8 text-center text-3xl font-bold">Latest Blogs</h2>
+      <ArticleGridWrapper
+        mode="async"
+        data={async () => await getArticles({ searchParams })}
+        render={(article) => <ArticleCard key={article.id} article={article} />}
+        suspenseKey={`${searchParams?.sort}`}
+      />
 
       <section className="mx-auto max-w-7xl">
         <NewsLetterSubscription />
