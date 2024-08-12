@@ -1,8 +1,9 @@
 import CategoryIconWrapper from "@/components/ui/categoryIcon";
 import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
-import MetaBlogCategories from "@/constants/MetaBlogCategories";
+import MetaBlogCategories, {
+  categoryBgColor,
+} from "@/constants/MetaBlogCategories";
 import Link from "next/link";
-import { categoryColor } from "../categories/[category]/page";
 
 export default function CategoriesHomepage() {
   return (
@@ -11,7 +12,7 @@ export default function CategoriesHomepage() {
         return (
           <li
             key={id}
-            className={`${categoryColor[category]} rounded-full border`}
+            className={`${categoryBgColor[category]} rounded-full border`}
           >
             <Link
               href={`/categories/${category}`}
