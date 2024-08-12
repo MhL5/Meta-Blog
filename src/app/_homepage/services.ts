@@ -1,8 +1,9 @@
+import "server-only";
 import prismaClient from "@/lib/prismaClient";
 import { notFound } from "next/navigation";
 import { cache } from "react";
-import { calcPageSort } from "../authors/[authorId]/services";
 import { SortSearchParam } from "@/components/ArticleGrid/SortButton";
+import { calcPageSortParams } from "@/utils/calcPageSortParams";
 
 export const getArticles = cache(
   async ({
@@ -10,7 +11,7 @@ export const getArticles = cache(
   }: {
     searchParams: { page?: string; sort?: SortSearchParam };
   }) => {
-    const { orderBy, takeArticle } = calcPageSort({ searchParams });
+    const { orderBy, takeArticle } = calcPageSortParams({ searchParams });
 
     const product = await prismaClient.article.findMany({
       include: {
