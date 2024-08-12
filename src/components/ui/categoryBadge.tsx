@@ -3,8 +3,10 @@ import { cva, VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { ComponentPropsWithoutRef } from "react";
 
-type CategoryProps = ComponentPropsWithoutRef<"span"> &
-  VariantProps<typeof category> & { removeUnderline?: boolean };
+type Defaults = VariantProps<typeof category> & { removeUnderline?: boolean };
+type CategoryProps =
+  | ({ as: "span" } & ComponentPropsWithoutRef<"span"> & Defaults)
+  | ({ as: "link" } & Defaults & ComponentPropsWithoutRef<"a">);
 
 const category = cva(
   "text-nowrap rounded-full border-[0.1px] px-2.5 py-0.5 text-xs capitalize",
@@ -47,6 +49,7 @@ export default function CategoryBadge({
   children,
   variant,
   removeUnderline = true,
+  as,
   ...props
 }: CategoryProps) {
   const label =
@@ -55,12 +58,20 @@ export default function CategoryBadge({
       : children;
 
   return (
-    <Link
-      href={`/categories/${variant}`}
-      className={cn(category({ variant }), className)}
-      {...props}
-    >
-      @{label}
-    </Link>
+    <>
+      {as === "span" ? (
+        <span className={cn(category({ variant }), className)} {...props}>
+          @{label}
+        </span>
+      ) : (
+        <Link
+          href={`/categories/${variant}`}
+          className={cn(category({ variant }), className)}
+          {...props}
+        >
+          @{label}
+        </Link>
+      )}
+    </>
   );
 }

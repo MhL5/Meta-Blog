@@ -71,8 +71,8 @@ function ArticleCard({ article }: ArticleCardProps) {
         </CardHeader>
 
         <CardContent className="px-4">
-          <div className="mb-6 mt-2 space-x-2">
-            <CategoryBadge variant={article.category}>
+          <span className="mb-6 mt-2 block space-x-2">
+            <CategoryBadge as="span" variant={article.category}>
               {article.category}
             </CategoryBadge>
             {[...article.tags.slice(0, 2), "More..."].map((tag, i) => (
@@ -80,7 +80,7 @@ function ArticleCard({ article }: ArticleCardProps) {
                 {tag}
               </Badge>
             ))}
-          </div>
+          </span>
           <CardTitle className="text-xl font-bold leading-relaxed">
             <GradientUnderlineText>{article.title}</GradientUnderlineText>
           </CardTitle>
