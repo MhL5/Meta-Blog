@@ -1,5 +1,5 @@
 import prismaClient from "@/lib/prismaClient";
-import { slugify } from "@/lib/utils";
+import { slugify } from "@/utils/slugify";
 import { Categories, Prisma } from "@prisma/client";
 
 /**
