@@ -52,7 +52,7 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
 
                 <div className="relative z-10 m-10 text-lg font-bold text-white">
                   <div>
-                    <CategoryBadge variant={article.category}>
+                    <CategoryBadge as="span" variant={article.category}>
                       {article.category}
                     </CategoryBadge>
                   </div>
