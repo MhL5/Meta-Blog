@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren } from "react";
 
-type FilterSearchParam =
+export type SortSearchParam =
   | "latest"
   | "oldest"
   | "most-liked"
@@ -11,9 +11,9 @@ type FilterSearchParam =
   | string;
 
 type ButtonProps = PropsWithChildren<{
-  filter: FilterSearchParam;
+  filter: SortSearchParam;
   activeFilter: string;
-  handleFilter: (filter: FilterSearchParam) => void;
+  handleFilter: (filter: SortSearchParam) => void;
   className?: string;
 }>;
 
@@ -31,7 +31,7 @@ export default function SortButtons() {
 
   const activeFilter = searchParams.get("sort") ?? "latest";
 
-  function handleFilter(filter: FilterSearchParam) {
+  function handleFilter(filter: SortSearchParam) {
     const params = new URLSearchParams(searchParams);
     params.set("sort", filter);
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
