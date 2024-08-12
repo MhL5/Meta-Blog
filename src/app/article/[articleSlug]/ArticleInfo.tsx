@@ -2,7 +2,7 @@ import CloudinaryImage from "@/components/CloudinaryImage";
 import { Badge } from "@/components/ui/badge";
 import CategoryBadge from "@/components/ui/categoryBadge";
 import UserAvatar from "@/components/UserAvatar";
-import { Categories } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import {
   Bookmark,
@@ -12,31 +12,30 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-type ArticleInfoProps = {
-  avatar: string;
-  createdAt: Date;
-  readingTime: number;
-  articleLikesLength: number;
-  articleCommentsLength: number;
-  favoriteArticleLength: number;
-  tags: string[];
-  authorName: string;
-  authorImgUrl: string;
-  category: keyof typeof Categories;
-};
+type ArticleInfoProps = Prisma.ArticleGetPayload<{
+  include: {
+    articleComments: {
+      include: { user: { select: { id: true; name: true; image: true } } };
+    };
+    author: true;
+    articleLikes: true;
+    favoriteArticle: true;
+  };
+}>;
 
 export default function ArticleInfo({
-  articleCommentsLength,
-  articleLikesLength,
-  authorImgUrl,
-  authorName,
+  articleComments,
+  articleLikes,
+  author,
   avatar,
   createdAt,
-  favoriteArticleLength,
+  favoriteArticle,
   readingTime,
   tags,
   category,
 }: ArticleInfoProps) {
+  const authorName = author?.name || "unknown";
+
   return (
     <>
       <figure className="relative mx-auto mt-4 aspect-video h-[400px] w-full max-w-7xl sm:mb-8 sm:mt-6">
@@ -50,7 +49,7 @@ export default function ArticleInfo({
 
       <section className="my-8 flex items-center justify-between gap-2 text-sm">
         <div className="flex items-center gap-4">
-          <UserAvatar imageSrc={authorImgUrl} username={authorName} />
+          <UserAvatar imageSrc={author.image} username={authorName} />
 
           <div>
             <div className="text-lg font-bold capitalize">{authorName}</div>
@@ -70,23 +69,27 @@ export default function ArticleInfo({
           </span>
           <span className="flex items-center gap-2">
             <Heart className="h-4 w-4" />
-            {articleLikesLength} likes
+            {articleLikes.length} likes
           </span>
           <span className="flex items-center gap-2">
             <MessageCircle className="h-4 w-4" />
-            {articleCommentsLength} comments
+            {articleComments.length} comments
           </span>
           <span className="flex items-center gap-2">
             <Bookmark className="h-4 w-4" />
-            {favoriteArticleLength} favorites
+            {favoriteArticle.length} favorites
           </span>
         </div>
       </section>
 
       <section className="mb-14">
         <div className="my-4">
-          <CategoryBadge variant={category} className="text-sm px-3 py-1.5">
-           {category}
+          <CategoryBadge
+            as="link"
+            variant={category}
+            className="px-3 py-1.5 text-sm"
+          >
+            {category}
           </CategoryBadge>
         </div>
         {tags?.map((tag) => {
