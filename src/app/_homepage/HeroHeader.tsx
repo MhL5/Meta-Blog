@@ -13,13 +13,15 @@ export default function HeroHeader() {
           <TextGradient> dive Into the World of Code </TextGradient>
         </h1>
 
-        <p className="m-6 max-w-4xl text-center text-lg font-semibold leading-relaxed">
-          <TextEffect per="char" preset="fade">
-            Discover the latest programming tutorials, tips, and insights to
-            elevate your coding skills. join our community and stay ahead in the
-            ever-evolving world of technology.
-          </TextEffect>
-        </p>
+        <TextEffect
+          per="char"
+          preset="fade"
+          className="m-6 max-w-4xl text-center text-lg font-semibold leading-relaxed"
+        >
+          Discover the latest programming tutorials, tips, and insights to
+          elevate your coding skills. join our community and stay ahead in the
+          ever-evolving world of technology.
+        </TextEffect>
 
         <div className="mt-12 flex justify-center">
           <Link
