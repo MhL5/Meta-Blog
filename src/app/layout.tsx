@@ -8,7 +8,6 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { type ReactNode } from "react";
-import TempUnderDev from "./TempUnderDev";
 
 type layoutProps = Readonly<{
   children: ReactNode;
@@ -80,7 +79,6 @@ export default function RootLayout({ children }: layoutProps) {
       >
         <Providers>
           <SvgBackground>
-            <TempUnderDev />
             <Header />
             <main className="mx-auto w-full max-w-7xl">{children}</main>
           </SvgBackground>
