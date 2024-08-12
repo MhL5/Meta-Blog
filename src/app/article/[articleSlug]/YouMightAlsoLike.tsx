@@ -1,9 +1,9 @@
 import MiniCard from "@/components/MiniCard";
-import { Prisma } from "@prisma/client";
+import { Article } from "@prisma/client";
 import Link from "next/link";
 
 type YouMightAlsoLikeProps = {
-  articles: Prisma.ArticleGetPayload<{ include: { author: true } }>[];
+  articles: Article[];
 };
 
 export default function YouMightAlsoLike({ articles }: YouMightAlsoLikeProps) {
@@ -29,7 +29,7 @@ export default function YouMightAlsoLike({ articles }: YouMightAlsoLikeProps) {
             </Link>
           );
         })}
-      </div>  
+      </div>
     </section>
   );
 }
