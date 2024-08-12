@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import Link from "next/link";
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 
 type FooterProps = { className?: string };
 type SvgIconsProps = ComponentPropsWithoutRef<"svg">;
