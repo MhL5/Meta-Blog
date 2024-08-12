@@ -27,7 +27,9 @@ export default function MiniCard({ article }: MiniCardProps) {
         </div>
 
         <div className="mt-2">
-          <CategoryBadge variant={article.category}>{article.category}</CategoryBadge>
+          <CategoryBadge as="span" variant={article.category}>
+            {article.category}
+          </CategoryBadge>
         </div>
         <div className="pb-4 font-bold">{article.title}</div>
         <div className="text-xs"> {article.readingTime} min read </div>
