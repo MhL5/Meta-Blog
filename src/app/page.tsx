@@ -2,13 +2,13 @@ import HeroHeader from "@/app/_homepage/HeroHeader";
 import { getArticles } from "@/app/_homepage/services";
 import TopFourArticlesCarousel from "@/app/_homepage/TopFourArticlesCarousel";
 import ArticleCard from "@/components/ArticleCard";
-import { SortSearchParam } from "@/components/ArticleGrid/SortButton";
 import ArticleGridWrapper from "@/components/ArticleGridWrapper";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
-import CategoriesHomepage from "./_homepage/CategoriesHomepage";
+import CategoriesHomepage from "@/app/_homepage/CategoriesHomepage";
+import { SearchParams } from "@/@types/customType";
 
 type PageProps = {
-  searchParams: { page?: string; sort?: SortSearchParam };
+  searchParams: SearchParams;
 };
 
 export default async function Page({ searchParams }: PageProps) {
