@@ -5,7 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import ArticleGridWrapper from "@/components/ArticleGridWrapper";
 import NewsLetterSubscription from "@/features/newsLetterSubscription/NewsLetterSubscription";
 import CategoriesHomepage from "@/app/_homepage/CategoriesHomepage";
-import { SearchParams } from "@/@types/customType";
+import { SearchParams } from "@/types/customType";
 
 type PageProps = {
   searchParams: SearchParams;

@@ -7,7 +7,7 @@ import { BadgeAlert } from "lucide-react";
 import { notFound } from "next/navigation";
 import CategoriesListBox from "../CategoriesListBox";
 import { getCategoryArticles } from "./services";
-import { SearchParams } from "@/@types/customType";
+import { SearchParams } from "@/types/customType";
 
 type PageProps = {
   params: { category: string };

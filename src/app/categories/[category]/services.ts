@@ -1,5 +1,5 @@
 import prismaClient from "@/lib/prismaClient";
-import { SearchParams } from "@/@types/customType";
+import { SearchParams } from "@/types/customType";
 import { calcPageSortParams } from "@/utils/calcPageSortParams";
 import { Categories } from "@prisma/client";
 import { notFound } from "next/navigation";
