@@ -1,9 +1,8 @@
-import { ComponentPropsWithoutRef } from "react";
-
-import { cn } from "@/utils/cn";
 import MetaBlogLogoIcon from "@/app/icon.svg";
-import Link from "next/link";
+import { cn } from "@/utils/cn";
 import Image from "next/image";
+import Link from "next/link";
+import { ComponentPropsWithoutRef } from "react";
 
 type LogoProps = {
   title?: string;
