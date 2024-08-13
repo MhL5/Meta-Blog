@@ -20,6 +20,8 @@
 
 - database queries separate file not on page and import only server
 
+- category icon wrapper fix category icon colors fix
+
 # Currently working on:
 
 - finish other pages: topics , dashboard
