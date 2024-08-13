@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/meta-blog-thumbnail.png",
+        url: "/meta-blog-thumbnail.jpeg",
         width: 800,
         height: 600,
         alt: "Meta Blog Thumbnail",
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: layoutProps) {
         <Providers>
           <SvgBackground>
             <Header />
-            <main className="mx-auto w-full max-w-7xl">{children}</main>
+            <main className="mx-auto w-full max-w-7xl px-1">{children}</main>
           </SvgBackground>
           <Footer />
         </Providers>
