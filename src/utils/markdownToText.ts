@@ -1,13 +1,16 @@
-/**
- * Simple function to convert markdown to text
- *
- * useful for turning article contents into a text description for html page meta tag description
- */
 type MarkdownToText = {
   markdown: string;
   options: { slice: [number, number] };
 };
 
+/**
+ * Converts a Markdown string to plain text, removing various Markdown formatting elements.
+ *
+ * @param markdown - The Markdown string to convert.
+ * @param options - Options for the conversion, including a slice range to apply.
+ * @param options.slice - A tuple specifying the start and end indices of the Markdown string to convert.
+ * @returns The plain text version of the specified Markdown string, with formatting removed.
+ */
 export function markdownToText({
   markdown,
   options: { slice },

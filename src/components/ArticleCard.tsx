@@ -44,7 +44,7 @@ function ArticleCard({ article }: ArticleCardProps) {
       },
       {
         icon: <Clock4 />,
-        text: `${article.readingTime} minutes`,
+        text: `${article.readingTime} min`,
       },
     ],
     [
@@ -61,7 +61,7 @@ function ArticleCard({ article }: ArticleCardProps) {
         href={`/article/${article.slug}`}
         className="flex h-full w-full flex-col"
       >
-        <CardHeader className="relative m-4 mb-0 aspect-square h-80">
+        <CardHeader className="relative m-4 mb-0 aspect-square max-h-80">
           <Image
             src={article.avatar}
             fill
@@ -71,7 +71,7 @@ function ArticleCard({ article }: ArticleCardProps) {
         </CardHeader>
 
         <CardContent className="px-4">
-          <span className="mb-6 mt-2 block space-x-2">
+          <span className="mb-6 mt-2 flex flex-wrap gap-2">
             <CategoryBadge as="span" variant={article.category}>
               {article.category}
             </CategoryBadge>

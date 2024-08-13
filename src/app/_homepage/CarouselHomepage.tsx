@@ -22,7 +22,7 @@ type CarouselHomepageProps = {
 export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
   return (
     <Carousel
-      className="mx-auto w-full max-w-7xl"
+      className="mx-auto w-full max-w-7xl px-3 lg:px-1"
       opts={{
         align: "start",
         loop: true,
@@ -33,10 +33,13 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
         }),
       ]}
     >
-      <CarouselContent className="gird h-[500px] items-center">
+      <CarouselContent className="gird h-[400px] items-center sm:h-[500px]">
         {articles.map((article, index) => {
           return (
-            <CarouselItem key={index} className="h-full w-full basis-1/3">
+            <CarouselItem
+              key={index}
+              className="h-full basis-full sm:basis-2/4 lg:basis-1/3"
+            >
               <Link
                 href={`/article/${article.slug}`}
                 className="stackContent || relative h-full rounded-lg border"
@@ -74,4 +77,3 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
     </Carousel>
   );
 }
-

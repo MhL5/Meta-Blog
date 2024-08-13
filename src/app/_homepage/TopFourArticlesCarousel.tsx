@@ -23,7 +23,6 @@ export default function TopFourArticlesCarousel() {
 // in order for suspense to work we need a wrapper function
 async function CarouselHomepageWrapper() {
   const topFourArticles = await getTopFourArticles();
-  await new Promise((res) => setTimeout(res, 7000));
 
   return <CarouselHomepage articles={topFourArticles} />;
 }

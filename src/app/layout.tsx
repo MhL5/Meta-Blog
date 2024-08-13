@@ -2,9 +2,9 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import SvgBackground from "@/components/SvgBackground";
 import { Toaster } from "@/components/ui/toaster";
-import { cn } from "@/utils/cn";
 import Providers from "@/Providers/Providers";
 import "@/styles/globals.css";
+import { cn } from "@/utils/cn";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { type ReactNode } from "react";
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/meta-blog-thumbnail.png",
+        url: "/meta-blog-thumbnail.jpeg",
         width: 800,
         height: 600,
         alt: "Meta Blog Thumbnail",
@@ -73,14 +73,14 @@ export default function RootLayout({ children }: layoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen min-w-[350px] bg-background font-sans antialiased",
+          "min-h-dvh min-w-[350px] overflow-y-scroll bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
         <Providers>
           <SvgBackground>
             <Header />
-            <main className="mx-auto w-full max-w-7xl">{children}</main>
+            <main className="mx-auto w-full max-w-7xl px-1">{children}</main>
           </SvgBackground>
           <Footer />
         </Providers>
