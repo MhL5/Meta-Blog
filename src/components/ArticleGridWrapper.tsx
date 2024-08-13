@@ -37,7 +37,7 @@ const ArticleGridWrapper = function <T extends Record<string, any>>(
 ) {
   return (
     <ArticleGrid>
-      <div className="flex justify-end p-4">
+      <div className="flex justify-center text-xs sm:justify-end sm:p-3">
         <ArticleGrid.SortButtons />
       </div>
 

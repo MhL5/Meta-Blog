@@ -65,7 +65,7 @@ function SortButton({
 }: ButtonProps) {
   return (
     <button
-      className={`${className} inline-block rounded-lg px-5 py-2 text-sm font-semibold capitalize hover:bg-muted-foreground ${
+      className={`${className} inline-block rounded-lg px-2 py-2 text-sm font-semibold capitalize hover:bg-muted-foreground sm:px-5 sm:py-2 ${
         filter === activeFilter ? "bg-background text-primary shadow-lg" : ""
       }`}
       onClick={() => handleFilter(filter)}
