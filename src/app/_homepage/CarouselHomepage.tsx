@@ -1,5 +1,6 @@
 "use client";
 
+import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import {
   Carousel,
   CarouselContent,
@@ -7,13 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import CategoryBadge from "@/components/ui/categoryBadge";
 import { Article } from "@prisma/client";
 import Autoplay from "embla-carousel-autoplay";
 import { Clock } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
-import GradientUnderlineText from "./ui/GradientUnderlineText";
-import CategoryBadge from "./ui/categoryBadge";
 
 type CarouselHomepageProps = {
   articles: Article[];
@@ -52,7 +52,7 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
 
                 <div className="relative z-10 m-10 text-lg font-bold text-white">
                   <div>
-                    <CategoryBadge variant={article.category}>
+                    <CategoryBadge as="span" variant={article.category}>
                       {article.category}
                     </CategoryBadge>
                   </div>
@@ -74,3 +74,4 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
     </Carousel>
   );
 }
+

@@ -1,14 +1,15 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
+
+import { cn } from "@/utils/cn";
 import {
-  motion,
-  useTransform,
   AnimatePresence,
+  motion,
   useMotionValue,
   useSpring,
+  useTransform,
 } from "framer-motion";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useState } from "react";
 
 type AnimatedTooltipProps = {
   items: {

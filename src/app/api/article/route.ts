@@ -1,7 +1,7 @@
 import writeArticleSchema from "@/app/write-article/writeArticleSchema";
 import { auth, isValidGoogleCaptcha } from "@/lib/auth";
 import prismaClient from "@/lib/prismaClient";
-import { slugify } from "@/lib/utils";
+import { slugify } from "@/utils/slugify";
 import { revalidatePath } from "next/cache";
 
 /**

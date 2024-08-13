@@ -1,6 +1,6 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { Eye, EyeOff } from "lucide-react";
+import * as React from "react";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -27,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {...props}
       />
     );
-  }
+  },
 );
 Input.displayName = "Input";
 
@@ -38,7 +38,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative">
         <label
-          className="absolute right-[2%] top-[50%] -translate-y-1/2  cursor-pointer aspect-square rounded-full p-2 hover:bg-secondary/80 duration-300"
+          className="absolute right-[2%] top-[50%] aspect-square -translate-y-1/2 cursor-pointer rounded-full p-2 duration-300 hover:bg-secondary/80"
           onClick={() =>
             setType((t) => (t === "password" ? "text" : "password"))
           }
@@ -58,8 +58,9 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
         />
       </div>
     );
-  }
+  },
 );
 PasswordInput.displayName = "PasswordInput";
 
 export { Input };
+

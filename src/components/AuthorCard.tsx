@@ -1,4 +1,4 @@
-import { truncateText } from "@/lib/utils";
+import { truncateText } from "@/utils/truncateText";
 import { Heart, Newspaper, Star } from "lucide-react";
 import Link from "next/link";
 import GradientBorder from "./ui/GradientBorder";

@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { Heart, MessageCircleMore, Share2, Star } from "lucide-react";
 import { useOptimisticAction } from "next-safe-action/hooks";
@@ -26,7 +27,6 @@ import {
 } from "react-share";
 import { toggleFavorite, toggleLike } from "./actions";
 import { useArticleContext } from "./ArticleContext";
-import { useToast } from "@/components/ui/use-toast";
 
 export default function ArticleButtons() {
   return (
@@ -225,16 +225,11 @@ function ShareArticleButton() {
             {shareButtons.map(({ platform, Component, id, Icon }) => {
               return (
                 <DropdownMenuItem key={id} className="w-full space-y-2 text-sm">
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="xs"
-                    className="w-full justify-start"
-                  >
-                    <Component {...ShareButtonProps}>
-                      <div className="flex items-center gap-1 px-2">
+                  <Button variant="ghost" size="xs" className="m-0 w-full p-0">
+                    <Component className="w-full" {...ShareButtonProps}>
+                      <div className="flex w-full items-center gap-1 px-2">
                         <Icon className="h-6 w-6 rounded-lg" />
-                        <span className="inline-block pl-2 font-semibold">
+                        <span className="inline-block pl-2 font-semibold capitalize">
                           {platform}
                         </span>
                       </div>
