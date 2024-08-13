@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: PageProps) {
     <div className="sm:my-8">
       <HeroHeader />
 
-      <section className="my-20 w-full max-w-7xl">
+      <section className="my-24 w-full max-w-7xl">
         <TopFourArticlesCarousel />
       </section>
 
