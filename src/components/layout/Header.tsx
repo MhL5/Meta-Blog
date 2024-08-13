@@ -16,13 +16,13 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import UserDropDown from "@/components/UserDropDown";
+import MetaBlogCategories from "@/constants/MetaBlogCategories";
 import { cachedAuth } from "@/lib/auth";
 import { EllipsisVertical } from "lucide-react";
 import Link from "next/link";
 import ToggleTheme from "../ToggleTheme";
 import CategoryIconWrapper from "../ui/categoryIcon";
 import GradientUnderlineText from "../ui/GradientUnderlineText";
-import MetaBlogCategories from "@/constants/MetaBlogCategories";
 
 export default function Header() {
   return (
