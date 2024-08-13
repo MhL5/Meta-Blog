@@ -20,7 +20,7 @@
 
 - database queries separate file not on page and import only server
 
-- category icon wrapper fix category icon colors fix
+- category icon wrapper fix category icon colors fix category badge ? category badge wrapper icon all needs to be merged
 
 # Currently working on:
 
