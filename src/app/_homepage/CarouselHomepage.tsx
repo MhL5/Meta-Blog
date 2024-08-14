@@ -72,8 +72,8 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
           );
         })}
       </CarouselContent>
-      <CarouselPrevious className="hidden lg:flex" />
-      <CarouselNext className="hidden lg:flex" />
+      <CarouselPrevious className="hidden xl:flex" />
+      <CarouselNext className="hidden xl:flex" />
     </Carousel>
   );
 }
