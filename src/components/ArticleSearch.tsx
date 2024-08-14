@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/command";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { Categories } from "@prisma/client";
-import { CircleChevronDown } from "lucide-react";
+import { CircleChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -91,8 +91,11 @@ export default function ArticleSearch() {
 
   return (
     <div className="relative ml-auto flex-1 md:grow-0">
+      <div className="sm:hidden" onClick={() => setOpen((o) => !o)}>
+        <Search />
+      </div>
       <div
-        className="flex w-full max-w-96 justify-between space-x-8 rounded-lg border px-3 py-1 pr-1 text-sm text-muted-foreground sm:w-64"
+        className="hidden w-full max-w-96 justify-between space-x-8 rounded-lg border px-3 py-1 pr-1 text-sm text-muted-foreground sm:flex sm:w-64"
         onClick={() => setOpen((o) => !o)}
       >
         <p className="hover:text-slate-300">Search....</p>
