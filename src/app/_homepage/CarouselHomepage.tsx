@@ -22,7 +22,7 @@ type CarouselHomepageProps = {
 export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
   return (
     <Carousel
-      className="mx-auto w-full max-w-7xl px-3 lg:px-1"
+      className="mx-auto w-full max-w-7xl px-4 lg:px-1"
       opts={{
         align: "start",
         loop: true,
@@ -72,8 +72,8 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
           );
         })}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="hidden lg:flex" />
+      <CarouselNext className="hidden lg:flex" />
     </Carousel>
   );
 }
