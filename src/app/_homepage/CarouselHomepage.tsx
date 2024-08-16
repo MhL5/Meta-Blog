@@ -1,5 +1,6 @@
 "use client";
 
+import SmartImage from "@/components/SmartImage";
 import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import {
   Carousel,
@@ -45,7 +46,8 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
                 className="stackContent || relative h-full rounded-lg border"
               >
                 <div className="relative h-full w-full">
-                  <CldImage
+                  <SmartImage
+                    as={`${article.avatar.startsWith("https://res.cloudinary.com") ? "cloudinaryImage" : "nextImage"}`}
                     fill
                     src={article.avatar}
                     alt="article avatar"
