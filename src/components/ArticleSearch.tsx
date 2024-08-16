@@ -15,6 +15,7 @@ import { z } from "zod";
 import CloudinaryImage from "./CloudinaryImage";
 import CategoryBadge from "./ui/categoryBadge";
 import { Skeleton } from "./ui/skeletion";
+import { Button } from "./ui/button";
 
 const SearchResultSchema = z.object({
   status: z.literal("success"),
@@ -91,9 +92,13 @@ export default function ArticleSearch() {
 
   return (
     <div className="relative ml-auto flex-1 md:grow-0">
-      <div className="sm:hidden" onClick={() => setOpen((o) => !o)}>
-        <Search />
-      </div>
+      <Button
+        variant="ghost"
+        className="sm:hidden"
+        onClick={() => setOpen((o) => !o)}
+      >
+        <Search className="h-4 w-4" />
+      </Button>
       <div
         className="hidden w-full max-w-96 justify-between space-x-8 rounded-lg border px-3 py-1 pr-1 text-sm text-muted-foreground sm:flex sm:w-64"
         onClick={() => setOpen((o) => !o)}
