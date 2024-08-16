@@ -1,9 +1,9 @@
-import { Button } from "../ui/button";
 import Logo from "@/components/Logo";
-import Link from "next/link";
-import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/utils/cn";
+import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { ComponentPropsWithoutRef, useMemo } from "react";
+import { Button } from "@/components/ui/button";
 
 type FooterProps = { className?: string };
 type SvgIconsProps = ComponentPropsWithoutRef<"svg">;
@@ -55,28 +55,33 @@ export default function Footer({ className }: FooterProps) {
 }
 
 function FooterIcons() {
+  const icons = useMemo(
+    () => [
+      {
+        url: "https://github.com/MhL5",
+        icon: <GitHubLogoIcon className="scale-125 dark:fill-white" />,
+        label: "github",
+        id: "ce48a0309d29adb52623308a4107a1d70d690b507fe814145483",
+      },
+      {
+        url: "https://t.me/mhl_5",
+        icon: <TelegramSvgIcon className="h-4 w-4 dark:fill-white" />,
+        label: "telegram",
+        id: "979d5c5c2a53e79732e0da4d672f6c8e2cf40592c83c04508e82",
+      },
+      {
+        url: "https://discord.com/users/649998586154844160",
+        icon: <DiscordLogoIcon className="scale-125 dark:fill-white" />,
+        label: "discord",
+        id: "0ef76e1177c9fa6eb71dfe9a5c9ef187a93900d5204ecb68a933",
+      },
+    ],
+    [],
+  );
+
   return (
     <ul className="flex gap-2 sm:mt-6 sm:flex-col sm:gap-4">
-      {[
-        {
-          url: "https://github.com/MhL5",
-          icon: <GitHubLogoIcon className="scale-125 dark:fill-white" />,
-          label: "github",
-          id: "ce48a0309d29adb52623308a4107a1d70d690b507fe814145483",
-        },
-        {
-          url: "https://t.me/mhl_5",
-          icon: <TelegramSvgIcon className="h-4 w-4 dark:fill-white" />,
-          label: "telegram",
-          id: "979d5c5c2a53e79732e0da4d672f6c8e2cf40592c83c04508e82",
-        },
-        {
-          url: "https://discord.com/users/649998586154844160",
-          icon: <DiscordLogoIcon className="scale-125 dark:fill-white" />,
-          label: "discord",
-          id: "0ef76e1177c9fa6eb71dfe9a5c9ef187a93900d5204ecb68a933",
-        },
-      ].map(({ url, icon, label, id }) => (
+      {icons.map(({ url, icon, label, id }) => (
         <Button
           variant="outline"
           size="sm"
