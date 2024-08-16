@@ -1,3 +1,5 @@
+import UserAvatar from "@/components/UserAvatar";
+import { LogoutButton } from "@/components/layout/navigationMenu/NavigationButtons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,16 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/lib/auth";
-import {
-  LogOut,
-  NotebookPen,
-  Settings
-} from "lucide-react";
+import { NotebookPen, Settings } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
-import FormSubmitButton from "./FormSubmitButton";
-import UserAvatar from "./UserAvatar";
 
 type UserDropDownProps = {
   user: User;
@@ -24,14 +19,14 @@ type UserDropDownProps = {
 
 const dropDownMenuLi = [
   {
-    to: "/dashboard",
+    href: "/dashboard",
     icon: <Settings className="h-5 w-5" />,
-    name: "dashboard",
+    label: "dashboard",
   },
   {
-    to: "/write-article",
+    href: "/write-article",
     icon: <NotebookPen className="h-5 w-5" />,
-    name: "Write article",
+    label: "Write article",
   },
 ];
 
@@ -57,18 +52,18 @@ export default async function UserDropDown({ user }: UserDropDownProps) {
 
           <DropdownMenuSeparator />
 
-          {dropDownMenuLi.map(({ to, icon, name }) => {
+          {dropDownMenuLi.map(({ href, icon, label }) => {
             return (
-              <DropdownMenuItem key={to + icon + name}>
+              <DropdownMenuItem key={href + icon + label}>
                 <Button
                   variant="ghost"
                   size="sm"
                   className="justify-start"
                   asChild
                 >
-                  <Link href={to} className="w-full space-x-4">
+                  <Link href={href} className="w-full space-x-4">
                     <span>{icon}</span>
-                    <span>{name}</span>
+                    <span>{label}</span>
                   </Link>
                 </Button>
               </DropdownMenuItem>
@@ -76,41 +71,10 @@ export default async function UserDropDown({ user }: UserDropDownProps) {
           })}
 
           <DropdownMenuItem>
-            <LogoutForm />
+            <LogoutButton />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenuPortal>
     </DropdownMenu>
-  );
-}
-
-function LogoutForm() {
-  return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
-      className="w-full"
-    >
-      <FormSubmitButton
-        variant="ghost"
-        size="sm"
-        type="submit"
-        className="w-full justify-start"
-        pendingLabel={
-          <div className="flex w-full items-center justify-start gap-3">
-            <span>Login out...</span>
-          </div>
-        }
-      >
-        <div className="flex w-full items-center space-x-4">
-          <span>
-            <LogOut className="h-5 w-5" />
-          </span>
-          <span>Logout</span>
-        </div>
-      </FormSubmitButton>
-    </form>
   );
 }

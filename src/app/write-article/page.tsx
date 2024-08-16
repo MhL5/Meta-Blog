@@ -9,7 +9,7 @@ import ArticleForm from "./ArticleForm";
  */
 export default async function Page() {
   const session = await cachedAuth();
-  if (!session?.user) redirect("/");
+  if (!session?.user) return redirect("/");
 
   return (
     <section className="mx-2 mt-16 w-full min-w-96 max-w-7xl rounded-lg border bg-background p-4">
