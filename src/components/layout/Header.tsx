@@ -19,10 +19,10 @@ export default async function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/50 backdrop-blur-md">
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between p-2">
-        <ul className="flex items-center gap-6 font-semibold capitalize">
+        <ul className="flex items-center gap-6 capitalize">
           <Logo className="h-6 w-6" />
 
-          <li className="hidden list-none md:block">
+          <li className="hidden list-none text-sm font-semibold md:block">
             <Link href="/authors" className="inline-block w-full space-x-2">
               <GradientUnderlineText>authors</GradientUnderlineText>
             </Link>
