@@ -13,7 +13,6 @@ import CategoryBadge from "@/components/ui/categoryBadge";
 import { Article } from "@prisma/client";
 import Autoplay from "embla-carousel-autoplay";
 import { Clock } from "lucide-react";
-import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 
 type CarouselHomepageProps = {
