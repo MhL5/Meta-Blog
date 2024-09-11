@@ -22,6 +22,10 @@
 
 - category icon wrapper fix category icon colors fix category badge ? category badge wrapper icon all needs to be merged
 
+- replace all images with smart image component
+
+- fix load more button
+
 # Currently working on:
 
 - finish other pages: topics , dashboard
