@@ -7,7 +7,7 @@ import "@/styles/globals.css";
 import { cn } from "@/utils/cn";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { type ReactNode } from "react";
 
 type layoutProps = Readonly<{
@@ -73,6 +73,7 @@ export default function RootLayout({ children }: layoutProps) {
     //  it's safe to use, we are using it for Theme functionality
     <html lang="en" suppressHydrationWarning>
       <GoogleAnalytics gaId="G-S0831E7DYB" />
+      <GoogleTagManager gtmId="G-S0831E7DYB" />
       <body
         className={cn(
           "min-h-dvh min-w-[350px] overflow-y-scroll bg-background font-sans antialiased",
