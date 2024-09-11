@@ -12,10 +12,10 @@ import { CircleChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import CloudinaryImage from "./CloudinaryImage";
+import SmartImage from "./SmartImage";
+import { Button } from "./ui/button";
 import CategoryBadge from "./ui/categoryBadge";
 import { Skeleton } from "./ui/skeletion";
-import { Button } from "./ui/button";
 
 const SearchResultSchema = z.object({
   status: z.literal("success"),
@@ -153,22 +153,23 @@ export default function ArticleSearch() {
 
           {!isLoading && !!results?.data && (
             <ul className="mt-1 font-semibold">
-              {results.data.searchResult.map((res) => {
+              {results.data.searchResult.map(({ avatar, id, slug, title }) => {
                 return (
-                  <li key={res.id}>
+                  <li key={id}>
                     <Link
-                      href={`/article/${res.slug}`}
+                      href={`/article/${slug}`}
                       className="custom-hover || flex gap-4 border p-2 !shadow-none"
                       onClick={() => setOpen((s) => !s)}
                     >
-                      <CloudinaryImage
-                        src={res.avatar}
+                      <SmartImage
+                        as={`${avatar.startsWith("https://res.cloudinary.com") ? "cloudinaryImage" : "nextImage"}`}
+                        src={avatar}
                         width={40}
                         height={40}
                         alt="search result avatar"
                         className="h-8 w-8 rounded-xl object-cover outline outline-[0.1px] outline-slate-300"
                       />
-                      <span className="text-sm"> {res.title} </span>
+                      <span className="text-sm"> {title} </span>
                     </Link>
                   </li>
                 );
