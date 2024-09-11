@@ -1,5 +1,6 @@
 "use client";
 
+import SmartImage from "@/components/SmartImage";
 import GradientUnderlineText from "@/components/ui/GradientUnderlineText";
 import {
   Carousel,
@@ -12,7 +13,6 @@ import CategoryBadge from "@/components/ui/categoryBadge";
 import { Article } from "@prisma/client";
 import Autoplay from "embla-carousel-autoplay";
 import { Clock } from "lucide-react";
-import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 
 type CarouselHomepageProps = {
@@ -45,7 +45,8 @@ export default function CarouselHomepage({ articles }: CarouselHomepageProps) {
                 className="stackContent || relative h-full rounded-lg border"
               >
                 <div className="relative h-full w-full">
-                  <CldImage
+                  <SmartImage
+                    as={`${article.avatar.startsWith("https://res.cloudinary.com") ? "cloudinaryImage" : "nextImage"}`}
                     fill
                     src={article.avatar}
                     alt="article avatar"

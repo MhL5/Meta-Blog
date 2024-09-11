@@ -3,6 +3,7 @@
 import { CldImage, CldImageProps } from "next-cloudinary";
 
 /**
+ * #### Warning: use `SmartImage` instead, this component only renders the images that are coming from cloudinary
  * a wrapper around CldImage
  * in the App Router in Next.js 13+
  * for cloudinary image component to work
